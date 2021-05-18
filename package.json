@@ -1,0 +1,23 @@
+{
+  "name": "sona-renfakai",
+  "version": "1.0.0",
+  "description": "\"renfakai blog\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vuepress dev .",
+    "build": "vuepress build .",
+    "export": "vuepress export .",
+    "deoply:refresh-cdn": "node .vuepress/qcloud.cdn.refresh.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sona0402/sona-renfakai.git"
+  },
+  "author": "renfakai@gmail.com",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "vuepress": "^1.8.2"
+  }
+}
