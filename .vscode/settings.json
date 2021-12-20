@@ -1,0 +1,33 @@
+{
+  "editor.fontSize": 16,
+  "editor.tabSize": 2,
+  "markdownFormatter.codeAreaToBlock": "",
+  "markdownFormatter.fullWidthTurnHalfWidth": "auto",
+  "markdownFormatter.formatOpt": {
+    "indent_size": 2
+  },
+  "[markdown]": {
+    "editor.formatOnSave": true,
+    "editor.renderWhitespace": "all",
+    "editor.tabCompletion": "on",
+    "editor.acceptSuggestionOnEnter": "on",
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+  },
+  "json.format.enable": true,
+  "javascript.format.enable": true,
+  "workbench.colorCustomizations": {},
+  "editor.codeActionsOnSave": {
+    "source.fixAll.markdownlint": true
+  },
+  "markdownlint.config": {
+    "default": true,
+    "MD010": {
+      "code_blocks": true,
+      "spaces_per_tab": 2
+    },
+    "MD004": false,
+    "MD029": false,
+    "MD033": false,
+    "MD041": false
+  }
+}

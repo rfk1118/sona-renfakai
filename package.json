@@ -14,10 +14,20 @@
     "type": "git",
     "url": "git+https://github.com/sona0402/sona-renfakai.git"
   },
+  "bugs": {
+    "url": "https://github.com/sona0402/sona-renfakai/issues"
+  },
   "author": "renfakai@gmail.com",
   "license": "ISC",
-  "devDependencies": {},
-  "dependencies": {
-    "vuepress": "^1.8.2"
-  }
+  "devDependencies": {
+    "@vuepress/plugin-back-to-top": "^1.8.2",
+    "@vuepress/plugin-medium-zoom": "^1.8.2",
+    "markdown-it-code-copy": "^0.1.1",
+    "markdown-it-katex": "^2.0.3",
+    "mermaid": "^8.13.3",
+    "vuepress": "^1.8.2",
+    "vuepress-plugin-comment": "^0.7.3",
+    "vuepress-plugin-mermaidjs": "^1.8.1"
+  },
+  "dependencies": {}
 }
