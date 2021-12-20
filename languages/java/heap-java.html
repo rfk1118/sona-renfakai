@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Heap源码 | 智慧不可赐！</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <meta name="description" content="因果不可改、智慧不可赐、真法不可说、无缘不能渡！">
+    
+    <link rel="preload" href="/assets/css/0.styles.7f49ab7e.css" as="style"><link rel="preload" href="/assets/js/app.d79ef973.js" as="script"><link rel="preload" href="/assets/js/2.cc934d9f.js" as="script"><link rel="preload" href="/assets/js/68.ca685b9e.js" as="script"><link rel="prefetch" href="/assets/js/10.53ccf5a6.js"><link rel="prefetch" href="/assets/js/11.3907fa47.js"><link rel="prefetch" href="/assets/js/12.78791d1b.js"><link rel="prefetch" href="/assets/js/13.31228fa8.js"><link rel="prefetch" href="/assets/js/14.fad63996.js"><link rel="prefetch" href="/assets/js/15.446786de.js"><link rel="prefetch" href="/assets/js/16.7770fe0d.js"><link rel="prefetch" href="/assets/js/17.1330c391.js"><link rel="prefetch" href="/assets/js/18.a710e848.js"><link rel="prefetch" href="/assets/js/19.a8980e40.js"><link rel="prefetch" href="/assets/js/20.c120a181.js"><link rel="prefetch" href="/assets/js/21.57604bf8.js"><link rel="prefetch" href="/assets/js/22.9a4da823.js"><link rel="prefetch" href="/assets/js/23.8b6df68e.js"><link rel="prefetch" href="/assets/js/24.b45d118b.js"><link rel="prefetch" href="/assets/js/25.9f72385e.js"><link rel="prefetch" href="/assets/js/26.acf92556.js"><link rel="prefetch" href="/assets/js/27.8632e3b7.js"><link rel="prefetch" href="/assets/js/28.65a4f385.js"><link rel="prefetch" href="/assets/js/29.0bb14505.js"><link rel="prefetch" href="/assets/js/3.76282f7d.js"><link rel="prefetch" href="/assets/js/30.09b113a7.js"><link rel="prefetch" href="/assets/js/31.88f2aae4.js"><link rel="prefetch" href="/assets/js/32.ae12cb3e.js"><link rel="prefetch" href="/assets/js/33.ebda435d.js"><link rel="prefetch" href="/assets/js/34.18c5ff6a.js"><link rel="prefetch" href="/assets/js/35.0d83e936.js"><link rel="prefetch" href="/assets/js/36.958c9c4a.js"><link rel="prefetch" href="/assets/js/37.81749598.js"><link rel="prefetch" href="/assets/js/38.03f5e26e.js"><link rel="prefetch" href="/assets/js/39.29d28cbd.js"><link rel="prefetch" href="/assets/js/4.e254fa51.js"><link rel="prefetch" href="/assets/js/40.e5da55ae.js"><link rel="prefetch" href="/assets/js/41.c94ced0d.js"><link rel="prefetch" href="/assets/js/42.35ce7abc.js"><link rel="prefetch" href="/assets/js/43.668dc9dd.js"><link rel="prefetch" href="/assets/js/44.61b371a7.js"><link rel="prefetch" href="/assets/js/45.748d47d8.js"><link rel="prefetch" href="/assets/js/46.8b794660.js"><link rel="prefetch" href="/assets/js/47.965a5a96.js"><link rel="prefetch" href="/assets/js/48.f1ef9b23.js"><link rel="prefetch" href="/assets/js/49.f88489a6.js"><link rel="prefetch" href="/assets/js/5.0f8312c4.js"><link rel="prefetch" href="/assets/js/50.cef8b524.js"><link rel="prefetch" href="/assets/js/51.9d313409.js"><link rel="prefetch" href="/assets/js/52.b9028d78.js"><link rel="prefetch" href="/assets/js/53.37a1df79.js"><link rel="prefetch" href="/assets/js/54.0af71077.js"><link rel="prefetch" href="/assets/js/55.200dd0bd.js"><link rel="prefetch" href="/assets/js/56.ca100e52.js"><link rel="prefetch" href="/assets/js/57.fb080c68.js"><link rel="prefetch" href="/assets/js/58.dda93471.js"><link rel="prefetch" href="/assets/js/59.7091b307.js"><link rel="prefetch" href="/assets/js/6.f5a2c544.js"><link rel="prefetch" href="/assets/js/60.c785e25d.js"><link rel="prefetch" href="/assets/js/61.c0553f1d.js"><link rel="prefetch" href="/assets/js/62.c6828513.js"><link rel="prefetch" href="/assets/js/63.368e7f83.js"><link rel="prefetch" href="/assets/js/64.5742472a.js"><link rel="prefetch" href="/assets/js/65.008bb7c5.js"><link rel="prefetch" href="/assets/js/66.86c9023c.js"><link rel="prefetch" href="/assets/js/67.7629a6a7.js"><link rel="prefetch" href="/assets/js/69.53a75a08.js"><link rel="prefetch" href="/assets/js/7.fc0334a0.js"><link rel="prefetch" href="/assets/js/70.d75b986e.js"><link rel="prefetch" href="/assets/js/71.131183de.js"><link rel="prefetch" href="/assets/js/72.7c0a31d8.js"><link rel="prefetch" href="/assets/js/73.a4c7f77e.js"><link rel="prefetch" href="/assets/js/74.91c5cb07.js"><link rel="prefetch" href="/assets/js/75.8c6bf485.js"><link rel="prefetch" href="/assets/js/76.7f90d4bb.js"><link rel="prefetch" href="/assets/js/77.a75f4e1d.js"><link rel="prefetch" href="/assets/js/78.d98cdaa9.js"><link rel="prefetch" href="/assets/js/79.58c676a6.js"><link rel="prefetch" href="/assets/js/8.531420eb.js"><link rel="prefetch" href="/assets/js/80.32145d03.js"><link rel="prefetch" href="/assets/js/81.18a45cef.js"><link rel="prefetch" href="/assets/js/82.4d290758.js"><link rel="prefetch" href="/assets/js/83.28878695.js"><link rel="prefetch" href="/assets/js/9.8ee008e1.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.7f49ab7e.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">智慧不可赐！</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><a href="/introduction/about-me.html" class="sidebar-link">作者</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Netty</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>算法</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>设计模式</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>编程语言</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><section class="sidebar-group is-sub-group depth-1"><p class="sidebar-heading open"><span>Java</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/languages/java/auto-box.html" class="sidebar-link">自动装箱</a></li><li><a href="/languages/java/delay-queue.html" class="sidebar-link">锁局部变量</a></li><li><a href="/languages/java/introduction-to-java-bytecode.html" class="sidebar-link">基于栈的指令集</a></li><li><a href="/languages/java/heap-java.html" aria-current="page" class="active sidebar-link">Heap源码</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/languages/java/heap-java.html#priorityqueue-源码" class="sidebar-link">PriorityQueue 源码</a></li><li class="sidebar-sub-header"><a href="/languages/java/heap-java.html#核心代码" class="sidebar-link">核心代码</a></li><li class="sidebar-sub-header"><a href="/languages/java/heap-java.html#总结" class="sidebar-link">总结</a></li></ul></li></ul></section></li><li><section class="sidebar-group is-sub-group depth-1"><p class="sidebar-heading"><span>go</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/languages/go/read-me.html" class="sidebar-link">常用资料</a></li><li><a href="/languages/go/heap-go.html" class="sidebar-link">Heap源码</a></li></ul></section></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>计算机网络</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="heap源码">Heap源码</h1> <p>本文主要是读 java 源码，因为 java 使用的移动的方式交换数据。</p> <table><thead><tr><th>语言</th> <th style="text-align:right;">交换数据方式</th> <th style="text-align:right;">性能</th> <th style="text-align:right;">理解</th></tr></thead> <tbody><tr><td>Go</td> <td style="text-align:right;">交换</td> <td style="text-align:right;">低</td> <td style="text-align:right;">容易</td></tr> <tr><td>Java</td> <td style="text-align:right;">移动</td> <td style="text-align:right;">高</td> <td style="text-align:right;">困难</td></tr></tbody></table> <h2 id="priorityqueue-源码">PriorityQueue 源码</h2> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PriorityQueue</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> <span class="token keyword">extends</span> <span class="token class-name">AbstractQueue</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">E</span><span class="token punctuation">&gt;</span></span>
+    <span class="token keyword">implements</span> <span class="token class-name"><span class="token namespace">java<span class="token punctuation">.</span>io<span class="token punctuation">.</span></span>Serializable</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">// 序列化</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> serialVersionUID <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">7720805057305804111L</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">int</span> DEFAULT_INITIAL_CAPACITY <span class="token operator">=</span> <span class="token number">11</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 存储数据，因为泛型会被擦除，所以这里直接是Object</span>
+    <span class="token keyword">transient</span> <span class="token class-name">Object</span><span class="token punctuation">[</span><span class="token punctuation">]</span> queue<span class="token punctuation">;</span> <span class="token comment">// non-private to simplify nested class access</span>
+    <span class="token comment">// 数量</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> size <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token comment">// 比较器</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">Comparator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">super</span> <span class="token class-name">E</span><span class="token punctuation">&gt;</span></span> comparator<span class="token punctuation">;</span>
+
+    <span class="token comment">// 用于迭代器设计模式迭代数据时候用</span>
+    <span class="token keyword">transient</span> <span class="token keyword">int</span> modCount <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment">// non-private to simplify nested class access</span>
+
+    <span class="token punctuation">}</span>
+</code></pre></div><h2 id="核心代码">核心代码</h2> <h3 id="heapify">heapify</h3> <p>从最底层的最后一个父亲开始，都向下下沉就是堆话，其实这里最重要的就是找到最后 1 个父亲，也就是 <code>(size &gt;&gt;&gt; 1) - 1 = (size / 2) - 1</code> 。</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">heapify</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 找到最后一个父亲，然后向前走，所有元素进行下沉</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token punctuation">(</span>size <span class="token operator">&gt;&gt;&gt;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">--</span><span class="token punctuation">)</span>
+        <span class="token function">siftDown</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token class-name">E</span><span class="token punctuation">)</span> queue<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="offer">offer</h3> <p>java 这里对数组进行了扩容，所以扩容的事情就不需要外部关心了，而且这里兼容自然排序和排序器比较。</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">offer</span><span class="token punctuation">(</span><span class="token class-name">E</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>e <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">NullPointerException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    modCount<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token comment">// 拿到当前size</span>
+    <span class="token keyword">int</span> i <span class="token operator">=</span> size<span class="token punctuation">;</span>
+    <span class="token comment">// 如果数组满了进行扩容，这里不是重点，请自行查看</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&gt;=</span> queue<span class="token punctuation">.</span>length<span class="token punctuation">)</span>
+        <span class="token function">grow</span><span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    size <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token comment">// 如果还没有插入数据，放在堆顶，不需要上浮</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+        queue<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> e<span class="token punctuation">;</span>
+    <span class="token keyword">else</span>
+    <span class="token comment">//  上浮数据</span>
+        <span class="token function">siftUp</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="poll">poll</h3> <ol><li>删除元素
+<ul><li>删除第 0 个元素，所有数据全部向前移动，这样方案不好，因为移动的数据过多，因为弱序，第 1 个位置的数据不一定比第 2 个位置的数据更适合做顶堆。</li> <li>删除第 0 个元素，并将最后一个数据放置到索引 0 处，进行下沉。</li></ul></li></ol> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token class-name">E</span> <span class="token function">poll</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 没有元素</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>size <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span>
+          <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+      <span class="token keyword">int</span> s <span class="token operator">=</span> <span class="token operator">--</span>size<span class="token punctuation">;</span>
+      modCount<span class="token operator">++</span><span class="token punctuation">;</span>
+      <span class="token comment">// 拿到结果</span>
+      <span class="token class-name">E</span> result <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">E</span><span class="token punctuation">)</span> queue<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token comment">// 拿到最后一个元素</span>
+      <span class="token class-name">E</span> x <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">E</span><span class="token punctuation">)</span> queue<span class="token punctuation">[</span>s<span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token comment">// 清除最后一个元素</span>
+      queue<span class="token punctuation">[</span>s<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>s <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+      <span class="token comment">// 下沉</span>
+          <span class="token function">siftDown</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="removeat">removeAt</h3> <ol><li>删除特定位置元素为什么要先下沉在上浮呢？因为大多数在下沉排序期间重新插入堆的元素会被直接加入到堆底。</li></ol> <div class="language-java extra-class"><pre class="language-java"><code> <span class="token keyword">private</span> <span class="token class-name">E</span> <span class="token function">removeAt</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// assert i &gt;= 0 &amp;&amp; i &lt; size;</span>
+    modCount<span class="token operator">++</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> s <span class="token operator">=</span> <span class="token operator">--</span>size<span class="token punctuation">;</span>
+    <span class="token comment">// 如果需要删除的位置是最后一个元素直接删除</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>s <span class="token operator">==</span> i<span class="token punctuation">)</span> <span class="token comment">// removed last element</span>
+        queue<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 查找最后一个元素</span>
+        <span class="token class-name">E</span> moved <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">E</span><span class="token punctuation">)</span> queue<span class="token punctuation">[</span>s<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token comment">// 清除</span>
+        queue<span class="token punctuation">[</span>s<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token comment">// 下沉，一般情况下删除元素和堆化都用下沉</span>
+        <span class="token function">siftDown</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> moved<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 如果下沉不下去</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>queue<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> moved<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 进行上浮 大多数在下沉排序期间重新插入堆的元素会被直接加入到堆底</span>
+            <span class="token function">siftUp</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> moved<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment">// 如果上浮成功了，则说明元素到了i-n的位置，这里主要是为了解决迭代器问题的</span>
+            <span class="token comment">// 如果没有迭代器问题，下面两行可以删除</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>queue<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> moved<span class="token punctuation">)</span>
+                <span class="token keyword">return</span> moved<span class="token punctuation">;</span>
+            <span class="token comment">// 整体就是先下沉在上浮</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+</code></pre></div><h3 id="siftup">siftUp</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">// 这里只是排序器选择不重要</span>
+<span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">siftUp</span><span class="token punctuation">(</span><span class="token keyword">int</span> k<span class="token punctuation">,</span> <span class="token class-name">E</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>comparator <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
+        <span class="token comment">// 排序器</span>
+        <span class="token function">siftUpUsingComparator</span><span class="token punctuation">(</span>k<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">else</span>
+        <span class="token comment">// 自然排序</span>
+        <span class="token function">siftUpComparable</span><span class="token punctuation">(</span>k<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">siftUpUsingComparator</span><span class="token punctuation">(</span><span class="token keyword">int</span> k<span class="token punctuation">,</span> <span class="token class-name">E</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>k <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 找到父亲</span>
+        <span class="token keyword">int</span> parent <span class="token operator">=</span> <span class="token punctuation">(</span>k <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&gt;&gt;&gt;</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token comment">// 父亲数据</span>
+        <span class="token class-name">Object</span> e <span class="token operator">=</span> queue<span class="token punctuation">[</span>parent<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token comment">// 数据比较</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>comparator<span class="token punctuation">.</span><span class="token function">compare</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token class-name">E</span><span class="token punctuation">)</span> e<span class="token punctuation">)</span> <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token comment">// 父亲数据下移动</span>
+        queue<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> e<span class="token punctuation">;</span>
+        <span class="token comment">// 设置需要继续上浮的位置</span>
+        k <span class="token operator">=</span> parent<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 最终位置放数据</span>
+    queue<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> x<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="siftdown">siftDown</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">// 这里只是排序器选择不重要</span>
+<span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">siftDown</span><span class="token punctuation">(</span><span class="token keyword">int</span> k<span class="token punctuation">,</span> <span class="token class-name">E</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>comparator <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
+        <span class="token function">siftDownUsingComparator</span><span class="token punctuation">(</span>k<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">else</span>
+        <span class="token function">siftDownComparable</span><span class="token punctuation">(</span>k<span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+ <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">siftDownUsingComparator</span><span class="token punctuation">(</span><span class="token keyword">int</span> k<span class="token punctuation">,</span> <span class="token class-name">E</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 找到堆中间最低一层的父亲节点</span>
+        <span class="token keyword">int</span> half <span class="token operator">=</span> size <span class="token operator">&gt;&gt;&gt;</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token comment">// 还没到最后一层父亲节点</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>k <span class="token operator">&lt;</span> half<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// 2n+1查找左节点</span>
+            <span class="token keyword">int</span> child <span class="token operator">=</span> <span class="token punctuation">(</span>k <span class="token operator">&lt;&lt;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token comment">// 左节点为比较值</span>
+            <span class="token class-name">Object</span> c <span class="token operator">=</span> queue<span class="token punctuation">[</span>child<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token comment">// 2n+2右节点，右节点不一定存在</span>
+            <span class="token keyword">int</span> right <span class="token operator">=</span> child <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token comment">// 右节点存在，并且左节点大于右节点，从这里看出数据的弱序性</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>right <span class="token operator">&lt;</span> size <span class="token operator">&amp;&amp;</span> comparator<span class="token punctuation">.</span><span class="token function">compare</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">E</span><span class="token punctuation">)</span> c<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token class-name">E</span><span class="token punctuation">)</span> queue<span class="token punctuation">[</span>right<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token comment">// 设置最小孩子，并且修正索引</span>
+                c <span class="token operator">=</span> queue<span class="token punctuation">[</span>child <span class="token operator">=</span> right<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token comment">// 如果找到合适位置了跳出，直接设置数据</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>comparator<span class="token punctuation">.</span><span class="token function">compare</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token class-name">E</span><span class="token punctuation">)</span> c<span class="token punctuation">)</span> <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+                <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token comment">// 数据上浮上去，但是索引下沉下来</span>
+            queue<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> c<span class="token punctuation">;</span>
+            <span class="token comment">// 设置数据想要放置索引</span>
+            k <span class="token operator">=</span> child<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// 将数据放到正确位置</span>
+        queue<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> x<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="总结">总结</h2> <p>代码主要为 <code>Josh Bloch, Doug Lea</code> 两位大神写的，性能很高，使用左移，右移，移动提高性能，所以读起来会有写晦涩，如果想读通俗易懂的建议读《算法 4》或者 <code>Go</code> 。</p> <p>核心的 <code>api</code> 如下：</p> <ul><li><code>siftUp</code>上浮</li> <li><code>siftDown</code>下沉</li> <li><code>堆话heapify</code>其主要在初始化集合时候使用，核心还是<code>siftDown</code></li></ul></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/languages/java/introduction-to-java-bytecode.html" class="prev">
+        基于栈的指令集
+      </a></span> <span class="next"><a href="/languages/go/read-me.html">
+        常用资料
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><div></div><!----></div></div>
+    <script src="/assets/js/app.d79ef973.js" defer></script><script src="/assets/js/2.cc934d9f.js" defer></script><script src="/assets/js/68.ca685b9e.js" defer></script>
+  </body>
+</html>
