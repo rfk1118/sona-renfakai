@@ -46,7 +46,7 @@ public class HystrixCommandEnhanceAspect {
     public void hystrixCollapserAnnotationPointcut() {
     }
 
-    @Pointcut("@annotation(com.bj58.wuxian.homefacade.util.report.annotation.FallbackReport)")
+    @Pointcut("@annotation(com.sona.rfk.util.report.annotation.FallbackReport)")
     public void fallbackReportAnnotationPointcut() {
     }
 
@@ -184,10 +184,9 @@ public class FutureDelegate<R> implements Future<R> {
      public void fallBack() {
         log.error(event.getMessage());
         try {
-            // WMonitor.sum(event.getK(), event.getV());
             System.out.println(Thread.currentThread().getName() + "上报" + event.getMessage() + "到主题" + event.getK() + "数量" + event.getV());
         } catch (Exception e) {
-            log.warn("数据上报WMonitor平台失败");
+            log.warn("数据上报到报警平台失败");
         }
     }
 }
