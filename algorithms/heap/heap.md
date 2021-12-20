@@ -60,6 +60,11 @@
 
 ![An image](./image/down.jpg)
 
+## 源码
+
+* [java版本](../../languages/java/heap-java.md)
+* [go版本](../../languages/go/heap-go.md)
+
 ## 参考资料
 
 * [Java 数据结构和算法](https://book.douban.com/subject/1144007/)

@@ -156,8 +156,6 @@ module.exports = {
               "/algorithms/tree/balanced-search-trees",
               // "/algorithms/tree/rb-binary-tree-concept",
               "/algorithms/heap/heap",
-              "/algorithms/heap/heap-java",
-              "/algorithms/heap/heap-go",
             ]
           }, {
             title: "图",
@@ -226,9 +224,17 @@ module.exports = {
           children: [
             "/languages/java/auto-box",
             "/languages/java/delay-queue",
-            "/languages/java/introduction-to-java-bytecode"
+            "/languages/java/introduction-to-java-bytecode",
+            "/languages/java/heap-java",
           ]
-        }, ]
+        }, {
+          title: "go",
+          collapsable: false,
+          children: [
+            "/languages/go/read-me",
+            "/languages/go/heap-go",
+          ]
+        }]
       }, {
         title: "计算机网络",
         children: [
