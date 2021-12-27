@@ -54,13 +54,13 @@ public class UserThread {
 2. 在启动后，发现在控制台一直打印`UserThread`,并且程序没有退出，查看线程状况
 
 ```java
-➜  juc  jps -l | grep 'UserThread'
+➜    jps -l | grep 'UserThread'
 
 // 从这里可以找到UserThread的虚拟机
 49501 com.sona.juc.daemon.UserThread
 
 // 查看线程情况
-➜  juc jstack 48718
+➜   jstack 48718
 
 // 这里这个就是我们的用户线程
 "UserThread" #11 prio=5 os_prio=31 tid=0x00007f988788d800 nid=0x600b runnable [0x00000003074d2000]
@@ -112,9 +112,9 @@ public class DaemonThread {
 2. 在启动后，发现控制台打印一会`DaemonThread`，程序退出，在退出前查看线程状况
 
 ```java
-➜  juc jps -lm | grep 'DaemonThread'
+➜   jps -lm | grep 'DaemonThread'
 50329 com.sona.juc.daemon.DaemonThread
-➜  juc jstack 50329
+➜   jstack 50329
 
 // 其他忽略
 // 从这里可以看出线程被设置成了daemon
