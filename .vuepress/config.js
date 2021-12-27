@@ -222,6 +222,7 @@ module.exports = {
           title: "Java",
           collapsable: false,
           children: [
+            "/languages/java/juc/daemon",
             "/languages/java/auto-box",
             "/languages/java/delay-queue",
             "/languages/java/introduction-to-java-bytecode",
