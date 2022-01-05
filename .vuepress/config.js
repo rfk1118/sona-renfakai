@@ -223,6 +223,7 @@ module.exports = {
           collapsable: false,
           children: [
             "/languages/java/juc/daemon",
+            "/languages/java/juc/atomic",
             "/languages/java/auto-box",
             "/languages/java/delay-queue",
             "/languages/java/introduction-to-java-bytecode",
