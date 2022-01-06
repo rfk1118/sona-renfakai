@@ -234,6 +234,7 @@ module.exports = {
             "/languages/java/juc/atomic",
             "/languages/java/juc/aos",
             "/languages/java/juc/aqs",
+            "/languages/java/juc/blocking",
             "/languages/java/juc/daemon",
           ]
         }, {
