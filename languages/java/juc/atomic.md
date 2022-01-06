@@ -1,4 +1,4 @@
-# atomic
+# cas
 
 本文章主要使用`java.util.concurrent.atomic`下的`AtomicInteger`来探索`cas`，由于包下大部分代码都符合ocp原则，所以使用`AtomicInteger`进行讲解。
 
@@ -72,16 +72,16 @@ Instance size: 16 bytes
 Space losses: 0 bytes internal + 0 bytes external = 0 bytes total
 ```
 
-5. 让我们来debug下上面的代码，从图中可以看到`valueOffset=12`，由于对象内存布局是一样的，所以这个值在初始化的时候已经被设置到`valueOffset`上面了。
+5. debug下上面的代码，从图中可以看到`valueOffset=12`，由于对象内存布局是一样的，所以这个值在初始化的时候已经被设置到`valueOffset`上面了。
 ![An image](./image/atomicInteger.png)
 
 ## 数据结构布局
 
-1. [深入理解计算机系统（原书第 3 版）](https://book.douban.com/subject/26912767/)书中，第3.9节讲了异质的数据结构是怎么进行布局的，其如图所示：
+1. [深入理解计算机系统（原书第 3 版）3.9 异质的数据结构](https://book.douban.com/subject/26912767/)
 
 ![An image](./image/atom.jpg)
 
-2. [汇编语言（第3版）](https://book.douban.com/subject/25726019/)书中，8.6 寻址方式的综合应用也有相应的讲解
+2. [汇编语言（第3版）8.6 寻址方式的综合应用](https://book.douban.com/subject/25726019/)
 ![An image](./image/atom-w1.png)
 ![An image](./image/atom-w2.png)
 ![An image](./image/atom-w3.png)
@@ -89,7 +89,7 @@ Space losses: 0 bytes internal + 0 bytes external = 0 bytes total
 
 ## 常用方法
 
-对于`unsafe,valueOffset`的困惑已经解开，来看一下常用的方法
+对于`unsafe,valueOffset`的困惑已经解开，看一下常用的方法
 
 ### unsafe.getAndSetInt
 
@@ -112,83 +112,14 @@ Space losses: 0 bytes internal + 0 bytes external = 0 bytes total
 
 3. `getIntVolatile`方法的形容如下，大概的讲解和上面数据结构布局一致，这里支持volatile语意，也就是可见性的解释，一个volatile变量的读，总是能看到（任意线程）对这个volatile变量最后的写入。
 
-4. 其实下面这段注释讲解的和上面[数据结构布局](./atomic.md#数据结构布局)基本一致，只是对于数据使用的是`基地址+类型*n`也就是`B+N*S`，这里也可以参考[深入理解计算机系统（原书第 3 版）](https://book.douban.com/subject/26912767/)第3.8数组分配和访问
-
-```java
-    /** Volatile version of {@link #getInt(Object, long)}  */
-    public native int     getIntVolatile(Object o, long offset);
-
-    /**
-     * Fetches a value from a given Java variable.
-     * More specifically, fetches a field or array element within the given
-     * object <code>o</code> at the given offset, or (if <code>o</code> is
-     * null) from the memory address whose numerical value is the given
-     * offset.
-     * <p>
-     * The results are undefined unless one of the following cases is true:
-     * <ul>
-     * <li>The offset was obtained from {@link #objectFieldOffset} on
-     * the {@link java.lang.reflect.Field} of some Java field and the object
-     * referred to by <code>o</code> is of a class compatible with that
-     * field's class.
-     *
-     * <li>The offset and object reference <code>o</code> (either null or
-     * non-null) were both obtained via {@link #staticFieldOffset}
-     * and {@link #staticFieldBase} (respectively) from the
-     * reflective {@link Field} representation of some Java field.
-     *
-     * <li>The object referred to by <code>o</code> is an array, and the offset
-     * is an integer of the form <code>B+N*S</code>, where <code>N</code> is
-     * a valid index into the array, and <code>B</code> and <code>S</code> are
-     * the values obtained by {@link #arrayBaseOffset} and {@link
-     * #arrayIndexScale} (respectively) from the array's class.  The value
-     * referred to is the <code>N</code><em>th</em> element of the array.
-     *
-     * </ul>
-     * <p>
-     * If one of the above cases is true, the call references a specific Java
-     * variable (field or array element).  However, the results are undefined
-     * if that variable is not in fact of the type returned by this method.
-     * <p>
-     * This method refers to a variable by means of two parameters, and so
-     * it provides (in effect) a <em>double-register</em> addressing mode
-     * for Java variables.  When the object reference is null, this method
-     * uses its offset as an absolute address.  This is similar in operation
-     * to methods such as {@link #getInt(long)}, which provide (in effect) a
-     * <em>single-register</em> addressing mode for non-Java variables.
-     * However, because Java variables may have a different layout in memory
-     * from non-Java variables, programmers should not assume that these
-     * two addressing modes are ever equivalent.  Also, programmers should
-     * remember that offsets from the double-register addressing mode cannot
-     * be portably confused with longs used in the single-register addressing
-     * mode.
-     *
-     * @param o Java heap object in which the variable resides, if any, else
-     *        null
-     * @param offset indication of where the variable resides in a Java heap
-     *        object, if any, else a memory address locating the variable
-     *        statically
-     * @return the value fetched from the indicated Java variable
-     * @throws RuntimeException No defined exceptions are thrown, not even
-     *         {@link NullPointerException}
-     */
-    public native int getInt(Object o, long offset);
-```
+4. 代码注释讲解和上面[数据结构布局](./atomic.md#数据结构布局)基本一致，只是对于数组使用`基地址+类型*n`也就是`B+N*S`，可以参考[深入理解计算机系统（原书第 3 版）3.8数组分配和访问](https://book.douban.com/subject/26912767/)
 
 ### unsafe.compareAndSwapInt
 
 1. 这个方法调用的是native方法，对于方法的形容是支持原子操作，也就是`cmpxchg`指令
 
 ```java
-    /**
-     * Atomically update Java variable to <tt>x</tt> if it is currently
-     * holding <tt>expected</tt>.
-     * @return <tt>true</tt> if successful
-     */
-    public final native boolean compareAndSwapInt(Object o, long offset,
-                                                  int expected,
-                                                  int x);
-
+    public final native boolean compareAndSwapInt(Object o,long offset,int expected,int x);
 ```
 
 ## 总结

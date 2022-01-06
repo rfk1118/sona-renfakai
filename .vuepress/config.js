@@ -222,12 +222,19 @@ module.exports = {
           title: "Java",
           collapsable: false,
           children: [
-            "/languages/java/juc/daemon",
-            "/languages/java/juc/atomic",
             "/languages/java/auto-box",
             "/languages/java/delay-queue",
             "/languages/java/introduction-to-java-bytecode",
             "/languages/java/heap-java",
+          ]
+        }, {
+          title: "多线程",
+          collapsable: false,
+          children: [
+            "/languages/java/juc/atomic",
+            "/languages/java/juc/aos",
+            "/languages/java/juc/aqs",
+            "/languages/java/juc/daemon",
           ]
         }, {
           title: "go",

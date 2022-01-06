@@ -1,4 +1,4 @@
-# daemon线程
+# daemon
 
 Java中的线程主要分为两种，用户线程，daemon线程。
 
