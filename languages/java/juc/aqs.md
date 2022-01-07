@@ -26,9 +26,9 @@ abstract static class Sync extends AbstractQueuedSynchronizer {
         // 如果没有锁
         int c = getState();
         if (c == 0) {
-            // 进行cas设置
+            // 进行cas设置，如果抢锁成功
             if (compareAndSetState(0, acquires)) {
-                // 如果成功了设置线程
+                // 设置线程
                 setExclusiveOwnerThread(current);
                 return true;
             }
@@ -50,7 +50,7 @@ abstract static class Sync extends AbstractQueuedSynchronizer {
     protected final boolean tryRelease(int releases) {
         // 拿到新的设定的值
         int c = getState() - releases;
-        // 当前线程没有持有锁，异常
+        // 当前线程没有持有锁，异常，违反规约
         if (Thread.currentThread() != getExclusiveOwnerThread())
             throw new IllegalMonitorStateException();
         boolean free = false;
@@ -85,7 +85,7 @@ static final class NonfairSync extends Sync {
         if (compareAndSetState(0, 1))
             setExclusiveOwnerThread(Thread.currentThread());
         else
-        // 否则加入队列
+            // 走队列流程
             acquire(1);
     }
 
@@ -110,8 +110,9 @@ static final class FairSync extends Sync {
         // 获取当前线程
         final Thread current = Thread.currentThread();
         int c = getState();
-        // 如果当前线程没有前驱节点，才进行处理
+
         if (c == 0) {
+            // 如果队列没有排队的，才进行处理
             if (!hasQueuedPredecessors() &&
                 compareAndSetState(0, acquires)) {
                 setExclusiveOwnerThread(current);
@@ -299,7 +300,7 @@ final boolean acquireQueued(final Node node, int arg) {
             // 如果前驱节点为头节点，并且已经释放了锁，这里能够拿到锁，将自己设置成头
             // 否则进行自旋转
             if (p == head && tryAcquire(arg)) {
-                // 新节点设置为头
+                // 新节点设置为头，推进队列
                 setHead(node);
                 p.next = null; // help GC
                 failed = false;
@@ -418,7 +419,7 @@ protected final boolean tryAcquire(int acquires) {
     // 获取当前线程
     final Thread current = Thread.currentThread();
     int c = getState();
-    // 如果当前线程没有前驱节点，才进行处理
+    // 如果当前队列没有排队线程
     if (c == 0) {
         if (!hasQueuedPredecessors() &&
             compareAndSetState(0, acquires)) {
@@ -471,7 +472,7 @@ final boolean nonfairTryAcquire(int acquires) {
 
 ### hasQueuedPredecessor
 
-1. 判断是否有前驱节点
+1. 判断队列是否有排队线程
 
 ```java
 public final boolean hasQueuedPredecessors() {

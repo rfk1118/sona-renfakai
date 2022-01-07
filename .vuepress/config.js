@@ -235,6 +235,7 @@ module.exports = {
             "/languages/java/juc/aos",
             "/languages/java/juc/aqs",
             "/languages/java/juc/blocking",
+            "/languages/java/juc/fair",
             "/languages/java/juc/daemon",
           ]
         }, {
