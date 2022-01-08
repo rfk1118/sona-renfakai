@@ -1,16 +1,17 @@
 # aqs
 
-关于aqs设计原理，请查看[文档地址](http://gee.cs.oswego.edu/dl/papers/aqs.pdf)，或者查看代码注释
+aqs设计原理，请查看[文档地址](http://gee.cs.oswego.edu/dl/papers/aqs.pdf)，或者查看代码注释
 
 ## 个人见解
 
-设计使用一个int的值来代表是否持有锁，其实这种设计是一种规约，获取某个变量，如果使用cas指令更新新值成功，就认为当前线程获取了锁，如果设置成功，则认为没有获取到锁，进行自旋。
+设计使用一个`int`值来代表是否持有锁，这种设计是一种规约，获取变量，使用cas指令更新新值
 
-如果你没有cas设置某个状态成功，不按照规约进行处理，那就相当于没锁。
+* 更新新值成功，当前线程获取了锁，
+* 更新新值失败，没有获取到锁，进入队列自旋或阻塞
 
 ### Sync
 
-1. 进一步实现了`AbstractQueuedSynchronizer`
+进一步实现了`AbstractQueuedSynchronizer`
 
 ```java
 abstract static class Sync extends AbstractQueuedSynchronizer {
@@ -18,34 +19,6 @@ abstract static class Sync extends AbstractQueuedSynchronizer {
 
     // 抽象
     abstract void lock();
-
-    // 非公平锁的实现
-    final boolean nonfairTryAcquire(int acquires) {
-        // 获取当前线程
-        final Thread current = Thread.currentThread();
-        // 如果没有锁
-        int c = getState();
-        if (c == 0) {
-            // 进行cas设置，如果抢锁成功
-            if (compareAndSetState(0, acquires)) {
-                // 设置线程
-                setExclusiveOwnerThread(current);
-                return true;
-            }
-        }
-        // 如果当前有锁，并且当前线程持有锁
-        else if (current == getExclusiveOwnerThread()) {
-            // 进行重入计数
-            int nextc = c + acquires;
-            if (nextc < 0) // overflow
-                throw new Error("Maximum lock count exceeded");
-            // 更新值
-            setState(nextc);
-            return true;
-        }
-        // 拿不到锁
-        return false;
-    }
 
     protected final boolean tryRelease(int releases) {
         // 拿到新的设定的值
@@ -73,7 +46,7 @@ abstract static class Sync extends AbstractQueuedSynchronizer {
 
 ### NonfairSync
 
-1. 非公平锁效率较高，不会出现饿死状态
+非公平锁效率较高，默认使用，如：`public ReentrantLock() { sync = new NonfairSync();}`
 
 ```java
 static final class NonfairSync extends Sync {
@@ -97,6 +70,8 @@ static final class NonfairSync extends Sync {
 ```
 
 ### FairSync
+
+严格按照公平进行处理，后来的进行排队
 
 ```java
 static final class FairSync extends Sync {
@@ -136,12 +111,12 @@ static final class FairSync extends Sync {
 
 Subclasses can maintain other state fields, but only the atomically updated int value manipulated using methods getState(), setState(int) and compareAndSetState(int, int) is tracked with respect to synchronization.
 
-子类可以维护其他状态字段，但只有使用 getState()、setState(int) 和 compareAndSetState(int, int) 方法操作的原子更新的 int 值才会被同步跟踪。
+子类可以维护其他状态字段，但只有使用 `getState()、setState(int)、compareAndSetState(int, int)` 方法操作的原子更新的 `int` 值才会被同步跟踪。
 
 ### static代码块
 
 1. 静态代码块，可参考[atomic](./atomic.md)
-2. 从这里可以看出`state,head,tail,waitStatus,next`都是使用cas进行实现的。
+2. 从这里可以看出`state、head、tail、waitStatus、next`都是使用cas进行实现的。
 
 ```java
  static {
@@ -207,8 +182,22 @@ protected final boolean compareAndSetState(int expect, int update) {
 
 ## acquire
 
-1. 先对独占模式进行分析
-2. 核心概念
+```mermaid
+graph LR
+    A[线程] --> B{获取锁}
+    B -->|成功| Z[结束]
+    B -->|失败| C[生成节点]
+    C --> E[加入队列]
+    E --> F[自旋阻塞]
+    F --> G{前驱为头节点}
+    G -->|失败| F
+    G -->|成功| H{获取锁}
+    H -->|成功| I[设置当前节点为头]
+    I --> Z
+    H -->|失败| F
+```
+
+先对独占模式进行分析，其核心概念如下：
 
 ```java
   Acquire:
@@ -218,7 +207,7 @@ protected final boolean compareAndSetState(int expect, int update) {
        }
 ```
 
-1. 这里主要调用了4个方法，也就是`tryAcquire`,`acquireQueued`,`addWaiter`,`selfInterrupt`
+主要调用了4个方法，也就是`tryAcquire、acquireQueued、addWaiter、selfInterrupt`
 
 ```java
 public final void acquire(int arg) {
@@ -228,9 +217,7 @@ public final void acquire(int arg) {
 }
 ```
 
-### addWaiter
-
-1. 创建`Node.EXCLUSIVE`类型模式的节点，并加入到尾部
+`addWaiter`创建`Node.EXCLUSIVE`类型模式的节点，并加入到尾部
 
 ```java
  // Node.EXCLUSIVE模式
@@ -262,7 +249,7 @@ private final boolean compareAndSetTail(Node expect, Node update) {
 }
 ```
 
-2. `enq(node)`，将节点插入队列，必要时进行初始化
+`enq(node)`，将节点插入队列，必要时对队列初始化
 
 ```java
 private Node enq(final Node node) {
@@ -285,9 +272,7 @@ private Node enq(final Node node) {
 }
 ```
 
-### acquireQueued
-
-这里是一个自旋的过程
+`acquireQueued`自旋过程，判断自己前驱节点是否为头节点，如果是的话尝试获取锁，拿到锁，推进队列
 
 ```java
 final boolean acquireQueued(final Node node, int arg) {
@@ -295,9 +280,8 @@ final boolean acquireQueued(final Node node, int arg) {
     try {
         boolean interrupted = false;
         for (;;) {
-            // 如果前驱节点为头节点
             final Node p = node.predecessor();
-            // 如果前驱节点为头节点，并且已经释放了锁，这里能够拿到锁，将自己设置成头
+            // 如果前驱节点为头节点，尝试拿锁，能够拿到锁，将自己设置成头，推进队列
             // 否则进行自旋转
             if (p == head && tryAcquire(arg)) {
                 // 新节点设置为头，推进队列
@@ -319,7 +303,7 @@ final boolean acquireQueued(final Node node, int arg) {
 }
 ```
 
-### shouldParkAfterFailedAcquire
+`shouldParkAfterFailedAcquire`如果获取失败，进行`possibly block current thread`
 
 ```java
 private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
@@ -328,7 +312,7 @@ private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
         // 这个节点已经设置了状态，要求释放信号，所以它可以安全地停放
         return true;
     if (ws > 0) {
-        // 前驱被取消。跳过前驱并指示重试。
+        // 前驱被取消，跳过前驱并指示重试。
         do {
             node.prev = pred = pred.prev;
         } while (pred.waitStatus > 0);
@@ -340,25 +324,14 @@ private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
 }
 ```
 
-### parkAndCheckInterrupt
-
-```java
-private final boolean parkAndCheckInterrupt() {
-    LockSupport.park(this);
-    return Thread.interrupted();
-}
-```
-
-### cancelAcquire
+`cancelAcquire`取消获取锁
 
 ```java
 private void cancelAcquire(Node node) {
     // 节点为空不处理
     if (node == null)
         return;
-
     node.thread = null;
-
     // 跳过取消的前驱
     Node pred = node.prev;
     //  static final int CANCELLED =  1;
@@ -394,17 +367,9 @@ private void cancelAcquire(Node node) {
 }
 ```
 
-### selfInterrupt
-
-```java
-static void selfInterrupt() {
-    Thread.currentThread().interrupt();
-}
-```
-
 ### tryAcquire
 
-1. 父亲没有实现，需要子类进行实现
+父类没有实现，需要子类进行实现
 
 ```java
 protected boolean tryAcquire(int arg) {
@@ -412,7 +377,7 @@ protected boolean tryAcquire(int arg) {
 }
 ```
 
-2. 公平锁
+公平锁在获取锁的时候需要判断队列是否有自旋或阻塞线程（排除掉取消节点的线程）
 
 ```java
 protected final boolean tryAcquire(int acquires) {
@@ -437,9 +402,18 @@ protected final boolean tryAcquire(int acquires) {
     }
     return false;
 }
+
+// 判断队列是否有排队线程，并且排队线程不是当前线程
+public final boolean hasQueuedPredecessors() {
+    Node t = tail; // Read fields in reverse initialization order
+    Node h = head;
+    Node s;
+    return h != t &&
+        ((s = h.next) == null || s.thread != Thread.currentThread());
+}
 ```
 
-3. 非公平锁
+非公平锁直接获取锁，无需判断队列是否中有节点在自旋或阻塞
 
 ```java
 final boolean nonfairTryAcquire(int acquires) {
@@ -470,24 +444,19 @@ final boolean nonfairTryAcquire(int acquires) {
 }
 ```
 
-### hasQueuedPredecessor
-
-1. 判断队列是否有排队线程
-
-```java
-public final boolean hasQueuedPredecessors() {
-    Node t = tail; // Read fields in reverse initialization order
-    Node h = head;
-    Node s;
-    return h != t &&
-        ((s = h.next) == null || s.thread != Thread.currentThread());
-}
-
-```
-
 ## release
 
 ### 核心概念
+
+```mermaid
+graph LR
+    A[释放信号量] --> B{信号量是否为0}
+    B -->|失败| Z[等待下次释放]
+    B -->|成功| C{判断队列是否初始化}
+    C -->|是| E[唤醒后继]
+    C -->|无| D[结束]
+    E --> D
+```
 
 ```java
  Release:
@@ -499,6 +468,7 @@ public final boolean hasQueuedPredecessors() {
 
 ```java
 public final boolean release(int arg) {
+    // 释放锁，只有计算为0才为释放成功，主要有重入问题
     if (tryRelease(arg)) {
         Node h = head;
         if (h != null && h.waitStatus != 0)
@@ -509,31 +479,29 @@ public final boolean release(int arg) {
 }
 ```
 
-### tryRelease
-
-1. 这里由子类进行实现
+`tryRelease`为释放信号量，只有锁拥有者可以释放，`state = 0`时才释放权限，也就是释放锁成功，否则只更新信号量
 
 ```java
 protected final boolean tryRelease(int releases) {
     // 拿到新的设定的值
     int c = getState() - releases;
-    // 当前线程没有持有锁，异常
+    // 只有锁拥有者可以释放
     if (Thread.currentThread() != getExclusiveOwnerThread())
         throw new IllegalMonitorStateException();
     boolean free = false;
     if (c == 0) {
         // 释放锁
         free = true;
+        // 释放权限
         setExclusiveOwnerThread(null);
     }
+    // 更新信号量
     setState(c);
     return free;
 }
 ```
 
-### unparkSuccessor
-
-1. 如果有节点，并且有线程等待，进行唤醒
+`unparkSuccessor`队列初始化并且有节点未取消，进行唤醒
 
 ```java
 private void unparkSuccessor(Node node) {

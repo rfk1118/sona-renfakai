@@ -1,8 +1,6 @@
 # exclusively
 
-A synchronizer that may be exclusively owned by a thread. This class provides a basis for creating locks and related synchronizers that may entail a notion of ownership. The AbstractOwnableSynchronizer class itself does not manage or use this information. However, subclasses and tools may use appropriately maintained values to help control and monitor access and provide diagnostics.
-
-由线程独占拥有的同步器。此类为创建所有权概念的锁和相关同步器提供了基础。`AbstractOwnableSynchronizer`类本身不管理或使用此信息。但是，子类和工具可以使用适当维护的值来帮助控制和监视访问并提供诊断。
+线程独占拥有的同步器。此类为创建所有权概念的锁和相关同步器提供了基础。`AbstractOwnableSynchronizer`类本身不管理或使用此信息。但是，子类和工具可以使用适当维护的值来帮助控制和监视访问并提供诊断。
 
 ## 核心api
 

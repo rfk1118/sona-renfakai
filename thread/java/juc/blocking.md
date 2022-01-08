@@ -43,12 +43,12 @@ public class LockSupport {
 
 ## 代码解释
 
-从这个工具类来看，其底层依然调用的是unsafe类，核心调用有`putObject，unpark，park，getInt，objectFieldOffset`，我们主要看前3个
+从这个工具类来看，其底层依然调用的是unsafe类，核心调用有`putObject、unpark、park、getInt、objectFieldOffset`，我们主要看前3个
 
 ### park(Object blocker)
 
 ```java
-/* 非许可可用，否则出于线程调度目的禁用当前线程。如果许可可用，则它被消耗并且调用立即返回；否则，当前线程会因线程调度目的而被禁用并处于休眠状态，直到发生以下三种情况之一： 某个其他线程以当前线程为目标调用 unpark；或其他一些线程中断当前线程；或 虚假调用（即无缘无故）返回。此方法不报告其中哪些导致方法返回。调用者应该首先重新检查导致线程停放的条件。例如，调用者还可以确定线程在返回时的中断状态。参数：阻塞器——负责这个线程停放的同步对象从：1.6 */
+// 可以在jstack的时候看到阻塞在那个对象上面
 public static void park(Object blocker) {
     Thread t = Thread.currentThread();
     setBlocker(t, blocker);

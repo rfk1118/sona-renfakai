@@ -62,6 +62,17 @@ module.exports = {
     sidebar: [{
         title: "作者",
         path: "/introduction/about-me"
+      }, {
+        title: "多线程",
+        collapsable: false,
+        children: [
+          "/thread/java/juc/atomic",
+          "/thread/java/juc/aos",
+          "/thread/java/juc/aqs",
+          "/thread/java/juc/blocking",
+          "/thread/java/juc/clh",
+          "/thread/java/juc/daemon",
+        ]
       },
       {
         title: "Netty",
@@ -230,17 +241,6 @@ module.exports = {
             "/languages/java/delay-queue",
             "/languages/java/introduction-to-java-bytecode",
             "/languages/java/heap-java",
-          ]
-        }, {
-          title: "多线程",
-          collapsable: false,
-          children: [
-            "/languages/java/juc/atomic",
-            "/languages/java/juc/aos",
-            "/languages/java/juc/aqs",
-            "/languages/java/juc/blocking",
-            "/languages/java/juc/fair",
-            "/languages/java/juc/daemon",
           ]
         }, {
           title: "go",
