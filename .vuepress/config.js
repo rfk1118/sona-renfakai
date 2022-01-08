@@ -65,13 +65,14 @@ module.exports = {
       },
       {
         title: "Netty",
+        collapsable: false,
         children: [{
             title: "基础知识",
             collapsable: false,
             children: [
-              "/netty/guide/read-source",
+              "/netty/guide/quick-start",
               "/netty/guide/base-knowledge",
-              "/netty/guide/quick-start"
+              "/netty/guide/read-source",
             ]
           },
           {
@@ -127,6 +128,7 @@ module.exports = {
       },
       {
         title: "算法",
+        collapsable: false,
         children: [{
             title: "排序",
             collapsable: false,
@@ -185,6 +187,7 @@ module.exports = {
       },
       {
         title: "设计模式",
+        collapsable: false,
         children: [{
             title: "基础知识",
             collapsable: false,
@@ -218,6 +221,7 @@ module.exports = {
       },
       {
         title: "编程语言",
+        collapsable: false,
         children: [{
           title: "Java",
           collapsable: false,
@@ -248,6 +252,7 @@ module.exports = {
         }]
       }, {
         title: "计算机网络",
+        collapsable: false,
         children: [
           "/tcp/tree-shake-hands",
           "/tcp/four-wave"
