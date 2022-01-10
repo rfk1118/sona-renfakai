@@ -71,6 +71,7 @@ module.exports = {
           "/thread/java/juc/aqs",
           "/thread/java/juc/blocking",
           "/thread/java/juc/clh",
+          "/thread/java/juc/condition",
           "/thread/java/juc/daemon",
         ]
       },
