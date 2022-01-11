@@ -66,6 +66,7 @@ module.exports = {
         title: "多线程",
         collapsable: false,
         children: [
+          "/thread/java/juc/read-me",
           "/thread/java/juc/atomic",
           "/thread/java/juc/aos",
           "/thread/java/juc/aqs",
