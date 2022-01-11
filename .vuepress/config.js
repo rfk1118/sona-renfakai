@@ -74,6 +74,7 @@ module.exports = {
           "/thread/java/juc/clh",
           "/thread/java/juc/condition",
           "/thread/java/juc/daemon",
+          "/thread/java/juc/thread-factory",
         ]
       },
       {
