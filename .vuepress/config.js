@@ -65,16 +65,34 @@ module.exports = {
       }, {
         title: "多线程",
         collapsable: false,
-        children: [
-          "/thread/java/juc/read-me",
-          "/thread/java/juc/atomic",
-          "/thread/java/juc/aos",
-          "/thread/java/juc/aqs",
-          "/thread/java/juc/blocking",
-          "/thread/java/juc/clh",
-          "/thread/java/juc/condition",
-          "/thread/java/juc/daemon",
-          "/thread/java/juc/thread-factory",
+        children: [{
+            title: "总结",
+            collapsable: false,
+            children: [
+              "/thread/java/juc/read-me",
+            ]
+          },
+          {
+            title: "基础知识",
+            collapsable: false,
+            children: [
+              "/thread/java/juc/atomic",
+              "/thread/java/juc/aos",
+              "/thread/java/juc/aqs",
+              "/thread/java/juc/blocking",
+              "/thread/java/juc/clh",
+              "/thread/java/juc/condition",
+              "/thread/java/juc/daemon",
+            ]
+          },
+          {
+            title: "应用",
+            collapsable: false,
+            children: [
+              "/thread/java/juc/thread-factory",
+              "/thread/java/juc/rejected-execution-handler",
+            ]
+          },
         ]
       },
       {
