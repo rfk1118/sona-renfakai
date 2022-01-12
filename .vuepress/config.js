@@ -76,8 +76,8 @@ module.exports = {
             title: "基础知识",
             collapsable: false,
             children: [
-              "/thread/java/juc/atomic",
               "/thread/java/juc/aos",
+              "/thread/java/juc/atomic",
               "/thread/java/juc/aqs",
               "/thread/java/juc/blocking",
               "/thread/java/juc/clh",
@@ -91,6 +91,8 @@ module.exports = {
             children: [
               "/thread/java/juc/thread-factory",
               "/thread/java/juc/rejected-execution-handler",
+              "/thread/java/juc/work",
+              "/thread/java/juc/thread-pool-executor",
             ]
           },
         ]
