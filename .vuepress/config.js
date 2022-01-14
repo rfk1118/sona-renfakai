@@ -63,41 +63,6 @@ module.exports = {
         title: "作者",
         path: "/introduction/about-me"
       }, {
-        title: "多线程",
-        collapsable: false,
-        children: [{
-            title: "总结",
-            collapsable: false,
-            children: [
-              "/thread/java/juc/read-me",
-            ]
-          },
-          {
-            title: "基础知识",
-            collapsable: false,
-            children: [
-              "/thread/java/juc/aos",
-              "/thread/java/juc/atomic",
-              "/thread/java/juc/aqs",
-              "/thread/java/juc/blocking",
-              "/thread/java/juc/clh",
-              "/thread/java/juc/condition",
-              "/thread/java/juc/daemon",
-            ]
-          },
-          {
-            title: "应用",
-            collapsable: false,
-            children: [
-              "/thread/java/juc/thread-factory",
-              "/thread/java/juc/rejected-execution-handler",
-              "/thread/java/juc/work",
-              "/thread/java/juc/thread-pool-executor",
-            ]
-          },
-        ]
-      },
-      {
         title: "Netty",
         collapsable: false,
         children: [{
@@ -158,6 +123,41 @@ module.exports = {
             collapsable: false,
             children: ["/netty/nio/codec/codec"]
           }
+        ]
+      }, {
+        title: "多线程",
+        collapsable: false,
+        children: [{
+            title: "总结",
+            collapsable: false,
+            children: [
+              "/thread/java/juc/read-me",
+            ]
+          },
+          {
+            title: "基础知识",
+            collapsable: false,
+            children: [
+              "/thread/java/juc/aos",
+              "/thread/java/juc/atomic",
+              "/thread/java/juc/aqs",
+              "/thread/java/juc/blocking",
+              "/thread/java/juc/clh",
+              "/thread/java/juc/condition",
+              "/thread/java/juc/future",
+              "/thread/java/juc/daemon",
+            ]
+          },
+          {
+            title: "应用",
+            collapsable: false,
+            children: [
+              "/thread/java/juc/thread-factory",
+              "/thread/java/juc/rejected-execution-handler",
+              "/thread/java/juc/work",
+              "/thread/java/juc/thread-pool-executor",
+            ]
+          },
         ]
       },
       {
@@ -260,6 +260,7 @@ module.exports = {
           title: "Java",
           collapsable: false,
           children: [
+            "/languages/java/frequent-visits",
             "/languages/java/auto-box",
             "/languages/java/delay-queue",
             "/languages/java/introduction-to-java-bytecode",
