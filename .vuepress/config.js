@@ -1,9 +1,12 @@
 module.exports = {
   head: [
-    ['link', {
-      rel: 'stylesheet',
-      href: `https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css`
-    }],
+    [
+      "link",
+      {
+        rel: "stylesheet",
+        href: `https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css`
+      }
+    ],
     [
       "link",
       {
@@ -15,30 +18,30 @@ module.exports = {
   ],
   plugins: [
     [
-      'vuepress-plugin-comment',
+      "vuepress-plugin-comment",
       {
         // https://www.npmjs.com/package/vuepress-plugin-comment
         // https://www.cnblogs.com/quanxiaoha/p/10925401.html
-        choosen: 'gitalk',
+        choosen: "gitalk",
         options: {
-          clientID: 'c4994329985f8361e330',
-          clientSecret: '3ed0530c924181fc77b2099af79b60d40bf54e67',
-          repo: 'sona-renfakai',
-          owner: 'sona0402',
-          admin: ['sona0402'],
+          clientID: "c4994329985f8361e330",
+          clientSecret: "3ed0530c924181fc77b2099af79b60d40bf54e67",
+          repo: "sona-renfakai",
+          owner: "sona0402",
+          admin: ["sona0402"],
           labels: ["Gitalk", "Comment"],
           id: '<%- ("renfakai.com" + (frontmatter.to.path || window.location.pathname)).slice(-50) %>',
-          title: '「Comment」<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>',
-          body: '<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>',
+          title: "「Comment」<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>",
+          body: "<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>",
           distractionFreeMode: false,
-          pagerDirection: 'last',
+          pagerDirection: "last"
         }
       }
     ],
-    ['@vuepress/back-to-top'],
-    ['@vuepress/medium-zoom'],
+    ["@vuepress/back-to-top"],
+    ["@vuepress/medium-zoom"],
     // https://github.com/eFrane/vuepress-plugin-mermaidjs
-    ['vuepress-plugin-mermaidjs']
+    ["vuepress-plugin-mermaidjs"]
   ],
   markdown: {
     anchor: {
@@ -50,10 +53,10 @@ module.exports = {
     extendMarkdown: md => {
       // https://www.npmjs.com/
       // https://mermaid-js.github.io/mermaid/#/
-      md.use(require('markdown-it-katex'));
+      md.use(require("markdown-it-katex"));
     }
   },
-  title: "智慧不可赐！",
+  title: "天道酬勤。",
   description: "因果不可改、智慧不可赐、真法不可说、无缘不能渡！",
   host: "localhost",
   port: 8080,
@@ -62,7 +65,8 @@ module.exports = {
     sidebar: [{
         title: "作者",
         path: "/introduction/about-me"
-      }, {
+      },
+      {
         title: "Netty",
         collapsable: false,
         children: [{
@@ -71,16 +75,13 @@ module.exports = {
             children: [
               "/netty/guide/quick-start",
               "/netty/guide/base-knowledge",
-              "/netty/guide/read-source",
+              "/netty/guide/read-source"
             ]
           },
           {
             title: "Reactor",
             collapsable: false,
-            children: [
-              "/netty/reactor/single",
-              "/netty/reactor/multiple"
-            ]
+            children: ["/netty/reactor/single", "/netty/reactor/multiple"]
           },
           {
             title: "EventLoop",
@@ -124,15 +125,14 @@ module.exports = {
             children: ["/netty/nio/codec/codec"]
           }
         ]
-      }, {
+      },
+      {
         title: "多线程",
         collapsable: false,
         children: [{
             title: "总结",
             collapsable: false,
-            children: [
-              "/thread/java/juc/read-me",
-            ]
+            children: ["/thread/java/juc/read-me"]
           },
           {
             title: "基础知识",
@@ -145,7 +145,7 @@ module.exports = {
               "/thread/java/juc/clh",
               "/thread/java/juc/condition",
               "/thread/java/juc/future",
-              "/thread/java/juc/daemon",
+              "/thread/java/juc/daemon"
             ]
           },
           {
@@ -155,10 +155,21 @@ module.exports = {
               "/thread/java/juc/thread-factory",
               "/thread/java/juc/rejected-execution-handler",
               "/thread/java/juc/work",
-              "/thread/java/juc/thread-pool-executor",
+              "/thread/java/juc/thread-pool-executor"
             ]
-          },
+          }
         ]
+      },
+      {
+        title: "Jvm",
+        collapsable: false,
+        children: [{
+          title: "选择器",
+          collapsable: false,
+          children: [
+            "/jvm/jvm-select",
+          ]
+        }]
       },
       {
         title: "算法",
@@ -175,12 +186,11 @@ module.exports = {
               "/algorithms/sort/quick-sort",
               "/algorithms/other/Edsger-Dijkstra"
             ]
-          }, {
+          },
+          {
             title: "数据结构",
             collapsable: false,
-            children: [
-              "/algorithms/structure/union-find-structure",
-            ]
+            children: ["/algorithms/structure/union-find-structure"]
           },
           {
             title: "Tree",
@@ -191,9 +201,10 @@ module.exports = {
               "/algorithms/tree/binary-tree-algs4",
               "/algorithms/tree/balanced-search-trees",
               // "/algorithms/tree/rb-binary-tree-concept",
-              "/algorithms/heap/heap",
+              "/algorithms/heap/heap"
             ]
-          }, {
+          },
+          {
             title: "图",
             collapsable: false,
             children: [
@@ -202,19 +213,20 @@ module.exports = {
               "/algorithms/graphs/directed-graph",
               "/algorithms/graphs/graph-search",
               "/algorithms/graphs/minimum-spanning-tree",
-              "/algorithms/graphs/shortest-path-algnorithms",
+              "/algorithms/graphs/shortest-path-algnorithms"
             ]
           },
           {
             title: "Bit",
             collapsable: false,
             children: ["/algorithms/bit/xor"]
-          }, {
+          },
+          {
             title: "其他",
             collapsable: false,
             children: [
               "/algorithms/other/binary-Search",
-              "/algorithms/other/Top-down",
+              "/algorithms/other/Top-down"
             ]
           }
         ]
@@ -257,30 +269,27 @@ module.exports = {
         title: "编程语言",
         collapsable: false,
         children: [{
-          title: "Java",
-          collapsable: false,
-          children: [
-            "/languages/java/frequent-visits",
-            "/languages/java/auto-box",
-            "/languages/java/delay-queue",
-            "/languages/java/introduction-to-java-bytecode",
-            "/languages/java/heap-java",
-          ]
-        }, {
-          title: "go",
-          collapsable: false,
-          children: [
-            "/languages/go/read-me",
-            "/languages/go/heap-go",
-          ]
-        }]
-      }, {
+            title: "Java",
+            collapsable: false,
+            children: [
+              "/languages/java/frequent-visits",
+              "/languages/java/auto-box",
+              "/languages/java/delay-queue",
+              "/languages/java/introduction-to-java-bytecode",
+              "/languages/java/heap-java"
+            ]
+          },
+          {
+            title: "go",
+            collapsable: false,
+            children: ["/languages/go/read-me", "/languages/go/heap-go"]
+          }
+        ]
+      },
+      {
         title: "计算机网络",
         collapsable: false,
-        children: [
-          "/tcp/tree-shake-hands",
-          "/tcp/four-wave"
-        ]
+        children: ["/tcp/tree-shake-hands", "/tcp/four-wave"]
       }
     ]
   }
