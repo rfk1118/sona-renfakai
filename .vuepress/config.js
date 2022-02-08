@@ -168,6 +168,8 @@ module.exports = {
           collapsable: false,
           children: [
             "/jvm/jvm-select",
+            "/jvm/SerialHeap",
+            "/jvm/safepoint"
           ]
         }]
       },

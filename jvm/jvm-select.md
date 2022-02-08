@@ -15,7 +15,6 @@
 
 * 如果应用程序的数据集很小（最高可达100MB），那么选择单线程序列收集器，使用参数`-XX:+UseSerialGC`
 * 如果应用程序将在单个处理器上运行，并且没有暂停时间要求，则让VM选择收集器，或选择具有`-XX:+UseSerialGC`选项的单线程收集器
-* 如果峰值应用程序性能是第一个优先级，并且没有暂停时间要求或暂停1秒或更长时间是可以接受的，那么让VM选择集器，或选择带有`-XX:+UseParallelGC`的并行集器
 * 如果响应时间比整体吞吐量更重要，并且垃圾收集暂停时间必须缩短，那么请选择主要并发的收集器与`-XX:+UseG1GC`
 * 如果响应时间是高优先级，请选择一个具有`-XX:UseZGC`的完全并发集器。
 
@@ -44,8 +43,6 @@ Stack:
 
 ```C
 void GCConfig::initialize() {
-  // 这里会判断没有初始化
-  assert(_arguments == NULL, "Already initialized");
   // 选择一个gc
   _arguments = select_gc();
 }
