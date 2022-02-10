@@ -163,16 +163,12 @@ module.exports = {
       {
         title: "Jvm",
         collapsable: false,
-        children: [{
-          title: "选择器",
-          collapsable: false,
-          children: [
-            "/jvm/jvm-select",
-            "/jvm/SerialHeap",
-            "/jvm/safepoint"
-          ]
-        }]
-      },
+        children: [
+          "/jvm/jvm-select",
+          "/jvm/SerialHeap",
+          "/jvm/safepoint",
+          "/jvm/jvm-select-use",
+        ]},
       {
         title: "算法",
         collapsable: false,
