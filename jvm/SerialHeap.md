@@ -4,9 +4,9 @@
 
 `SerialHeap` 是用于 `Serial GC` 的 `CollectedHeap` 的实现。
 
-堆在单个连续块中预先保留，分为两部分，年轻代和老年代。年轻代位于低地址，老一代位于高地址。代之间的边界地址是固定的。在一代内，已提交的内存向更高的地址增长。
+堆在单个连续块中预先保留，分为两部分，新生代和老年代。新生代位于低地址，老年代位于高地址。代之间的边界地址是固定的。在一代内，已提交的内存向更高的地址增长。
 
-从`serialHeap.hpp`可以看到以下注释，其中最大新生代分为`eden,from,to`区和老年代。
+从`serialHeap.hpp`可以看到以下注释，其中最大新生代分为`eden、from、to`区和老年代。
 
 ```c
 // SerialHeap is the implementation of CollectedHeap for Serial GC.
@@ -33,12 +33,12 @@
 
 ## 初始化
 
-`serialHeap`接口协议如下，主要包含了`eden，survivor，old`内存池，并且在`SerialHeap`初始化时候指定了垃圾回收算法，新生代使用`Copy`算法，老年代使用`MarkSweepCompact`算法。
+`serialHeap`接口协议如下，包含了`eden、survivor、old`内存池，在`SerialHeap`初始化时候指定了垃圾回收算法，新生代使用`Copy`算法，老年代使用`MarkSweepCompact`算法。
 
 ```c
 class SerialHeap : public GenCollectedHeap {
 private:
-  // _eden_pool内存池
+  // eden内存池
   MemoryPool* _eden_pool;
   // survivor内存池
   MemoryPool* _survivor_pool;
@@ -49,6 +49,7 @@ private:
 }
 
 SerialHeap::SerialHeap() :
+    // 这里是父亲构造，会初始化回收次数，软引用策略
     GenCollectedHeap(Generation::DefNew,
                      Generation::MarkSweepCompact,
                      "Copy:MSC"),
@@ -60,22 +61,83 @@ SerialHeap::SerialHeap() :
   // 老年代使用标记-整理算法
   _old_manager = new GCMemoryManager("MarkSweepCompact", "end of major GC");
 }
+
+GenCollectedHeap::GenCollectedHeap(Generation::Name young,
+                                   Generation::Name old,
+                                   const char* policy_counters_name) :
+  CollectedHeap(),
+  _young_gen(NULL),
+  _old_gen(NULL),
+  _young_gen_spec(new GenerationSpec(young,
+                                     NewSize,
+                                     MaxNewSize,
+                                     GenAlignment)),
+  _old_gen_spec(new GenerationSpec(old,
+                                   OldSize,
+                                   MaxOldSize,
+                                   GenAlignment)),
+  _rem_set(NULL),
+  // 软引用策略
+  _soft_ref_gen_policy(),
+  _size_policy(NULL),
+  _gc_policy_counters(new GCPolicyCounters(policy_counters_name, 2, 2)),
+  _incremental_collection_failed(false),
+  // fgc完成次数
+  _full_collections_completed(0),
+  _young_manager(NULL),
+  _old_manager(NULL) {
+}
+
+CollectedHeap::CollectedHeap() :
+  // 初始化一些默认参数，这里可以看到jvmstat提供查看的数据
+  _capacity_at_last_gc(0),
+  _used_at_last_gc(0),
+  _is_gc_active(false),
+  _last_whole_heap_examined_time_ns(os::javaTimeNanos()),
+  _total_collections(0),
+  _total_full_collections(0),
+  _gc_cause(GCCause::_no_gc),
+  _gc_lastcause(GCCause::_no_gc)
+{
+  const size_t max_len = size_t(arrayOopDesc::max_array_length(T_INT));
+  const size_t elements_per_word = HeapWordSize / sizeof(jint);
+  _filler_array_max_size = align_object_size(filler_array_hdr_size() +
+                                             max_len / elements_per_word);
+  NOT_PRODUCT(_promotion_failure_alot_count = 0;)
+  NOT_PRODUCT(_promotion_failure_alot_gc_number = 0;)
+  if (UsePerfData) {
+    EXCEPTION_MARK;
+    // 创建 gc 导致 jvmstat 计数器
+    _perf_gc_cause = PerfDataManager::create_string_variable(SUN_GC, "cause",
+                             80, GCCause::to_string(_gc_cause), CHECK);
+    _perf_gc_lastcause =
+                PerfDataManager::create_string_variable(SUN_GC, "lastCause",
+                             80, GCCause::to_string(_gc_lastcause), CHECK);
+  }
+  // 日志相关，忽略
+  if (LogEvents) {
+    _gc_heap_log = new GCHeapLog();
+  } else {
+    _gc_heap_log = NULL;
+  }
+}
+
 ```
 
 `_collectedHeap = GCConfig::arguments()->create_heap();`创建`SerialHeap`会设置两个内存管理器，其结果如图所示：
 
 ![An image](./image/serialHeap-init.png)
 
-`_collectedHeap->initialize()`进行堆的初始化，不同空间使用不同`CollectedMemoryPool`，
+`_collectedHeap->initialize()`进行堆的初始化，不同空间使用不同`CollectedMemoryPool`，由于不同代使用算法会有所区别，所以在计算剩余空间时候需要不同算法计进行计算。
 
-* `_eden_pool = ContiguousSpacePool`
+* `_eden_pool = ContiguousSpacePool` 新生代一般情况下使用复制算法，所以所以不需要进行分块，所以使用连续空间比较好
 * `_survivor_pool = SurvivorContiguousSpacePool`
-* `_old_pool = GenerationPool`
+* `_old_pool = GenerationPool` 老年代对象一般存活对象占总比例比较多，所以使用`标记-清除`、`标记-整理`算法比较好
 
 对于上面三个区域管理状况如下：
 
-* `_young_manager`管理`_survivor_pool,_eden_pool`
-* `_old_manager`管理`_old_pool,_survivor_pool,_eden_pool`
+* `_young_manager`管理`_survivor_pool、_eden_pool`
+* `_old_manager`管理`_old_pool、_survivor_pool、_eden_pool`
 
 ```c
 void SerialHeap::initialize_serviceability() {
@@ -107,43 +169,25 @@ void SerialHeap::initialize_serviceability() {
 }
 ```
 
-模版方法如下
+模版方法`post_initialize`如下
 
 ```java
 void GenCollectedHeap::post_initialize() {
   CollectedHeap::post_initialize();
+  // 引用处理器，强、软、弱、虚
   ref_processing_init();
-
   DefNewGeneration* def_new_gen = (DefNewGeneration*)_young_gen;
-
   initialize_size_policy(def_new_gen->eden()->capacity(),
                          _old_gen->capacity(),
                          def_new_gen->from()->capacity());
-
   MarkSweep::initialize();
-
   ScavengableNMethods::initialize(&_is_scavengable);
 }
 ```
 
-`initialize_size_policy`会使用内存初始化策略`AdaptiveSizePolicy`，后续查看这个策略是干什么的。
+`ref_processing_init`对于引用处理器可以查看下图：
 
-```c
-initialize_size_policy(def_new_gen->eden()->capacity(),
-                         _old_gen->capacity(),
-                         def_new_gen->from()->capacity());
-
-void GenCollectedHeap::initialize_size_policy(size_t init_eden_size,
-                                              size_t init_promo_size,
-                                              size_t init_survivor_size) {
-  const double max_gc_pause_sec = ((double) MaxGCPauseMillis) / 1000.0;
-  _size_policy = new AdaptiveSizePolicy(init_eden_size,
-                                        init_promo_size,
-                                        init_survivor_size,
-                                        max_gc_pause_sec,
-                                        GCTimeRatio);
-}
-```
+![An image](./image/process.png)
 
 `MarkSweep::initialize()`标记清除初始化，初始化代码如下：
 
@@ -164,7 +208,7 @@ void MarkSweep::initialize() {
 :::
 ![An image](./image/serial.jpg)
 
-编写一段代码进行`GC`，查看调用栈，先查看`VM_GenCollectFull::doit()`，`inner_execute`使用了`VM_Operation`解释器设计模式和`commamd`设计模式
+编写一段代码进行`GC`，查看调用栈，先查看`VM_GenCollectFull::doit()`，`inner_execute`中的`VM_Operation`使用了`commamd`设计模式
 
 ```java
 Breakpoint reached: genCollectedHeap.cpp:882
@@ -182,7 +226,7 @@ Stack:
   thread_start 0x00007ff81da4b00f
 ```
 
-解释器设计模式这里开启[safepoint](./safepoint.md)环绕切面，切面是否需要开启是根据当前命令进行判断的，垃圾回收核心代码在`evaluate_operation(_cur_vm_operation)`
+开启[safepoint](./safepoint.md)环绕切面，切面是否需要开启是根据当前命令进行判断的，垃圾回收核心代码在`evaluate_operation(_cur_vm_operation)`
 
 ```java
 void VMThread::inner_execute(VM_Operation* op) {
@@ -263,7 +307,7 @@ void GenCollectedHeap::do_full_collection(bool clear_all_soft_refs,
 }
 ```
 
-上面两个方法调用`do_collection`，真正的执行器
+上面两个方法调用`do_collection`，垃圾回收真实的执行器
 
 ```java
 void GenCollectedHeap::do_collection(bool           full,
@@ -324,7 +368,6 @@ void GenCollectedHeap::do_collection(bool           full,
                        do_clear_all_soft_refs);
     if (size > 0 && (!is_tlab || _young_gen->supports_tlab_allocation()) &&
         size * HeapWordSize <= _young_gen->unsafe_max_alloc_nogc()) {
-      // Allocation request was met by young GC.
       size = 0;
     }
     do_full_collection = should_do_full_collection(size, full, is_tlab, max_generation);
@@ -381,6 +424,7 @@ void GenCollectedHeap::collect_generation(Generation* gen, bool full, size_t siz
   // 这里是垃圾回收核心代码
   {
     save_marks();
+    // 引用处理器
     ReferenceProcessor* rp = gen->ref_processor();
     rp->start_discovery(clear_soft_refs);
     // 这里会调用真是策略，如果gen为新生代就调用新生代
@@ -393,6 +437,8 @@ void GenCollectedHeap::collect_generation(Generation* gen, bool full, size_t siz
 ```
 
 ### 新生代收集
+
+新生代使用复制算法，复制算法可以参考[《垃圾回收的算法与实现》](https://book.douban.com/subject/26821357/)，对象之间引用关系为图论，在复制时，使用了图论中的深度优先、广度优先，两种方式各有利弊，优化方案，书中均有讲解。
 
 ```java
   // 处理晋升失败
@@ -419,15 +465,15 @@ void GenCollectedHeap::collect_generation(Generation* gen, bool full, size_t siz
   //  如果b存在，曾经指向 A 的所有根现在都必须指向 B
   //       in to-space.  If B exists, all roots that once pointed
   //       to A must now point to B.
-  // 年轻代中的所有对象都没有标记
+  //  年轻代中的所有对象都没有标记
   //     All objects in the young generation are unmarked.
-  // fgc时候，Eden, from-space, and to-space三个空间都会被回收
+  //  fgc时候，Eden、 from-space、 to-space三个空间都会被回收
   //     Eden, from-space, and to-space will all be collected by
   //       the full collection.
   void handle_promotion_failure(oop);
 ```
 
-新生代使用复制算法，在回收时候比较麻烦，涉及到晋升失败问题，具体形容如上面注释。
+新生代在回收时候比较麻烦，涉及到晋升失败问题，具体形容如上面注释。
 
 ```c
 void DefNewGeneration::collect(bool   full,
@@ -459,13 +505,14 @@ void DefNewGeneration::collect(bool   full,
                                                   &younger_gen_closure);
   {
     StrongRootsScope srs(0);
-
+  // 根结点进行扫描
     heap->young_process_roots(&scan_closure,
                               &younger_gen_closure,
                               &cld_scan_closure);
   }
   evacuate_followers.do_void();
   FastKeepAliveClosure keep_alive(this, &scan_weak_ref);
+  // 引用处理器
   ReferenceProcessor* rp = ref_processor();
   ReferenceProcessorPhaseTimes pt(_gc_timer, rp->max_num_queues());
   SerialGCRefProcProxyTask task(is_alive, keep_alive, evacuate_followers);
@@ -577,11 +624,8 @@ void GenMarkSweep::invoke_at_safepoint(ReferenceProcessor* rp, bool clear_all_so
   CardTableRS* rs = gch->rem_set();
   Generation* old_gen = gch->old_gen();
   if (gch->young_gen()->used() == 0) {
-    // We've evacuated the young generation.
     rs->clear_into_younger(old_gen);
   } else {
-    // Invalidate the cards corresponding to the currently used
-    // region and clear those corresponding to the evacuated region.
     rs->invalidate_or_clear(old_gen);
   }
   gch->prune_scavengable_nmethods();
@@ -595,8 +639,8 @@ void GenMarkSweep::invoke_at_safepoint(ReferenceProcessor* rp, bool clear_all_so
 ## 总结
 
 ::: tip
-算法详细参考[《深入理解Java虚拟机（第3版）》](https://book.douban.com/subject/34907497/)
+算法参考[《垃圾回收的算法与实现》](https://book.douban.com/subject/26821357/)
 :::
 
-* 新生代使用的复制算法
-* 老年代使用标记整理算法
+* 新生代使用`复制算法`
+* 老年代使用`标记--整理算法`
