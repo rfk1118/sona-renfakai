@@ -163,12 +163,25 @@ module.exports = {
       {
         title: "Jvm",
         collapsable: false,
-        children: [
-          "/jvm/jvm-select",
-          "/jvm/SerialHeap",
-          "/jvm/safepoint",
-          "/jvm/jvm-select-use",
-        ]},
+        children: [{
+            title: "内存布局",
+            collapsable: false,
+            children: [
+              "/jvm/layout/pc-register",
+            ]
+          },
+          {
+            title: "垃圾回收器",
+            collapsable: false,
+            children: [
+              "/jvm/jvm-select",
+              "/jvm/SerialHeap",
+              "/jvm/safepoint",
+              "/jvm/jvm-select-use",
+            ]
+          },
+        ]
+      },
       {
         title: "算法",
         collapsable: false,
