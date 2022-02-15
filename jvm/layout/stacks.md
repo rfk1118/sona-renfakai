@@ -1,6 +1,6 @@
 # Stacks
 
-## Java Virtual Machine Stacks
+## Java-Virtual-Machine-Stacks
 
 ::: tip 官方文档
 Each Java Virtual Machine thread has a private Java Virtual Machine stack, created at the same time as the thread. A Java Virtual Machine stack stores frames (§2.6). A Java Virtual Machine stack is analogous to the stack of a conventional language such as C: it holds local variables and partial results, and plays a part in method invocation and return. Because the Java Virtual Machine stack is never manipulated directly except to push and pop frames, frames may be heap allocated. The memory for a Java Virtual Machine stack does not need to be contiguous.
@@ -100,7 +100,7 @@ class vframe: public ResourceObj {
 从图中可以看出`vframe`是从线程内存进行分配的，调用了`Thread::current()->resource_area()->allocate_bytes(size, alloc_failmode);`方法。
 ![An image](./images/vframe-all.jpg)
 
-## Native Method Stacks
+## Native-Method-Stacks
 
 ::: tip 官方文档
 An implementation of the Java Virtual Machine may use conventional stacks, colloquially called "C stacks," to support native methods (methods written in a language other than the Java programming language). Native method stacks may also be used by the implementation of an interpreter for the Java Virtual Machine's instruction set in a language such as C. Java Virtual Machine implementations that cannot load native methods and that do not themselves rely on conventional stacks need not supply native method stacks. If supplied, native method stacks are typically allocated per thread when each thread is created.

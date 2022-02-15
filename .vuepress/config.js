@@ -167,9 +167,11 @@ module.exports = {
             title: "内存布局",
             collapsable: false,
             children: [
+              "/jvm/layout/run-time-data-areas",
               "/jvm/layout/pc-register",
-              "/jvm/layout/virtual-machine-stacks",
+              "/jvm/layout/stacks",
               "/jvm/layout/Frames",
+              "/jvm/layout/share-data"
             ]
           },
           {
