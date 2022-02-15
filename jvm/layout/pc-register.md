@@ -17,7 +17,7 @@ CPU想要进行数据读写，需要与三条总线进行交互：
 
 对于控制总线中的寄存器最具有代表的就是`CS、IP`两个寄存器，其中`CS`为代码段寄存器，`IP`为指令指针寄存器。
 
-::: tips 提示
+::: tip 提示
 相关内容可参考[《汇编语言（第4版）》](https://book.douban.com/subject/35038473/)
 :::
 
@@ -106,3 +106,9 @@ class frame {
 
 * `Pc Register`是`Java`指示当前线程运行到哪行`opcode`的指示器，与汇编，Go语言中的`CS、IP`等效。
 * `Pc Register`是线程独有的，`Pc Register`不存在oom，其只占线程空间中最小内存
+
+## 参考材料
+
+* [《汇编语言（第4版）》](https://book.douban.com/subject/35038473/)
+* [The Java® VirtualMachine Specification](https://docs.oracle.com/javase/specs/jvms/se17/jvms17.pdf)
+* [frame.cpp](https://hg.openjdk.java.net/jdk8/jdk8/hotspot/file/c40fbf634c90/src/share/vm/runtime/frame.cpp)
