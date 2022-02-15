@@ -11,7 +11,7 @@
     "editor.renderWhitespace": "all",
     "editor.tabCompletion": "on",
     "editor.acceptSuggestionOnEnter": "on",
-    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
   },
   "json.format.enable": true,
   "javascript.format.enable": true,

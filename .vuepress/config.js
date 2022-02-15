@@ -168,6 +168,8 @@ module.exports = {
             collapsable: false,
             children: [
               "/jvm/layout/pc-register",
+              "/jvm/layout/virtual-machine-stacks",
+              "/jvm/layout/Frames",
             ]
           },
           {
