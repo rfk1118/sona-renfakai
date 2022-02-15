@@ -1,5 +1,28 @@
 # Pc Register
 
+CPU想要进行数据读写，需要与三条总线进行交互：
+
+1. 地址总线，根据地址总线指定存储单元、可以查找内存大小
+2. 数据总线，数据的传输量大小
+3. 控制总线，控制外部组件
+
+根据程序执行不同对内存区域也有划分，例如读区域、写区域。
+
+1. 数据区域可读可写，
+2. 程序编译后仅可以读
+
+经历高级语言发展，现在也不这么绝对了，例如Java支持字节码替换。常用架构为基于寄存器架构设计，Java使用基于栈架构设计(为了解决底层计算机指令集不同问题，中间加了一层)。
+
+## 基于寄存器架构设计
+
+对于控制总线中的寄存器最具有代表的就是`CS、IP`两个寄存器，其中`CS`为代码段寄存器，`IP`为指令指针寄存器。
+
+::: tips 提示
+相关内容可参考[《汇编语言（第4版）》](https://book.douban.com/subject/35038473/)
+:::
+
+## 基于栈架构设计
+
 ::: tip 官方文档
 The Java Virtual Machine can support many threads of execution at once (JLS §17). Each Java Virtual Machine thread has its own pc (program counter) register. At any point, each Java Virtual Machine thread is executing the code of a single method, namely the current method (§2.6) for that thread. If that method is not native, the pc register contains the address of the Java Virtual Machine instruction currently being executed. If the method currently being executed by the thread is native, the value of the Java Virtual Machine's pc register is undefined. The Java Virtual Machine's pc register is wide enough to hold a returnAddress or a native pointer on the specific platform.
 :::
@@ -13,24 +36,9 @@ types, the returnAddress type does not correspond to any Java programming langua
 
 `returnAddress`为虚拟机操作码指针，并且不可被修改。
 
-## CS IP
+假设`CS`内容为`某个 class 某方法`文件，`IP`内容为`第 n 行`，`CS + IP`代表调用某个类某个方法，由于`Java`中没有使用寄存器模型，而是栈模型（设计通用性)，上面假设仅仅为暗喻，`Jvm`设计代表就是`Pc Register`。
 
-CPU想要进行数据读写，需要与三条总线进行交互：
-
-1. 地址总线，根据地址总线指定存储单元、可以查找内存大小
-2. 数据总线，数据的传输量大小
-3. 控制总线，控制外部组件
-
-根据程序执行不同对内存区域也有划分，例如读区域、写区域。
-
-1. 数据区域可读可写，
-2. 程序编译后仅可以读
-
-经历高级语言发展，现在也不这么绝对了，例如Java支持字节码替换。对于控制总线中的寄存器最具有代表的就是`CS、IP`两个寄存器，其中`CS`为代码段寄存器，`IP`为指令指针寄存器。
-
-假设`CS`内容为`某个 class`文件，`IP`内容为`第 n 行`，`CS + IP`代表调用某个类某个方法，由于`Java`中没有使用寄存器模型，而是栈模型（设计通用性)，上面假设仅仅为暗喻，`Jvm`设计代表就是`Pc Register`。
-
-## 代码
+### 测试案例
 
 编写常用代码`helloworld`，来查看`pc寄存器`
 
@@ -51,7 +59,7 @@ public class Main {
  javap -v Main 
 ```
 
-对于整个`class`文件可以看做是`CS`，对于`main`方法中的`0、3、5、8`可以看作行号指示器，也就是`IP`，只不过虚拟机用`pc寄存器`进行统一处理。
+对于`class`文件的`main`方法可以看做是`CS`，对于`main`方法中的`0、3、5、8`可以看作行号指示器，也就是`IP`，只不过虚拟机用`pc寄存器`进行统一处理。
 
 ```java
   // todo 其他省略
@@ -70,7 +78,7 @@ public class Main {
         line 6: 8
 ```
 
-## 源码
+### 源码
 
 在`hotspot`源码中查找`frame.hpp`，具体情况如下：
 
@@ -84,13 +92,10 @@ class frame {
   // pc：返回此帧将正常继续的pc。
   // 它必须指向下一条要执行的指令的开头
   address pc() const             { return _pc; }
-
   // debug使用，也就是未优化前跳转指针
   address raw_pc() const;
-
   // 设置新的处理opcode地址
   void set_pc( address   newpc );
-
   // patching operations
   void   patch_pc(Thread* thread, address pc);
    // todo 其他省略
