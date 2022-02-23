@@ -1,17 +1,28 @@
 # 基础知识
 
-::: tip 提示
-因特网连接和套接字接口基本复制与《深入理解计算机系统》
+::: tip 网络编程基础知识
+推荐阅读[《深入理解计算机系统（原书第 3 版）》](https://book.douban.com/subject/26912767/)11～13章
 :::
 
 ## 计算机 I/O
 
-[深入理解计算机系统（原书第 3 版）](https://book.douban.com/subject/26912767/)</br>
 `Linux Shell` 创建每个进程时都会打开三个文件：标准输入（ 描述符 0 )、标准输出（ 描述符 1 )和标准错误（ 描述符 2 )。
 
 ## 网络编程
 
+网络编程主要关于如果与客户端进行连接和处理进行展开讲解。
+
 ![An image](../guide/image/listenFdchannel.jpg)
+基于进程编程主要是按照上图进行处理：
+
+1. 开启`listenfd`，等待客户端进行连接
+2. 客户端发起请求
+3. 服务端与客户端三次握手后`connfd`进行连接
+4. 服务端进程`fork`出子进程
+5. 服务端进程断开`connfd`连接
+6. 子进程断开客户端与`listenfd`连接
+7. 子进程处理客户端请求
+8. 四次挥手断开连接
 
 ![An image](../guide/image/fd.jpg)
 
@@ -27,35 +38,36 @@
 
 ```java
  public static void main(String[] args) throws Exception {
-        /**
-         * Alternatively, use explicit SPI provider:
-         * SelectorProvider p = SelectorProvider.provider();
-         * selector = p.openSelector();
-         * serverSocket = p.openServerSocketChannel();
-         */
+        // 创建一个channel管理器，从管理器中可以查找到当前准备好的事件
         Selector selector = Selector.open();
+        // 创建一个listenfd
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
+        // 设置阻塞为false
         serverSocketChannel.configureBlocking(false);
+        // 服务器绑定端口
         serverSocketChannel.bind(new InetSocketAddress(8888));
+        // 设置关注的事件，listenFd只负责接受链接，不负责处理数据，
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
         // 开启listenFd
-
         while (true) {
+            // 有时间发生
             while (selector.select() > 0) {
                 Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
                 while (iterator.hasNext()) {
-
+                    // 迭代器模式迭代出事件
                     SelectionKey selectionKey = iterator.next();
                     iterator.remove();
-
+                    // 如果是Accept，也就是需要创建connectionFd
                     if (selectionKey.isAcceptable()) {
                         // 创建connectionFd
                         SocketChannel accept = serverSocketChannel.accept();
+                        // 设置非阻塞
                         accept.configureBlocking(false);
+                        // 注册到管理器中
                         accept.register(selector, SelectionKey.OP_READ);
                     }
                     if (selectionKey.isReadable()) {
-                        // handler
+                        // 如果这里是可读的，也就是数据都准备好了，开始处理事件
                         SocketChannel read = (SocketChannel) selectionKey.channel();
                         read.configureBlocking(false);
                         ByteBuffer dst = ByteBuffer.allocate(1024);
@@ -78,7 +90,7 @@ selector = p.openSelector(); </br>
 serverSocket = p.openServerSocketChannel(); </br>
 :::
 
-让我们看 `selector`，在 `Doug lea` 的 pdf 中出现了上面提示这一段话是什么意思？其实不同系统中 `java new io` 调用的底层 `Nio` 实现不一样，所以使用了 `spi` 机制，具体如图所示:
+在 `Doug lea` 的 `ppt` 中出现了上面提示这一段话是什么意思？其实不同系统中 `java new io` 调用的底层 `Nio` 实现不一样，所以使用了 `spi` 机制，具体如图所示:
 
 ![An image](../guide/image/spi-mac.jpg)
 
@@ -86,7 +98,7 @@ serverSocket = p.openServerSocketChannel(); </br>
 
 ![An image](../guide/image/Kqueue.jpg)
 
-看上图，已经初始化了两个 fd ，并且包含 fdMap ，这里与计算机底层对齐了，关于不同系统提供的 `selector` 如下所示：
+看上图，已经初始化了两个`fd`，并且包含 `fdMap` ，这里与计算机底层理论知识对齐了，关于不同系统提供的 `Selector` 如下所示：
 
 | os    |        selector |
 | ----- | --------------: |
@@ -102,8 +114,7 @@ serverSocket = p.openServerSocketChannel(); </br>
 
 ![An image](../guide/image/socket-channel.jpg)
 
-从两张图中已经可以看出 `ServerSocketChannel` 负责连接，其中包含 `accept()` ， `SocketChannel` 负责处理， `read()，write()` 方法为核心。</br>
-在 `AbstractSelectableChannel` 模版设计模式中 `validOps()` 对关心事件进行验证。
+从两张图中已经可以看出 `ServerSocketChannel` 负责连接，其中包含 `accept()` ， `SocketChannel` 负责处理， `read()、write()` 方法为核心。在 `AbstractSelectableChannel` 模版设计模式中 `validOps()` 对关心事件进行验证。
 
 ```java
   public final SelectionKey register(Selector sel, int ops,
