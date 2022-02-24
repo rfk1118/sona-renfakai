@@ -67,6 +67,14 @@ module.exports = {
         path: "/introduction/about-me"
       },
       {
+        title: "项目设计",
+        collapsable: false,
+        children: [
+          // "/others/concurrent-desgin",
+          // "/others/language-select",
+        ],
+      },
+      {
         title: "Netty",
         collapsable: false,
         children: [{
