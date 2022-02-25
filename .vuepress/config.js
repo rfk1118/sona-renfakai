@@ -17,30 +17,34 @@ module.exports = {
     ]
   ],
   plugins: [
-    ['vuepress-plugin-container',
+    [
+      "vuepress-plugin-container",
       {
-        type: 'right',
-        defaultTitle: ''
+        type: "right",
+        defaultTitle: ""
       }
     ],
-    ['vuepress-plugin-container',
+    [
+      "vuepress-plugin-container",
       {
-        type: 'center',
-        defaultTitle: ''
+        type: "center",
+        defaultTitle: ""
       }
     ],
-    ['vuepress-plugin-container',
+    [
+      "vuepress-plugin-container",
       {
-        type: 'quote',
+        type: "quote",
         before: info => `<div class="quote"><p class="title">${info}</p>`,
-        after: '</div>'
-      },
+        after: "</div>"
+      }
     ],
-    ['vuepress-plugin-container',
+    [
+      "vuepress-plugin-container",
       {
-        type: 'not-print',
-        defaultTitle: ''
-      },
+        type: "not-print",
+        defaultTitle: ""
+      }
     ],
     [
       "vuepress-plugin-comment",
@@ -78,19 +82,19 @@ module.exports = {
     extendMarkdown: md => {
       // https://www.npmjs.com/
       // https://mermaid-js.github.io/mermaid/#/
-      md.use(require('markdown-it-mermaid').default);
-      md.use(require('markdown-it-sub'));
-      md.use(require('markdown-it-sup'));
-      md.use(require('markdown-it-abbr'));
-      md.use(require('markdown-it-ins'));
-      md.use(require('markdown-it-figure'));
-      md.use(require('markdown-it-smartarrows'));
-      md.use(require('markdown-it-fontawesome'));
+      // md.use(require('markdown-it-mermaid').default);
+      md.use(require("markdown-it-sub"));
+      md.use(require("markdown-it-sup"));
+      md.use(require("markdown-it-abbr"));
+      md.use(require("markdown-it-ins"));
+      md.use(require("markdown-it-figure"));
+      md.use(require("markdown-it-smartarrows"));
+      md.use(require("markdown-it-fontawesome"));
       md.use(require("markdown-it-katex"));
     }
   },
   title: "天道酬勤。",
-  description: "因果不可改、智慧不可赐、真法不可说、无缘不能渡！",
+  description: "天道酬勤",
   host: "localhost",
   port: 8080,
   dest: ".vuepress/dist",
@@ -100,226 +104,69 @@ module.exports = {
         path: "/introduction/about-me"
       },
       {
-        title: "项目设计",
-        collapsable: false,
-        path: "/others/",
-        children: [
-          "/others/",
-        ],
-      },
-      {
-        title: "Netty",
+        title: "中间件",
         collapsable: false,
         children: [{
-            title: "基础知识",
-            collapsable: false,
-            children: [
-              "/netty/guide/quick-start",
-              "/netty/guide/base-knowledge",
-              "/netty/guide/read-source"
-            ]
-          },
-          {
-            title: "Reactor",
-            collapsable: false,
-            children: ["/netty/reactor/single", "/netty/reactor/multiple"]
-          },
-          {
-            title: "EventLoop",
-            collapsable: false,
-            children: [
-              "/netty/nio/event-loop/nio-event-loop-group",
-              "/netty/nio/event-loop/nio-event-loop"
-            ]
-          },
-          {
-            title: "Selectors",
-            collapsable: false,
-            children: [
-              "/netty/nio/selectors/selector",
-              "/netty/nio/selectors/open-selector",
-              "/netty/nio/selectors/thread-factory",
-              "/netty/nio/selectors/chooser-factory"
-            ]
-          },
-          {
-            title: "Bootstrap",
-            collapsable: false,
-            children: ["/netty/nio/bootstrap/bootstrap"]
-          },
-          {
-            title: "Channel",
-            collapsable: false,
-            children: [
-              "/netty/nio/channels/channel",
-              "/netty/nio/channels/channel-init",
-              "/netty/nio/channels/channel-register",
-              "/netty/nio/channels/channel-handler",
-              "/netty/nio/channels/channel-bind",
-              "/netty/nio/channels/channel-unsafe",
-              "/netty/nio/channels/channel-pipeline"
-            ]
-          },
-          {
-            title: "Codec",
-            collapsable: false,
-            children: ["/netty/nio/codec/codec"]
-          }
-        ]
-      },
-      {
-        title: "多线程",
-        collapsable: false,
-        children: [{
-            title: "总结",
-            collapsable: false,
-            children: ["/thread/java/juc/read-me"]
-          },
-          {
-            title: "基础知识",
-            collapsable: false,
-            children: [
-              "/thread/java/juc/aos",
-              "/thread/java/juc/atomic",
-              "/thread/java/juc/aqs",
-              "/thread/java/juc/blocking",
-              "/thread/java/juc/clh",
-              "/thread/java/juc/condition",
-              "/thread/java/juc/future",
-              "/thread/java/juc/daemon"
-            ]
-          },
-          {
-            title: "应用",
-            collapsable: false,
-            children: [
-              "/thread/java/juc/thread-factory",
-              "/thread/java/juc/rejected-execution-handler",
-              "/thread/java/juc/work",
-              "/thread/java/juc/thread-pool-executor"
-            ]
-          }
-        ]
-      },
-      {
-        title: "Jvm",
-        collapsable: false,
-        children: [{
-            title: "内存布局",
-            collapsable: false,
-            children: [
-              "/jvm/layout/run-time-data-areas",
-              "/jvm/layout/pc-register",
-              "/jvm/layout/stacks",
-              "/jvm/layout/Frames",
-              "/jvm/layout/share-data"
-            ]
-          },
-          {
-            title: "垃圾回收器",
-            collapsable: false,
-            children: [
-              "/jvm/jvm-select",
-              "/jvm/SerialHeap",
-              "/jvm/safepoint",
-              "/jvm/jvm-select-use",
-            ]
-          },
-        ]
-      },
-      {
-        title: "算法",
-        collapsable: false,
-        children: [{
-            title: "排序",
-            collapsable: false,
-            children: [
-              "/algorithms/sort/sort",
-              "/algorithms/sort/bubble-sort",
-              "/algorithms/sort/select-sort",
-              "/algorithms/sort/insert-sort",
-              "/algorithms/sort/merge-sort",
-              "/algorithms/sort/quick-sort",
-              "/algorithms/other/Edsger-Dijkstra"
-            ]
-          },
-          {
-            title: "数据结构",
-            collapsable: false,
-            children: ["/algorithms/structure/union-find-structure"]
-          },
-          {
-            title: "Tree",
-            collapsable: false,
-            children: [
-              "/algorithms/tree/binary-tree-concept",
-              "/algorithms/tree/pre-order",
-              "/algorithms/tree/binary-tree-algs4",
-              "/algorithms/tree/balanced-search-trees",
-              // "/algorithms/tree/rb-binary-tree-concept",
-              "/algorithms/heap/heap"
-            ]
-          },
-          {
-            title: "图",
-            collapsable: false,
-            children: [
-              "/algorithms/graphs/read-source",
-              "/algorithms/graphs/graph-concept",
-              "/algorithms/graphs/directed-graph",
-              "/algorithms/graphs/graph-search",
-              "/algorithms/graphs/minimum-spanning-tree",
-              "/algorithms/graphs/shortest-path-algnorithms"
-            ]
-          },
-          {
-            title: "Bit",
-            collapsable: false,
-            children: ["/algorithms/bit/xor"]
-          },
-          {
-            title: "其他",
-            collapsable: false,
-            children: [
-              "/algorithms/other/binary-Search",
-              "/algorithms/other/Top-down"
-            ]
-          }
-        ]
-      },
-      {
-        title: "设计模式",
-        collapsable: false,
-        children: [{
-            title: "基础知识",
-            collapsable: false,
-            children: ["/design-pattern/read-source"]
-          },
-          {
-            title: "policy",
-            collapsable: false,
-            children: [
-              "/design-pattern/policy/spring-error-demo",
-              "/design-pattern/policy/spring-policy",
-              "/design-pattern/policy/spring-fly-weight"
-            ]
-          },
-          {
-            title: "interpreter",
-            collapsable: false,
-            children: ["/design-pattern/interpreter/interpreter-pattern"]
-          },
-          {
-            title: "decorator",
-            collapsable: false,
-            children: [
-              "/design-pattern/structure/decorator/concept",
-              "/design-pattern/structure/decorator/decorator-java",
-              "/design-pattern/structure/decorator/decorator-netty",
-              "/design-pattern/structure/decorator/decorator-hystrix"
-            ]
-          }
-        ]
+          title: "Netty",
+          collapsable: false,
+          path: "/middleware/netty/",
+          children: [{
+              title: "基础知识",
+              collapsable: false,
+              path: "/middleware/netty/guide/",
+              children: [
+                "/middleware/netty/guide/quick-start",
+                "/middleware/netty/guide/read-source"
+              ]
+            },
+            {
+              title: "Reactor",
+              collapsable: false,
+              children: ["/middleware/netty/reactor/single", "/middleware/netty/reactor/multiple"]
+            },
+            {
+              title: "EventLoop",
+              collapsable: false,
+              children: [
+                "/middleware/netty/nio/event-loop/nio-event-loop-group",
+                "/middleware/netty/nio/event-loop/nio-event-loop"
+              ]
+            },
+            {
+              title: "Selectors",
+              collapsable: false,
+              path: "/middleware/netty/nio/selectors/selector",
+              children: [
+                "/middleware/netty/nio/selectors/open-selector",
+                "/middleware/netty/nio/selectors/thread-factory",
+                "/middleware/netty/nio/selectors/chooser-factory"
+              ]
+            },
+            {
+              title: "Bootstrap",
+              collapsable: false,
+              path: "/middleware/netty/nio/bootstrap/bootstrap"
+            },
+            {
+              title: "Channel",
+              collapsable: false,
+              path: "/middleware/netty/nio/channels/channel",
+              children: [
+                "/middleware/netty/nio/channels/channel-init",
+                "/middleware/netty/nio/channels/channel-register",
+                "/middleware/netty/nio/channels/channel-handler",
+                "/middleware/netty/nio/channels/channel-bind",
+                "/middleware/netty/nio/channels/channel-unsafe",
+                "/middleware/netty/nio/channels/channel-pipeline"
+              ]
+            },
+            {
+              title: "Codec",
+              collapsable: false,
+              path: "/middleware/netty/nio/codec/codec"
+            }
+          ]
+        }]
       },
       {
         title: "编程语言",
@@ -327,29 +174,192 @@ module.exports = {
         children: [{
             title: "Java",
             collapsable: false,
-            children: [
-              "/languages/java/frequent-visits",
-              "/languages/java/auto-box",
-              "/languages/java/delay-queue",
-              "/languages/java/introduction-to-java-bytecode",
-              "/languages/java/heap-java"
+            children: [{
+                title: "虚拟机",
+                collapsable: false,
+                children: [{
+                    title: "内存布局",
+                    collapsable: false,
+                    path: "/languages/java/jvm/layout/run-time-data-areas",
+                    children: [
+                      "/languages/java/jvm/layout/pc-register",
+                      "/languages/java/jvm/layout/stacks",
+                      "/languages/java/jvm/layout/Frames",
+                      "/languages/java/jvm/layout/share-data"
+                    ]
+                  },
+                  {
+                    title: "垃圾回收器",
+                    collapsable: false,
+                    children: [
+                      "/languages/java/jvm/jvm-select",
+                      "/languages/java/jvm/SerialHeap",
+                      "/languages/java/jvm/safepoint",
+                      "/languages/java/jvm/jvm-select-use"
+                    ]
+                  }
+                ]
+              },
+              {
+                title: "多线程编程",
+                collapsable: false,
+                path: "/languages/java/thread/java/juc/read-me",
+                children: [{
+                    title: "基础知识",
+                    collapsable: false,
+                    children: [
+                      "/languages/java/thread/java/juc/aos",
+                      "/languages/java/thread/java/juc/atomic",
+                      "/languages/java/thread/java/juc/aqs",
+                      "/languages/java/thread/java/juc/blocking",
+                      "/languages/java/thread/java/juc/clh",
+                      "/languages/java/thread/java/juc/condition",
+                      "/languages/java/thread/java/juc/future",
+                      "/languages/java/thread/java/juc/daemon"
+                    ]
+                  },
+                  {
+                    title: "应用",
+                    collapsable: false,
+                    children: [
+                      "/languages/java/thread/java/juc/thread-factory",
+                      "/languages/java/thread/java/juc/rejected-execution-handler",
+                      "/languages/java/thread/java/juc/work",
+                      "/languages/java/thread/java/juc/thread-pool-executor"
+                    ]
+                  }
+                ]
+              },
+              {
+                title: "其他",
+                collapsable: false,
+                children: [
+                  "/languages/java/frequent-visits",
+                  "/languages/java/auto-box",
+                  "/languages/java/delay-queue",
+                  "/languages/java/introduction-to-java-bytecode",
+                  "/languages/java/heap-java"
+                ]
+              }
             ]
           },
           {
             title: "go",
             collapsable: false,
-            children: ["/languages/go/read-me", "/languages/go/heap-go"]
+            children: [
+              "/languages/go/read-me",
+              "/languages/go/heap-go"
+            ]
           }
         ]
       },
       {
-        title: "计算机网络",
+        title: "基本功",
         collapsable: false,
-        children: ["/tcp/tree-shake-hands", "/tcp/four-wave"]
-      }, {
-        title: "blog",
-        path: "/introduction/blog"
-      }
+        children: [{
+            title: "算法",
+            collapsable: false,
+            children: [{
+                title: "排序",
+                collapsable: false,
+                path: "/basic-skill/algorithms/sort/sort",
+                children: [
+                  "/basic-skill/algorithms/sort/bubble-sort",
+                  "/basic-skill/algorithms/sort/select-sort",
+                  "/basic-skill/algorithms/sort/insert-sort",
+                  "/basic-skill/algorithms/sort/merge-sort",
+                  "/basic-skill/algorithms/sort/quick-sort",
+                  "/basic-skill/algorithms/other/Edsger-Dijkstra"
+                ]
+              },
+              {
+                title: "数据结构",
+                collapsable: false,
+                children: ["/basic-skill/algorithms/structure/union-find-structure"]
+              },
+              {
+                title: "Tree",
+                collapsable: false,
+                path: "/basic-skill/algorithms/tree/binary-tree-concept",
+                children: [
+                  "/basic-skill/algorithms/tree/pre-order",
+                  "/basic-skill/algorithms/tree/binary-tree-algs4",
+                  "/basic-skill/algorithms/tree/balanced-search-trees",
+                  // "/algorithms/tree/rb-binary-tree-concept",
+                  "/basic-skill/algorithms/heap/heap"
+                ]
+              },
+              {
+                title: "图",
+                collapsable: false,
+                path: "/basic-skill/algorithms/graphs/graph-concept",
+                children: [
+                  "/basic-skill/algorithms/graphs/read-source",
+                  "/basic-skill/algorithms/graphs/directed-graph",
+                  "/basic-skill/algorithms/graphs/graph-search",
+                  "/basic-skill/algorithms/graphs/minimum-spanning-tree",
+                  "/basic-skill/algorithms/graphs/shortest-path-algnorithms"
+                ]
+              },
+              {
+                title: "Bit",
+                collapsable: false,
+                children: ["/basic-skill/algorithms/bit/xor"]
+              },
+              {
+                title: "其他",
+                collapsable: false,
+                children: [
+                  "/basic-skill/algorithms/other/binary-Search",
+                  "/basic-skill/algorithms/other/Top-down"
+                ]
+              }
+            ]
+          },
+          {
+            title: "设计模式",
+            collapsable: false,
+            path: "/basic-skill/design-pattern/read-source",
+            children: [{
+                title: "policy",
+                collapsable: false,
+                children: [
+                  "/basic-skill/design-pattern/policy/spring-error-demo",
+                  "/basic-skill/design-pattern/policy/spring-policy",
+                  "/basic-skill/design-pattern/policy/spring-fly-weight"
+                ]
+              },
+              {
+                title: "interpreter",
+                collapsable: false,
+                path: "/basic-skill/design-pattern/interpreter/interpreter-pattern"
+              },
+              {
+                title: "decorator",
+                collapsable: false,
+                path: "/basic-skill/design-pattern/structure/decorator/concept",
+                children: [
+                  "/basic-skill/design-pattern/structure/decorator/decorator-java",
+                  "/basic-skill/design-pattern/structure/decorator/decorator-netty",
+                  "/basic-skill/design-pattern/structure/decorator/decorator-hystrix"
+                ]
+              }
+            ]
+          },
+          {
+            title: "计算机网络",
+            collapsable: false,
+            children: [
+              "/basic-skill/network/tree-shake-hands",
+              "/basic-skill/network/four-wave"
+            ]
+          }
+        ]
+      },
+      // {
+      //   title: "其他",
+      //   path: "/introduction/blog"
+      // }
     ]
   }
 };

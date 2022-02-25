@@ -12,7 +12,7 @@
 
 网络编程主要关于如果与客户端进行连接和处理进行展开讲解。
 
-![An image](../guide/image/listenFdchannel.jpg)
+![An image](./images/listenFdchannel.jpg)
 基于进程编程主要是按照上图进行处理：
 
 1. 开启`listenfd`，等待客户端进行连接
@@ -24,7 +24,7 @@
 7. 子进程处理客户端请求
 8. 四次挥手断开连接
 
-![An image](../guide/image/fd.jpg)
+![An image](./images/fd.jpg)
 
 不同 I/O 抽象结果，其中 `open_listenfd` 由 `ServerSocket` 或 `ServerScoketChannel` 进行创建，数据的读写由 `Socket` 或 `SocketChannel` 进行处理。
 | I/O |                            Socket |
@@ -92,11 +92,11 @@ serverSocket = p.openServerSocketChannel(); </br>
 
 在 `Doug lea` 的 `ppt` 中出现了上面提示这一段话是什么意思？其实不同系统中 `java new io` 调用的底层 `Nio` 实现不一样，所以使用了 `spi` 机制，具体如图所示:
 
-![An image](../guide/image/spi-mac.jpg)
+![An image](./images/spi-mac.jpg)
 
 如图所示，可以看出 `SelectorProvider` 在 `java.nio.channel.spi` 下，并且注释为 `Returns the system-wide default selector provider for this invocation of the Java virtual machine.` ，也就是不同平台下虚拟机调用返回实现是不一样的。
 
-![An image](../guide/image/Kqueue.jpg)
+![An image](./images/Kqueue.jpg)
 
 看上图，已经初始化了两个`fd`，并且包含 `fdMap` ，这里与计算机底层理论知识对齐了，关于不同系统提供的 `Selector` 如下所示：
 
@@ -110,9 +110,9 @@ serverSocket = p.openServerSocketChannel(); </br>
 
 关于 `channel`，我们发现 `ServerSocketChannel` 和 `SocketChannel`两种，其底层可以认为是 `listenFd` 和 `connectionFd`。让我们来看看其功能有什么区别。
 
-![An image](../guide/image/ServerSocketChannel.jpg)
+![An image](./images/ServerSocketChannel.jpg)
 
-![An image](../guide/image/socket-channel.jpg)
+![An image](./images/socket-channel.jpg)
 
 从两张图中已经可以看出 `ServerSocketChannel` 负责连接，其中包含 `accept()` ， `SocketChannel` 负责处理， `read()、write()` 方法为核心。在 `AbstractSelectableChannel` 模版设计模式中 `validOps()` 对关心事件进行验证。
 
@@ -189,7 +189,7 @@ public class SelectionKeyImpl extends AbstractSelectionKey {
 
 我们对代码进行 `Debug` 一下，看下结果，从下图显示其是把 `Channel` 和 `Selector` 绑定到一块
 
-![An image](../guide/image/SelectKey.jpg)
+![An image](./images/SelectKey.jpg)
 
 ## 总结
 
@@ -197,7 +197,7 @@ Channels: Connections to files, sockets etc that support non-blocking reads
 
 通道：链接文件，网络套接字等支持非阻塞(其实也就是 fd，文件描述符)
 
-![An image](../guide/image/chanel_accept.jpg)
+![An image](./images/chanel_accept.jpg)
 
 Buffers: Array-like objects that can be directly read or written by Channels
 
@@ -207,10 +207,10 @@ Selectors: Tell which of a set of Channels have IO events
 
 选择器: 管理一系列的通道事件，主要是管理 `Channels` 的事件状态的，事件的状态使用状态机流转
 
-![An image](../guide/image/IOEvent.jpg)
+![An image](./images/IOEvent.jpg)
 
 SelectionKeys: Maintain IO event status and bindings
 
 选择器持：维持 IO 事件状态和绑定
 
-![An image](../guide/image/read_set.jpg)
+![An image](./images/read_set.jpg)
