@@ -104,7 +104,7 @@ module.exports = {
         collapsable: false,
         path: "/others/",
         children: [
-          "/others/concurrent-desgin",
+          "/others/",
         ],
       },
       {
