@@ -17,6 +17,31 @@ module.exports = {
     ]
   ],
   plugins: [
+    ['vuepress-plugin-container',
+      {
+        type: 'right',
+        defaultTitle: ''
+      }
+    ],
+    ['vuepress-plugin-container',
+      {
+        type: 'center',
+        defaultTitle: ''
+      }
+    ],
+    ['vuepress-plugin-container',
+      {
+        type: 'quote',
+        before: info => `<div class="quote"><p class="title">${info}</p>`,
+        after: '</div>'
+      },
+    ],
+    ['vuepress-plugin-container',
+      {
+        type: 'not-print',
+        defaultTitle: ''
+      },
+    ],
     [
       "vuepress-plugin-comment",
       {
@@ -53,6 +78,14 @@ module.exports = {
     extendMarkdown: md => {
       // https://www.npmjs.com/
       // https://mermaid-js.github.io/mermaid/#/
+      md.use(require('markdown-it-mermaid').default);
+      md.use(require('markdown-it-sub'));
+      md.use(require('markdown-it-sup'));
+      md.use(require('markdown-it-abbr'));
+      md.use(require('markdown-it-ins'));
+      md.use(require('markdown-it-figure'));
+      md.use(require('markdown-it-smartarrows'));
+      md.use(require('markdown-it-fontawesome'));
       md.use(require("markdown-it-katex"));
     }
   },
@@ -63,15 +96,15 @@ module.exports = {
   dest: ".vuepress/dist",
   themeConfig: {
     sidebar: [{
-        title: "作者",
+        title: "前言",
         path: "/introduction/about-me"
       },
       {
         title: "项目设计",
         collapsable: false,
+        path: "/others/",
         children: [
-          // "/others/concurrent-desgin",
-          // "/others/language-select",
+          "/others/concurrent-desgin",
         ],
       },
       {
@@ -313,9 +346,9 @@ module.exports = {
         title: "计算机网络",
         collapsable: false,
         children: ["/tcp/tree-shake-hands", "/tcp/four-wave"]
-      },{
+      }, {
         title: "blog",
-        path:"/introduction/blog"
+        path: "/introduction/blog"
       }
     ]
   }
