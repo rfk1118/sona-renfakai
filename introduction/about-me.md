@@ -122,8 +122,8 @@ SpringBoot、SpringMvc、Mybatis、Oracle 、Maven、Git
 
 * **开发语言：** 精通 Java、了解 Golang、汇编
 * **后端框架：** 精通 Spring、SpringMvc、Mybatis、SpringBoot、熟悉 SpringData、Struts2、Hibernate 了解 SpringCloud
-* **数据库：** 精通 Oracle、Mysql 熟悉 Redis
-* **中间件：** 熟悉 Netty、 Kafka  了解 Zookeeper、Tidb
+* **数据库：** 精通 Oracle、Mysql 熟悉 Redis 了解 Tidb
+* **中间件：** 熟悉 Netty、 Kafka 了解 Zookeeper
 * **服务器：** 熟悉 Jetty、Undertow、Tomcat
 * **构建工具：** 熟悉 Maven 了解 Ant
 * **项目管理工具：** 熟悉 Git

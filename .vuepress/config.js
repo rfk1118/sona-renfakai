@@ -106,6 +106,7 @@ module.exports = {
       {
         title: "中间件",
         collapsable: false,
+        path: "/middleware/",
         children: [{
           title: "Netty",
           collapsable: false,
