@@ -1,36 +1,47 @@
 # 基础知识
 
-::: tip 网络编程基础知识
+::: tip 网络编程知识
 推荐阅读[《深入理解计算机系统（原书第 3 版）》](https://book.douban.com/subject/26912767/)11～13章
 :::
 
-## 计算机 I/O
+## 计算机 IO
 
 `Linux Shell` 创建每个进程时都会打开三个文件：标准输入（ 描述符 0 )、标准输出（ 描述符 1 )和标准错误（ 描述符 2 )。
 
 ## 网络编程
 
-网络编程主要关于如果与客户端进行连接和处理进行展开讲解。
+网络编程主要关于服务端与客户端进行连接和处理进行展开讲解。
 
+::: center
 ![An image](./images/listenFdchannel.jpg)
+:::
 基于进程编程主要是按照上图进行处理：
 
-1. 开启`listenfd`，等待客户端进行连接
-2. 客户端发起请求
-3. 服务端与客户端三次握手后`connfd`进行连接
-4. 服务端进程`fork`出子进程
-5. 服务端进程断开`connfd`连接
+1. 服务器进程开启`listenfd`进行监听，等待客户端进行连接
+2. 客户端向服务器发起请求
+3. 服务器与客户端三次握手后，产生`connfd`进行连接
+4. 服务器进程`fork`出子进程
+5. 服务器进程断开`connfd`连接
 6. 子进程断开客户端与`listenfd`连接
 7. 子进程处理客户端请求
 8. 四次挥手断开连接
 
+::: center
 ![An image](./images/fd.jpg)
+:::
 
-不同 I/O 抽象结果，其中 `open_listenfd` 由 `ServerSocket` 或 `ServerScoketChannel` 进行创建，数据的读写由 `Socket` 或 `SocketChannel` 进行处理。
+### IO抽象
+
+不同IO抽象结果，其中 `open_listenfd` 由 `ServerSocket`或`ServerScoketChannel` 进行创建，数据的读写由 `Socket`或`SocketChannel` 进行处理。
+
 | I/O |                            Socket |
 | --- | --------------------------------: |
 | BIO |               ServerSocket/Socket |
 | NIO | ServerScoketChannel/SocketChannel |
+
+::: tip AIO
+AIO异步非阻塞的IO，在Linux和类unix系统上支持不太好，Win支持比较好，但是服务器一般部署到Linux，所以后续不在进行讲解。
+:::
 
 ## Netty 底层
 
@@ -50,11 +61,11 @@
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
         // 开启listenFd
         while (true) {
-            // 有时间发生
+            // 有事件发生
             while (selector.select() > 0) {
                 Iterator<SelectionKey> iterator = selector.selectedKeys().iterator();
                 while (iterator.hasNext()) {
-                    // 迭代器模式迭代出事件
+                    // 迭代器模式迭代事件
                     SelectionKey selectionKey = iterator.next();
                     iterator.remove();
                     // 如果是Accept，也就是需要创建connectionFd
@@ -92,11 +103,15 @@ serverSocket = p.openServerSocketChannel(); </br>
 
 在 `Doug lea` 的 `ppt` 中出现了上面提示这一段话是什么意思？其实不同系统中 `java new io` 调用的底层 `Nio` 实现不一样，所以使用了 `spi` 机制，具体如图所示:
 
+::: center
 ![An image](./images/spi-mac.jpg)
+:::
 
 如图所示，可以看出 `SelectorProvider` 在 `java.nio.channel.spi` 下，并且注释为 `Returns the system-wide default selector provider for this invocation of the Java virtual machine.` ，也就是不同平台下虚拟机调用返回实现是不一样的。
 
+::: center
 ![An image](./images/Kqueue.jpg)
+:::
 
 看上图，已经初始化了两个`fd`，并且包含 `fdMap` ，这里与计算机底层理论知识对齐了，关于不同系统提供的 `Selector` 如下所示：
 
@@ -110,9 +125,10 @@ serverSocket = p.openServerSocketChannel(); </br>
 
 关于 `channel`，我们发现 `ServerSocketChannel` 和 `SocketChannel`两种，其底层可以认为是 `listenFd` 和 `connectionFd`。让我们来看看其功能有什么区别。
 
+::: center
 ![An image](./images/ServerSocketChannel.jpg)
-
 ![An image](./images/socket-channel.jpg)
+:::
 
 从两张图中已经可以看出 `ServerSocketChannel` 负责连接，其中包含 `accept()` ， `SocketChannel` 负责处理， `read()、write()` 方法为核心。在 `AbstractSelectableChannel` 模版设计模式中 `validOps()` 对关心事件进行验证。
 
@@ -189,7 +205,9 @@ public class SelectionKeyImpl extends AbstractSelectionKey {
 
 我们对代码进行 `Debug` 一下，看下结果，从下图显示其是把 `Channel` 和 `Selector` 绑定到一块
 
+::: center
 ![An image](./images/SelectKey.jpg)
+:::
 
 ## 总结
 

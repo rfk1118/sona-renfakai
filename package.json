@@ -21,18 +21,19 @@
   "license": "ISC",
   "devDependencies": {
     "@vuepress/plugin-back-to-top": "^1.8.2",
-    "markdown-it-katex": "^2.0.3",
-    "vuepress": "^1.8.2",
-    "vuepress-plugin-comment": "^0.7.3",
-    "vuepress-plugin-mermaidjs": "^1.8.1",
+    "@vuepress/plugin-google-analytics": "^1.9.7",
     "markdown-it-abbr": "^1.0.4",
     "markdown-it-figure": "^0.2.0",
     "markdown-it-ins": "^3.0.0",
+    "markdown-it-katex": "^2.0.3",
     "markdown-it-smartarrows": "^1.0.1",
     "markdown-it-sub": "^1.0.0",
     "markdown-it-sup": "^1.0.0",
     "moment": "^2.24.0",
-    "puppeteer": "^1.11.0"
+    "puppeteer": "^1.11.0",
+    "vuepress": "^1.8.2",
+    "vuepress-plugin-comment": "^0.7.3",
+    "vuepress-plugin-mermaidjs": "^1.8.1"
   },
   "dependencies": {
     "markdown-it-fontawesome": "^0.3.0"
