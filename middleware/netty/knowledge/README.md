@@ -20,6 +20,7 @@ sequenceDiagram
   服务器进程->>客户端: connfd进行连接
   服务器进程->>+服务器子进程: fork子进程
   服务器进程->>+服务器进程: 断开connfd连接
+  服务器进程->>+服务器进程: 继续监听
   服务器子进程->>+服务器子进程: 断开listenfd
   服务器子进程->>+客户端: 处理任务，传输结果
   服务器子进程->>+客户端: 四次挥手
@@ -33,15 +34,15 @@ sequenceDiagram
 
 ### IO抽象
 
-不同IO抽象结果，其中 `open_listenfd` 由 `ServerSocket`或`ServerScoketChannel` 进行创建，数据的读写由 `Socket`或`SocketChannel` 进行处理。
+IO包含BIO、NIO、AIO，在不同IO中 `open_listenfd`和`connfd`表现形式也不一样。
 
-| I/O |                            Socket |
-| --- | --------------------------------: |
-| BIO |               ServerSocket/Socket |
-| NIO | ServerScoketChannel/SocketChannel |
+| IO  | listenfd            |        connfd |
+| --- | ------------------- | ------------: |
+| BIO | ServerSocket        |        Socket |
+| NIO | ServerScoketChannel | SocketChannel |
 
 ::: tip AIO
-AIO异步非阻塞的IO，在Linux和类unix系统上支持不太好，Win支持比较好，但是服务器一般部署到Linux，所以后续不在进行讲解。
+AIO异步非阻塞的IO，在Linux和类Unix系统上支持不太好，Win支持比较好，但是服务器一般部署到Linux，所以后续不在进行讲解。
 :::
 
 ## Netty 底层
@@ -52,13 +53,14 @@ AIO异步非阻塞的IO，在Linux和类unix系统上支持不太好，Win支持
  public static void main(String[] args) throws Exception {
         // 创建一个channel管理器，从管理器中可以查找到当前准备好的事件
         Selector selector = Selector.open();
-        // 创建一个listenfd
+        // 创建一个listenfd，也就是Accept
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
         // 设置阻塞为false
         serverSocketChannel.configureBlocking(false);
         // 服务器绑定端口
         serverSocketChannel.bind(new InetSocketAddress(8888));
-        // 设置关注的事件，listenFd只负责接受链接，不负责处理数据，
+        // 设置关注的事件，Accept只负责接受连接，不负责处理数据
+        // 因为acceptor为cpu密集型，性能在网络
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
         // 开启listenFd
         while (true) {
@@ -69,7 +71,7 @@ AIO异步非阻塞的IO，在Linux和类unix系统上支持不太好，Win支持
                     // 迭代器模式迭代事件
                     SelectionKey selectionKey = iterator.next();
                     iterator.remove();
-                    // 如果是Accept，也就是需要创建connectionFd
+                    // 如果是Accept，也就是需要创建connectionFd（handler)
                     if (selectionKey.isAcceptable()) {
                         // 创建connectionFd
                         SocketChannel accept = serverSocketChannel.accept();
@@ -131,7 +133,7 @@ serverSocket = p.openServerSocketChannel(); </br>
 ![An image](./images/socket-channel.jpg)
 :::
 
-从两张图中已经可以看出 `ServerSocketChannel` 负责连接，其中包含 `accept()` ， `SocketChannel` 负责处理， `read()、write()` 方法为核心。在 `AbstractSelectableChannel` 模版设计模式中 `validOps()` 对关心事件进行验证。
+从两张图中进行对比可以看出 `ServerSocketChannel` 负责连接包含 `accept()` ， `SocketChannel` 负责处理包含`read()、write()` 方法为核心。在 `AbstractSelectableChannel` 模版设计模式中 `validOps()` 对关心事件进行验证。
 
 ```java
   public final SelectionKey register(Selector sel, int ops,
@@ -153,7 +155,6 @@ serverSocket = p.openServerSocketChannel(); </br>
                 k.attach(att);
             }
             if (k == null) {
-                // New registration
                 synchronized (keyLock) {
                     if (!isOpen())
                         throw new ClosedChannelException();
@@ -184,7 +185,7 @@ public final int validOps() {
 }
 ```
 
-这里做下总结， `ServerSocketChannel` 只负责链接， `SocketChannel` 负责处理数据，`server`和`client` 处理数据使用的都是 `SocketChannel` 。
+做下总结， `ServerSocketChannel` 只负责连接， `SocketChannel` 负责处理数据，`server`和`client` 处理数据使用的都是 `SocketChannel` 。
 | SelectionKey        | OP_ACCEPT | OP_WRITE | OP_WRITE | OP_CONNECT |
 | ------------------- | --------: | -------: | -------: | ---------: |
 | ServerSocketChannel |         O |        N |        N |          N |
@@ -192,7 +193,7 @@ public final int validOps() {
 
 ### SelectionKey
 
-`SelectionKey` 里面包含了什么属性呢?
+`SelectionKey` 包含了什么属性呢?
 
 ```java
 public class SelectionKeyImpl extends AbstractSelectionKey {
@@ -204,7 +205,7 @@ public class SelectionKeyImpl extends AbstractSelectionKey {
 }
 ```
 
-我们对代码进行 `Debug` 一下，看下结果，从下图显示其是把 `Channel` 和 `Selector` 绑定到一块
+对代码进行 `Debug` 一下，看下结果，从下图显示其是把 `Channel` 和 `Selector` 绑定到一块。
 
 ::: center
 ![An image](./images/SelectKey.jpg)
@@ -212,24 +213,20 @@ public class SelectionKeyImpl extends AbstractSelectionKey {
 
 ## 总结
 
-Channels: Connections to files, sockets etc that support non-blocking reads
-
-通道：链接文件，网络套接字等支持非阻塞(其实也就是 fd，文件描述符)
-
+<!-- Channels: Connections to files, sockets etc that support non-blocking reads -->
+* **通道：** 链接文件，网络套接字等支持非阻塞(其实也就是 fd，文件描述符)；
+::: center
 ![An image](./images/chanel_accept.jpg)
-
-Buffers: Array-like objects that can be directly read or written by Channels
-
-缓冲区：对于通道的直接读和写，像数组一样的对象
-
-Selectors: Tell which of a set of Channels have IO events
-
-选择器: 管理一系列的通道事件，主要是管理 `Channels` 的事件状态的，事件的状态使用状态机流转
-
+:::
+<!-- Selectors: Tell which of a set of Channels have IO events -->
+* **选择器（管理器）:** 管理一系列的通道事件，主要是管理 `Channels` 的事件状态的，事件状态使用状态机流转；
+::: center
 ![An image](./images/IOEvent.jpg)
-
-SelectionKeys: Maintain IO event status and bindings
-
-选择器持：维持 IO 事件状态和绑定
-
+:::
+<!-- SelectionKeys: Maintain IO event status and bindings -->
+* **数据绑定器（SelectionKeys）：** 维持 IO 事件状态和绑定；
+::: center
 ![An image](./images/read_set.jpg)
+:::
+<!-- Buffers: Array-like objects that can be directly read or written by Channels -->
+* **缓冲区：** 对于通道的直接读和写，像数组一样的对象。

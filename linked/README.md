@@ -1,4 +1,4 @@
-# 常用地址
+# 资源归档
 
 ## Java
 
@@ -11,5 +11,3 @@
 
 * [Standard library api](https://pkg.go.dev/std)
 * [effective_go](https://go.dev/doc/effective_go)
-
-
