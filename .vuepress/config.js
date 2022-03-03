@@ -55,8 +55,6 @@ module.exports = {
     [
       "vuepress-plugin-comment",
       {
-        // https://www.npmjs.com/package/vuepress-plugin-comment
-        // https://www.cnblogs.com/quanxiaoha/p/10925401.html
         choosen: "gitalk",
         options: {
           clientID: "c4994329985f8361e330",
@@ -73,8 +71,7 @@ module.exports = {
         }
       }
     ],
-    ["@vuepress/back-to-top"],
-    ["@vuepress/medium-zoom"],
+    ["@vuepress/back-to-top"]
   ],
   markdown: {
     anchor: {
@@ -84,13 +81,14 @@ module.exports = {
       includeLevel: [1, 2]
     },
     extendMarkdown: md => {
-      md.use(require("markdown-it-sub"));
-      md.use(require("markdown-it-sup"));
-      md.use(require("markdown-it-abbr"));
-      md.use(require("markdown-it-ins"));
-      md.use(require("markdown-it-figure"));
-      md.use(require("markdown-it-smartarrows"));
-      md.use(require("markdown-it-fontawesome"));
+      md.use(require('markdown-it-mermaid').default);
+      md.use(require('markdown-it-sub'));
+      md.use(require('markdown-it-sup'));
+      md.use(require('markdown-it-abbr'));
+      md.use(require('markdown-it-ins'));
+      md.use(require('markdown-it-figure'));
+      md.use(require('markdown-it-smartarrows'));
+      md.use(require('markdown-it-fontawesome'));
       md.use(require("markdown-it-katex"));
     }
   },
@@ -355,10 +353,10 @@ module.exports = {
             ]
           }
         ]
-      },{
-        title:"常用网站",
-         collapsable: false,
-         path:"/linked/"
+      }, {
+        title: "常用网站",
+        collapsable: false,
+        path: "/linked/"
       }
     ]
   }
