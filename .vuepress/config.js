@@ -317,7 +317,7 @@ module.exports = {
           {
             title: "设计模式",
             collapsable: false,
-            path: "/basic-skill/design-pattern/read-source",
+            path: "/basic-skill/design-pattern/",
             children: [{
                 title: "policy",
                 collapsable: false,
