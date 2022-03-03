@@ -47,6 +47,12 @@ module.exports = {
       }
     ],
     [
+      '@vuepress/google-analytics',
+      {
+        'ga': 'G-VH6MYRZC4Z'
+      }
+    ],
+    [
       "vuepress-plugin-comment",
       {
         // https://www.npmjs.com/package/vuepress-plugin-comment
