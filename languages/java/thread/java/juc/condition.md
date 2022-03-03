@@ -144,12 +144,12 @@ class BoundedBuffer<E> {
 
 ## awit
 
-```mermaid
+<mermaid style="margin-bottom: 0px">
 graph LR
     A[创建condition node] --> B[释放锁]
     B --> C[如果处在锁队列阻塞]
     C --> D[重新获取锁]
-```
+</mermaid>
 
 核心概念如下：
 

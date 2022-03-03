@@ -75,8 +75,6 @@ module.exports = {
     ],
     ["@vuepress/back-to-top"],
     ["@vuepress/medium-zoom"],
-    // https://github.com/eFrane/vuepress-plugin-mermaidjs
-    ["vuepress-plugin-mermaidjs"]
   ],
   markdown: {
     anchor: {
@@ -86,9 +84,6 @@ module.exports = {
       includeLevel: [1, 2]
     },
     extendMarkdown: md => {
-      // https://www.npmjs.com/
-      // https://mermaid-js.github.io/mermaid/#/
-      // md.use(require('markdown-it-mermaid').default);
       md.use(require("markdown-it-sub"));
       md.use(require("markdown-it-sup"));
       md.use(require("markdown-it-abbr"));
@@ -241,7 +236,6 @@ module.exports = {
                 title: "其他",
                 collapsable: false,
                 children: [
-                  "/languages/java/frequent-visits",
                   "/languages/java/auto-box",
                   "/languages/java/delay-queue",
                   "/languages/java/introduction-to-java-bytecode",
@@ -254,7 +248,6 @@ module.exports = {
             title: "go",
             collapsable: false,
             children: [
-              "/languages/go/read-me",
               "/languages/go/heap-go"
             ]
           }
@@ -299,9 +292,9 @@ module.exports = {
               {
                 title: "图",
                 collapsable: false,
-                path: "/basic-skill/algorithms/graphs/graph-concept",
+                path: "/basic-skill/algorithms/graphs/",
                 children: [
-                  "/basic-skill/algorithms/graphs/read-source",
+                  "/basic-skill/algorithms/graphs/graph-concept",
                   "/basic-skill/algorithms/graphs/directed-graph",
                   "/basic-skill/algorithms/graphs/graph-search",
                   "/basic-skill/algorithms/graphs/minimum-spanning-tree",
@@ -362,11 +355,11 @@ module.exports = {
             ]
           }
         ]
-      },
-      // {
-      //   title: "其他",
-      //   path: "/introduction/blog"
-      // }
+      },{
+        title:"常用网站",
+         collapsable: false,
+         path:"/linked/"
+      }
     ]
   }
 };

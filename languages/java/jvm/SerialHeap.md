@@ -154,7 +154,7 @@ void SerialHeap::initialize_serviceability() {
                                                    "Survivor Space",
                                                    young->max_survivor_size(),
                                                    false /* support_usage_threshold */);
-  // 老年代收集                                                 
+  // 老年代收集
   TenuredGeneration* old = old_gen();
   _old_pool = new GenerationPool(old, "Tenured Gen", true);
 
@@ -243,7 +243,7 @@ void VMThread::inner_execute(VM_Operation* op) {
   _cur_vm_operation = op;
 
   HandleMark hm(VMThread::vm_thread());
- 
+
   bool end_safepoint = false;
   bool has_timeout_task = (_timeout_task != nullptr);
   if (_cur_vm_operation->evaluate_at_safepoint() &&
@@ -535,7 +535,7 @@ void DefNewGeneration::collect(bool   full,
     AdaptiveSizePolicy* size_policy = heap->size_policy();
     size_policy->reset_gc_overhead_limit_count();
   } else {
-    _promo_failure_scan_stack.clear(true); 
+    _promo_failure_scan_stack.clear(true);
     remove_forwarding_pointers();
     swap_spaces();   // For uniformity wrt ParNewGeneration.
     from()->set_next_compaction_space(to());
@@ -582,13 +582,13 @@ void TenuredGeneration::collect(bool   full,
 
 `GenMarkSweep::invoke_at_safepoint`可以看到其使用方式为标记整理，核心流程为:
 
-```mermaid
+<mermaid style="margin-bottom: 0px">
 graph LR
     A[生成临时数据栈] --> B[标记活动对象]
     B --> C[计算新地址]
     C --> D[更新指针]
     D --> E[将对象移动到新位置]
-```
+</mermaid>
 
 ```c
 void GenMarkSweep::invoke_at_safepoint(ReferenceProcessor* rp, bool clear_all_softrefs) {

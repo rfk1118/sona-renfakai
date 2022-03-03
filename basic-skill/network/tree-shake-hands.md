@@ -1,6 +1,6 @@
 # 三次握手
 
-三次握手是客户端和服务端建立 TCP 连接的前置动作，很重要，本次使用 Wireshark 查看数据包进行分解查看。
+三次握手是客户端与服务端建立 TCP 连接的前置动作，本文使用 [Wireshark](https://www.wireshark.org/) 抓取数据包进行分解查看。
 
 ## 实战
 
@@ -9,7 +9,8 @@
 图来自于《TCP IP 协议详解卷一：协议》
 :::
 
-使用[代码](https://github.com/sona0402/netty/blob/master/src/main/java/channelhandlers/TcpDnsClient.java)进行 DNS 查询，并使用`WireShark`进行抓包，抓包使用 filter 进行过滤，过滤条件为`tcp.port == 53`，过滤后的结果如下图所示:
+使用[代码](https://github.com/sona0402/netty/blob/master/src/main/java/channelhandlers/TcpDnsClient.java)进行 DNS
+查询，并使用`WireShark`进行抓包，抓包使用 `filter` 进行过滤，过滤条件为`tcp.port == 53`，过滤后的结果如下图所示:
 
 :::center
 ![An image](./image/wireshark-nds-query.jpg)
@@ -21,7 +22,7 @@
 
 TCP 头部有 6 个标记
 
-- URG The urgent pointer is valid  紧急指针
+- URG The urgent pointer is valid 紧急指针
 - ACK The acknowledgment number is valid 确认序列号
 - PSH The receiver should pass this data to the application as soon as possible 不需要放到连接的缓存，直接上报给应用
 - RST Reset the connection 重制链接
