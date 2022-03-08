@@ -100,7 +100,7 @@ module.exports = {
   themeConfig: {
     sidebar: [{
         title: "前言",
-        path: "/introduction/about-me"
+        path: "/introduction/"
       },
       {
         title: "中间件",
@@ -113,10 +113,11 @@ module.exports = {
           children: [{
               title: "基础知识",
               collapsable: false,
-              path: "/middleware/netty/guide/",
+              path: "/middleware/netty/knowledge/",
               children: [
-                "/middleware/netty/guide/quick-start",
-                "/middleware/netty/guide/read-source"
+                "/middleware/netty/knowledge/reference",
+                "/middleware/netty/knowledge/read-source",
+                "/middleware/netty/knowledge/quick-start"
               ]
             },
             {
