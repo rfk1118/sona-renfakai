@@ -30,10 +30,6 @@ b = a ^ b = a ^ b  ^ b = a ^ 0 = a
 a = a ^ b = a ^ b ^ a = a ^ a ^ b = 0 ^ b = b
 ```
 
-::: tip 提示
-本篇文章内容参考左程云视频，编写仅为复习使用，使用[《认知天性》](https://book.douban.com/subject/30353486/)方式学习
-:::
-
 ## 实战
 
 [136. 只出现一次的数字](https://leetcode-cn.com/problems/single-number/)给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
@@ -49,10 +45,6 @@ a = a ^ b = a ^ b ^ a = a ^ a ^ b = 0 ^ b = b
 输入: [4,1,2,1,2]
 输出: 4
 ```
-
-* 来源：力扣（LeetCode）
-* [链接](https://leetcode-cn.com/problems/single-number)：<https://leetcode-cn.com/problems/single-number>
-* 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 
 1. 其实上面的题可以把出现一次变成出现奇数次，其他都是偶数
 

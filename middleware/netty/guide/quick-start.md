@@ -27,10 +27,6 @@
   2. 时间精力不多的话，读完《深入理解计算机系统（原书第 3 版）》可以了
 * [Netty 源码剖析与实战](https://time.geekbang.org/course/intro/100036701)
   1. `Netty` 主干线和源码进行解析
-* [尚硅谷 Netty 教程（B 站最火，人气最高，好评如潮）](https://www.bilibili.com/video/BV1DJ411m7NR?from=search&seid=8064428655909716216)
-  1. 整体设计和源码进行解析
-* [淦！真的有大佬能把 Netty 底层源码讲的这么清楚~~从前置知识：NIO/EPOILL 一直学到 Netty](https://www.bilibili.com/video/BV1SK4y1K7a3?from=search&seid=8064428655909716216)
-  1. 使用 `Strace` 命令对底层 IO 进行追踪，对《UNIX 环境高级编程》和《UNIX 网络编程卷 1：套接字联网 API（第 3 版)》中的 `bind()、listen()、accept()` 函数进行追踪，知识串起来。
 * [Netty 源码](https://github.com/netty/netty)
 
 ## 多线程

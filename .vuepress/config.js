@@ -257,6 +257,7 @@ module.exports = {
         children: [{
             title: "算法",
             collapsable: false,
+            path: "/basic-skill/algorithms",
             children: [{
                 title: "排序",
                 collapsable: false,
@@ -300,16 +301,13 @@ module.exports = {
                 ]
               },
               {
-                title: "Bit",
-                collapsable: false,
-                children: ["/basic-skill/algorithms/bit/xor"]
-              },
-              {
                 title: "其他",
                 collapsable: false,
                 children: [
                   "/basic-skill/algorithms/other/binary-Search",
-                  "/basic-skill/algorithms/other/Top-down"
+                  "/basic-skill/algorithms/other/Top-down",
+                  "/basic-skill/algorithms/other/swap-or-exchange",
+                  "/basic-skill/algorithms/other/xor"
                 ]
               }
             ]
