@@ -285,7 +285,6 @@ module.exports = {
                   "/basic-skill/algorithms/tree/pre-order",
                   "/basic-skill/algorithms/tree/binary-tree-algs4",
                   "/basic-skill/algorithms/tree/balanced-search-trees",
-                  // "/algorithms/tree/rb-binary-tree-concept",
                   "/basic-skill/algorithms/heap/heap"
                 ]
               },
@@ -342,6 +341,24 @@ module.exports = {
                 ]
               }
             ]
+          }, {
+            title: "框架",
+            collapsable: false,
+            path: "/framework/",
+            children: [{
+              title: "Spring",
+              collapsable: false,
+              path: "/framework/spring/",
+              children: [{
+                title: "DI",
+                collapsable: false,
+                path: "/framework/spring/DI/",
+                children:[
+                  // "/framework/spring/DI/di",
+                  // "/framework/spring/DI/initialize-bean"
+                ]
+              }]
+            }]
           },
           {
             title: "计算机网络",
