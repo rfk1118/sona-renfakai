@@ -349,15 +349,11 @@ module.exports = {
               title: "Spring",
               collapsable: false,
               path: "/framework/spring/",
-              children: [{
-                title: "DI",
-                collapsable: false,
-                path: "/framework/spring/DI/",
-                children:[
-                  // "/framework/spring/DI/di",
-                  // "/framework/spring/DI/initialize-bean"
-                ]
-              }]
+              children: [
+                "/framework/spring/di-concept",
+                "/framework/spring/di",
+                "/framework/spring/initialize-bean"
+              ]
             }]
           },
           {
