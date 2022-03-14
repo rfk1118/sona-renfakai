@@ -30,6 +30,7 @@ sequenceDiagram
 
 ::: center
 ![An image](./images/fd.jpg)
+图来自《深入理解计算机系统（原书第 3 版）》
 :::
 
 ### IO抽象
@@ -129,8 +130,12 @@ serverSocket = p.openServerSocketChannel(); </br>
 关于 `channel`，我们发现 `ServerSocketChannel` 和 `SocketChannel`两种，其底层可以认为是 `listenFd` 和 `connectionFd`。让我们来看看其功能有什么区别。
 
 ::: center
-![An image](./images/ServerSocketChannel.jpg)
-![An image](./images/socket-channel.jpg)
+![An image](./images/serversocketchannel.png)
+核心内容在于bind和accept
+:::
+::: center
+![An image](./images/sockchannel.png)
+核心内容在于read和write
 :::
 
 从两张图中进行对比可以看出 `ServerSocketChannel` 负责连接包含 `accept()` ， `SocketChannel` 负责处理包含`read()、write()` 方法为核心。在 `AbstractSelectableChannel` 模版设计模式中 `validOps()` 对关心事件进行验证。
