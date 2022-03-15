@@ -1,32 +1,23 @@
 # 归并排序
 
-## 源码
+`Arrays#sort` 包含三种常见排序，双轴快排，归并排序，插入排序，“归并排序”是分治思想，涉及到两项操作：拆分、合并。
 
-在 `Arrays#sort` 中包含三种常见排序，双轴快排，归并排序，插入排序
-
-* 因为基本类型排序可以忽略稳定性，可以使用双轴快排
-* 归并排序可以保证排序的稳定性，所以对非基本类型比较好
-* 插入排序在小空间排序性能特别好
+* 基本类型排序可以忽略稳定性，可以使用双轴快排；
+* 归并排序可以保证排序的稳定性，对非基本类型比较好；
+* 插入排序在小空间排序性能特别好。
 
 ## 优势
 
-1. 一个数据类型包含`age,class`两个字段，先按照`age`进行排序，然后在按照`class`进行排序，
-   如果使用稳定性算法进行排序，结果是班级相同的在一起，并且按照年龄大小排序
-2. `Arrays#sort`基本类型的排序，因为不包含状态，所以使用快排就挺好
-
-::: tip 提示
-推荐左程云视频
-:::
+1. 数据包含`age，class`字段，先按照`age`进行排序，在按照`class`进行排序，
+   如果使用稳定性算法进行排序，结果是班级相同的在一起，并且按照年龄大小排序；
+2. `Arrays#sort`基本类型的排序，因为不包含状态，所以使用快排就挺好。
 
 ## 代码
 
-### 自顶而下归并排序
-
-* Java版本
+### 自顶而下
 
 ```java
-
- private static final int INSERTIONSORT_THRESHOLD = 7;
+  private static final int INSERTIONSORT_THRESHOLD = 7;
 
   private static void legacyMergeSort(Object[] a,
                                         int fromIndex, int toIndex) {
@@ -42,8 +33,7 @@
                                 int high,
                                 int off) {
       int length = high - low;
-      // 如果排序的数据特别小使用插入排序
-      // Insertion sort on smallest arrays
+      // 排序数据特别小使用插入排序
       if (length < INSERTIONSORT_THRESHOLD) {
           for (int i=low; i<high; i++)
               for (int j=i; j>low &&
@@ -51,23 +41,19 @@
                   swap(dest, j, j-1);
           return;
       }
-
-      // Recursively sort halves of dest into src
       int destLow  = low;
       int destHigh = high;
       low  += off;
       high += off;
       int mid = (low + high) >>> 1;
+      // 递归调用
       mergeSort(dest, src, low, mid, -off);
       mergeSort(dest, src, mid, high, -off);
-
-      // 这里是优化
-      // 我们可以添加一个判断条件，如果a[mid]小于等于a[mid+1]，我们就认为数组已经是有序的并跳过merge()方法。这个改动不影响排序的递归调用，但是任意有序的子数组算法的运行时间就变为线性的了
+      // 这里是优化 我们可以添加一个判断条件，如果a[mid]小于等于a[mid+1]，我们就认为数组已经是有序的并跳过merge()方法。这个改动不影响排序的递归调用，但是任意有序的子数组算法的运行时间就变为线性的了
       if (((Comparable)src[mid-1]).compareTo(src[mid]) <= 0) {
           System.arraycopy(src, low, dest, destLow, length);
           return;
       }
-
       // copy辅助数组到原数组
       for(int i = destLow, p = low, q = mid; i < destHigh; i++) {
           if (q >= high || p < mid && ((Comparable)src[p]).compareTo(src[q])<=0)
@@ -95,11 +81,11 @@ func mergeTopDownSort(nums []int, aux []int, low, high int) {
   }
   // 查找中点
   mid := low + (high-low)/2
-  // 左边进行归并排序
+  // 左边进行切割
   mergeTopDownSort(nums, aux, low, mid)
-  // 右边进行归并排序
+  // 右边进行切割
   mergeTopDownSort(nums, aux, mid+1, high)
-  // 数据合并
+  // 合并s
   mergeTopDown(nums, aux, low, mid, high)
 }
 
@@ -108,7 +94,6 @@ func mergeTopDown(nums []int, aux []int, low, mid, high int) {
   for i := low; i <= high; i++ {
     aux[i] = nums[i]
   }
-
   // 设置最低的index
   lowIndex := low
   // 设置高index
@@ -135,9 +120,7 @@ func mergeTopDown(nums []int, aux []int, low, mid, high int) {
 }
 ```
 
-### 自底而上的归并排序
-
-* Go版本
+### 自底而上
 
 ```Go
 func mergeDownTopSort(num []int) {
@@ -159,7 +142,7 @@ func mergeDownTopSort(num []int) {
 }
 ```
 
-### 总结
+## 总结
 
 * 时间复杂度O(NlogN)
 * 稳定排序

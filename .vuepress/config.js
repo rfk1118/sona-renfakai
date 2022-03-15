@@ -251,8 +251,7 @@ module.exports = {
             ]
           }
         ]
-      },
-      {
+      }, {
         title: "基本功",
         collapsable: false,
         children: [{
@@ -269,7 +268,6 @@ module.exports = {
                   "/basic-skill/algorithms/sort/insert-sort",
                   "/basic-skill/algorithms/sort/merge-sort",
                   "/basic-skill/algorithms/sort/quick-sort",
-                  "/basic-skill/algorithms/other/Edsger-Dijkstra"
                 ]
               },
               {
@@ -304,10 +302,10 @@ module.exports = {
                 title: "其他",
                 collapsable: false,
                 children: [
+                  "/basic-skill/algorithms/other/Edsger-Dijkstra",
                   "/basic-skill/algorithms/other/binary-Search",
-                  "/basic-skill/algorithms/other/Top-down",
                   "/basic-skill/algorithms/other/swap-or-exchange",
-                  "/basic-skill/algorithms/other/xor"
+                  "/basic-skill/algorithms/other/xor",
                 ]
               }
             ]

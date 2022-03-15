@@ -2,6 +2,8 @@
 
 ## 交换
 
+数据交换最常用、简单的交换方式就是使用临时变量，对象和内置数据都可使用，如果需要交换的数据是内置数据（非引用），可以使用[异或交换](./../bit/xor.md)进行交换，以达到节省空间目的。
+
 ::: center
 <mermaid style="margin-bottom: 0px">
 sequenceDiagram
@@ -15,17 +17,9 @@ sequenceDiagram
 数据处理流程如图所示
 :::
 
-常用交换方式:
-
-1. 三方变量
-2. [异或交换](./../bit/xor.md)
-   一般情况使用在非对象类型（内置数据）
-
 ### 优点
 
-易理解、易维护，具体参考以下代码。
-
-1. [Go-heap](https://cs.opensource.google/go/go/+/refs/tags/go1.17.8:src/container/heap/heap.go)
+易理解、易维护，具体参考[Go-heap-h.Swap(i, j)](https://cs.opensource.google/go/go/+/refs/tags/go1.17.8:src/container/heap/heap.go)代码。
 
 ```Go
 func up(h Interface, j int) {
@@ -41,7 +35,7 @@ func up(h Interface, j int) {
 }
 ```
 
-2. [算法4-heap](https://algs4.cs.princeton.edu/24pq/Heap.java.html)
+[《算法4》](https://algs4.cs.princeton.edu/24pq/Heap.java.html)一书也是方便大家理解，默认使用了交换原则。
 
 ```java
 public static void sort(Comparable[] pq) {
@@ -119,7 +113,6 @@ public class PriorityQueue<E> extends AbstractQueue<E>
       // 放到正确位置
       queue[k] = key;
   }
-
 }
 ```
 
