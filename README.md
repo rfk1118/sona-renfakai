@@ -4,9 +4,9 @@
 
 ## 工作经历
 
-1. [58集团    （2020/05 ～ 至今）](./introduction/about-me.md#个人经历)
-2. [沣邦融资租赁（上海）有限公司     （2018/07 ～ 2020/05）](./introduction/about-me.md#个人经历)
-3. [逸途（北京）科技有限公司    （2015/08 ～ 2018/07）](./introduction/about-me.md#个人经历)
+1. [58集团    （2020/05 ～ 至今）](./introduction/README.md#个人经历)
+2. [沣邦融资租赁（上海）有限公司     （2018/07 ～ 2020/05）](./introduction/README.md#个人经历)
+3. [逸途（北京）科技有限公司    （2015/08 ～ 2018/07）](./introduction/README.md#个人经历)
 
 ## 为什么写博客？
 
