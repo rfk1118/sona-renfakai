@@ -364,6 +364,19 @@ module.exports = {
           }
         ]
       }, {
+        title: "CI/CD",
+        collapsable: false,
+        path: "/cicd/",
+        children: [{
+          title: "docker",
+          collapsable: false,
+          path: "/cicd/docker/",
+          children:[
+            "/cicd/docker/buildimage"
+          ]
+        }]
+      },
+      {
         title: "常用网站",
         collapsable: false,
         path: "/linked/"
