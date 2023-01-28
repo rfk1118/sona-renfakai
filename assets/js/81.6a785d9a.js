@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[81],{488:function(t,s,l){"use strict";l.r(s);var n=l(8),e=Object(n.a)({},(function(){var t=this._self._c;return t("ContentSlotsDistributor",{attrs:{"slot-key":this.$parent.slotKey}},[t("h1",{attrs:{id:"flowable"}},[this._v("flowable")]),this._v(" "),t("p",[this._v("工作流相关内容。")])])}),[],!1,null,null,null);s.default=e.exports}}]);
