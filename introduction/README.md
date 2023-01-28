@@ -117,16 +117,3 @@ SpringBoot、SpringMvc、Mybatis、Oracle 、Maven、Git
 ### 逸途（北京）科技有限公司    （2015/08 ～ 2018/07）
 
 负责公司智能问答机器人、翻译机项目、逸途电商系统编码和维护。
-
-## 技能清单
-
-* **开发语言：** 精通 Java、了解 Golang、汇编
-* **后端框架：** 精通 Spring、SpringMvc、Mybatis、SpringBoot、熟悉 SpringData、Struts2、Hibernate 了解 SpringCloud
-* **数据库：** 精通 Oracle、Mysql 熟悉 Redis
-* **中间件：** 熟悉 Netty、 Kafka 了解 Zookeeper
-* **服务器：** 熟悉 Jetty、Tomcat
-* **构建工具：** 熟悉 Maven
-* **项目管理工具：** 熟悉 Git
-* **脚本语言：** 熟悉 Shell
-* **设计模式：** 精通 23 种设计模式
-* **网络：** 了解 Wireshark
