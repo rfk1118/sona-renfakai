@@ -52,25 +52,6 @@ module.exports = {
         'ga': 'UA-221858042-1'
       }
     ],
-    // [
-    //   "vuepress-plugin-comment",
-    //   {
-    //     choosen: "gitalk",
-    //     options: {
-    //       clientID: "c4994329985f8361e330",
-    //       clientSecret: "3ed0530c924181fc77b2099af79b60d40bf54e67",
-    //       repo: "sona-renfakai",
-    //       owner: "sona0402",
-    //       admin: ["sona0402"],
-    //       labels: ["Gitalk", "Comment"],
-    //       id: '<%- ("renfakai.com" + (frontmatter.to.path || window.location.pathname)).slice(-50) %>',
-    //       title: "「Comment」<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>",
-    //       body: "<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>",
-    //       distractionFreeMode: false,
-    //       pagerDirection: "last"
-    //     }
-    //   }
-    // ],
     ["@vuepress/back-to-top"]
   ],
   markdown: {
@@ -98,6 +79,12 @@ module.exports = {
   port: 8080,
   dest: ".vuepress/dist",
   themeConfig: {
+    nav: [{
+      text: 'GitHub',
+      link: 'https://github.com/rfk1118',
+      target: '_self',
+      rel: false
+    }],
     sidebar: [{
         title: "前言",
         path: "/introduction/"
@@ -371,7 +358,7 @@ module.exports = {
           title: "docker",
           collapsable: false,
           path: "/cicd/docker/",
-          children:[
+          children: [
             "/cicd/docker/buildimage"
           ]
         }]
