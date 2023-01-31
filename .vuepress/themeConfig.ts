@@ -33,6 +33,6 @@ export const themeConfig = hopeTheme({
     },
     feed: {
       json: true,
-    },
+    }
   },
 });
