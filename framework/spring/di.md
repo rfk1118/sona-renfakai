@@ -46,7 +46,8 @@ protected Object doCreateBean(String beanName, RootBeanDefinition mbd, @Nullable
 ```
 
 ::: center
-<mermaid style="margin-bottom: 0px">
+
+```mermaid
 stateDiagram
     [*] --> 实例化
     实例化 --> 填充属性
@@ -61,7 +62,8 @@ stateDiagram
     Use --> DisposableBean#destroy
     DisposableBean#destroy --> 自定义摧毁方法
     自定义摧毁方法 --> [*]
-</mermaid>
+```
+
 :::
 
 ## 实例化

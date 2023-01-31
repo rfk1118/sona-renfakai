@@ -46,21 +46,21 @@
 * 非连通的子图可以是连通的。
 * 连通
 
-<mermaid style="margin-bottom: 0px">
+```mermaid
 graph LR
     a  ---  b
     b  ---  d
     d  ---  a
     a  ---  c
-</mermaid>
+```
 
 * 非连通
 
-<mermaid style="margin-bottom: 0px">
+```mermaid
 graph LR
     a  ---  b
     c  ---  d
-</mermaid>
+```
 
 * 连通无环图
   * 一类最重要的特殊图

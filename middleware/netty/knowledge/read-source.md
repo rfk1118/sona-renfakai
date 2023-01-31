@@ -26,11 +26,11 @@
 
 按照下面流程进行操作：
 
-<mermaid style="margin-bottom: 0px">
+```mermaid
 flowchart LR
     A(克隆代码) --> B(查看提交历史)
     B --> C(查看Git commit template)
-</mermaid>
+```
 
 ### 详细流程
 
@@ -48,13 +48,13 @@ flowchart LR
 
 如何看明白一段或者一行代码呢？其主流程如下：
 
-<mermaid style="margin-bottom: 0px">
+```mermaid
 flowchart LR
     A(查看某个类或者某行代码) --> B(找到提交点)
     B --> C(查看Git commit template)
     C --> D(Git issues 改动背景)
     D --> E(代码改动)
-</mermaid>
+```
 
 #### 案例
 

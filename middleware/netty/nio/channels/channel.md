@@ -5,7 +5,7 @@
 ::: tip 提示
 A Channel can have a parent depending on how it was created. For instance, a SocketChannel, that was accepted by ServerSocketChannel, will return the ServerSocketChannel as its parent on parent().
 
-从 `Channel` 的文档中可以看出 `SocketChannel` 是由 `ServerSocketChannel` 产生的。</br>
+从 `Channel` 的文档中可以看出 `SocketChannel` 是由 `ServerSocketChannel` 产生的。
 其实从《深入理解计算机系统》中我们知道 connectionfd 是从 listenfd 中产生而来的。
 :::
 
@@ -32,7 +32,7 @@ A Channel can have a parent depending on how it was created. For instance, a Soc
           .channel(NioServerSocketChannel.class);
 ```
 
-1.  查看`NioServerSocketChannel`配置，使用泛型处理，其实这里还有一个小技巧，`AbstractBootstrap<B extends AbstractBootstrap<B, C>, C extends Channel>`的用法妙处可以自行查阅。
+1. 查看`NioServerSocketChannel`配置，使用泛型处理，其实这里还有一个小技巧，`AbstractBootstrap<B extends AbstractBootstrap<B, C>, C extends Channel>`的用法妙处可以自行查阅。
 
 ```java
  public B channel(Class<? extends C> channelClass) {

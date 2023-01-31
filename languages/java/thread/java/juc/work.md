@@ -26,7 +26,7 @@ Worker(Runnable firstTask) {
 
 ### Worker运行
 
-<mermaid style="margin-bottom: 0px">
+```mermaid
 graph LR
     A[运行] --> B{拉取任务}
     B -->|成功| C[前置运行钩子]
@@ -34,7 +34,7 @@ graph LR
     C --> E[运行任务]
     E --> F[后置任务]
     F --> B
-</mermaid>
+```
 
 `Worker`运行后先拉取任务，运行任务，拉取任务先从`Worker`里获取，然后一直从队列里面获取，拉取任务[getTask()](./thread-pool-executor.md#getTask)，线程在无任务时进行退出[processWorkerExit()](./thread-pool-executor.md#processWorkerExit)。
 

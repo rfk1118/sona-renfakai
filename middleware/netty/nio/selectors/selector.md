@@ -11,7 +11,7 @@
   EventLoopGroup group = new NioEventLoopGroup();
 ```
 
-`EventLoopGroup` 其实就是管理线程的，而一个线程一般只会存在一个 `Selector` ，如果是多个的话需要考虑竞争和切换问题。</br>
+`EventLoopGroup` 其实就是管理线程的，而一个线程一般只会存在一个 `Selector` ，如果是多个的话需要考虑竞争和切换问题。
 
 ![An image](../image/../selectors/image/NioEventLoop.jpg)
 

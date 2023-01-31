@@ -189,13 +189,13 @@ public boolean acceptInboundMessage(Object msg) throws Exception {
 
 ```java
 public LengthFieldBasedFrameDecoder(
-		int maxFrameLength,
-		int lengthFieldOffset, int lengthFieldLength,
-		int lengthAdjustment, int initialBytesToStrip) {
-	this(
-			maxFrameLength,
-			lengthFieldOffset, lengthFieldLength, lengthAdjustment,
-			initialBytesToStrip, true);
+    int maxFrameLength,
+    int lengthFieldOffset, int lengthFieldLength,
+    int lengthAdjustment, int initialBytesToStrip) {
+  this(
+      maxFrameLength,
+      lengthFieldOffset, lengthFieldLength, lengthAdjustment,
+      initialBytesToStrip, true);
 }
 ```
 
@@ -301,9 +301,9 @@ public LengthFieldBasedFrameDecoder(
 
 ### 参考材料
 
-[深入理解 Java 虚拟机（第 3 版）](https://book.douban.com/subject/34907497/)</br>
+[深入理解 Java 虚拟机（第 3 版）](https://book.douban.com/subject/34907497/)
 
 * 字节码
 * 泛型
 
-[Netty 源码剖析与实战](https://time.geekbang.org/course/intro/100036701)</br>
+[Netty 源码剖析与实战](https://time.geekbang.org/course/intro/100036701)

@@ -5,7 +5,8 @@
 数据交换最常用、简单的交换方式就是使用临时变量，对象和内置数据都可使用，如果需要交换的数据是内置数据（非引用），可以使用[异或交换](./../bit/xor.md)进行交换，以达到节省空间目的。
 
 ::: center
-<mermaid style="margin-bottom: 0px">
+
+```mermaid
 sequenceDiagram
     A->>+Temp: 复制到临时结点
     B->>+A: B移动到A
@@ -13,7 +14,8 @@ sequenceDiagram
     B->>+Temp: 复制到临时结点
     C->>+B: C移动B
     Temp->>+C:临时结点移动到C
-</mermaid>
+```
+
 数据处理流程如图所示
 :::
 
@@ -65,14 +67,16 @@ private static void exch(Object[] pq, int i, int j) {
 ## 移动
 
 ::: center
-<mermaid style="margin-bottom: 0px">
+
+```mermaid
 sequenceDiagram
     A->>+Temp: 复制到临时结点
     B->>+A: 移动B数据到A
     C->>+B: 移动C数据到B
     D->>+C: 移动D数据到C
     Temp->>+D:移动临时数据到D
-</mermaid>
+```
+
 数据（非对象类型）处理流程如图所示
 :::
 

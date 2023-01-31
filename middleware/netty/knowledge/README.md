@@ -12,8 +12,7 @@
 
 网络编程关于服务器进程与客户端进行连接、处理进行展开讲解。
 
-::: center
-<mermaid style="margin-bottom: 0px">
+```mermaid
 sequenceDiagram
   服务器进程->>+服务器进程: 开启listenfd进行监听
   客户端->>服务器进程: 发起请求，三次握手
@@ -24,10 +23,9 @@ sequenceDiagram
   服务器子进程->>+服务器子进程: 断开listenfd
   服务器子进程->>+客户端: 处理任务，传输结果
   服务器子进程->>+客户端: 四次挥手
-</mermaid>
-进程网络编程
-:::
+```
 
+进程网络编程
 ::: center
 ![An image](./images/fd.jpg)
 图来自《深入理解计算机系统（原书第 3 版）》
@@ -99,10 +97,10 @@ AIO异步非阻塞的IO，在Linux和类Unix系统上支持不太好，Win支持
 ### Selector
 
 ::: tip 提示
-Alternatively, use explicit SPI provider: </br>
-SelectorProvider p = SelectorProvider.provider(); </br>
-selector = p.openSelector(); </br>
-serverSocket = p.openServerSocketChannel(); </br>
+Alternatively, use explicit SPI provider:
+SelectorProvider p = SelectorProvider.provider();
+selector = p.openSelector();
+serverSocket = p.openServerSocketChannel();
 :::
 
 在 `Doug lea` 的 `ppt` 中出现了上面提示这一段话是什么意思？其实不同系统中 `java new io` 调用的底层 `Nio` 实现不一样，所以使用了 `spi` 机制，具体如图所示:

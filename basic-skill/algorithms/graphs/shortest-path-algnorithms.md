@@ -59,16 +59,16 @@
 
 1. 案例图示
 
-<mermaid style="margin-bottom: 0px">
+```mermaid
 flowchart LR
     A -->|4| B
     A -->|11| C
     B -->|6| A
     B -->|2| C
     C -->|3| A
-</mermaid>
+```
 
-2. 转换成邻接矩阵
+1. 转换成邻接矩阵
 
 $
 \begin{bmatrix}
@@ -130,7 +130,7 @@ $
 <!-- ## Bellman-Ford Algorithm -->
 ### Dijkstra案例
 
-<mermaid style="margin-bottom: 0px">
+```mermaid
 flowchart LR
     V0 --> |13|V1
     V0 --> |8|V2
@@ -142,7 +142,7 @@ flowchart LR
     V4 --> |2|V5
     V5 --> |17|V6
     V0 --> |32|V6
-</mermaid>
+```
 
 ### Dijkstra案例解析
 

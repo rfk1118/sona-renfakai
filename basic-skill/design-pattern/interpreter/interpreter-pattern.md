@@ -46,7 +46,7 @@ public class Evaluate {
 
 ### 解释器设计模式解释
 
-[解释器设计模式](https://www.tutorialspoint.com/design_pattern/interpreter_pattern.htm)</br>
+[解释器设计模式](https://www.tutorialspoint.com/design_pattern/interpreter_pattern.htm)
 Interpreter pattern provides a way to evaluate language grammar or expression.
 This type of pattern comes under behavioral pattern.
 This pattern involves implementing an expression interface which tells to interpret a particular context.

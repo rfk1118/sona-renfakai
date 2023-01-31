@@ -3,7 +3,7 @@
 ### Pipeline 的初始化
 
 ::: tip 提示
-Each channel has its own pipeline and it is created automatically when a new channel is created.</br>
+Each channel has its own pipeline and it is created automatically when a new channel is created.
 每一个 channel 创建的时候都会有自己的 pipeline。
 :::
 

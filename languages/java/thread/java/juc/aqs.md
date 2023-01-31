@@ -182,7 +182,7 @@ protected final boolean compareAndSetState(int expect, int update) {
 
 ## acquire
 
-<mermaid style="margin-bottom: 0px">
+```mermaid
 graph LR
     A[线程] --> B{获取锁}
     B -->|成功| Z[结束]
@@ -195,7 +195,7 @@ graph LR
     H -->|成功| I[设置当前节点为头]
     I --> Z
     H -->|失败| F
-</mermaid>
+```
 
 先对独占模式进行分析，其核心概念如下：
 

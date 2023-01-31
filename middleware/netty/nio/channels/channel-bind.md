@@ -122,14 +122,14 @@ private static void doBind0(
 // 这个任务就是 channel.bind(localAddress, promise).addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
 Breakpoint reached at io.netty.bootstrap.AbstractBootstrap$2.run(AbstractBootstrap.java:365)
 Breakpoint reached
-	at io.netty.bootstrap.AbstractBootstrap$2.run(AbstractBootstrap.java:365)
-	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
-	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:-1)
-	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:404)
-	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
-	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:897)
-	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
-	at java.lang.Thread.run(Thread.java:748)
+  at io.netty.bootstrap.AbstractBootstrap$2.run(AbstractBootstrap.java:365)
+  at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+  at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:-1)
+  at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:404)
+  at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+  at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:897)
+  at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+  at java.lang.Thread.run(Thread.java:748)
 ```
 
 5. 绑定
@@ -239,28 +239,28 @@ protected void doBind(SocketAddress localAddress) throws Exception {
 ```java
 Breakpoint reached
   // 开始设置事件
-	at io.netty.channel.nio.AbstractNioChannel.doBeginRead(AbstractNioChannel.java:411)
-	at io.netty.channel.nio.AbstractNioMessageChannel.doBeginRead(AbstractNioMessageChannel.java:55)
-	at io.netty.channel.AbstractChannel$AbstractUnsafe.beginRead(AbstractChannel.java:847)
+  at io.netty.channel.nio.AbstractNioChannel.doBeginRead(AbstractNioChannel.java:411)
+  at io.netty.channel.nio.AbstractNioMessageChannel.doBeginRead(AbstractNioMessageChannel.java:55)
+  at io.netty.channel.AbstractChannel$AbstractUnsafe.beginRead(AbstractChannel.java:847)
   // HeadContext
-	at io.netty.channel.DefaultChannelPipeline$HeadContext.read(DefaultChannelPipeline.java:1386)
-	at io.netty.channel.AbstractChannelHandlerContext.invokeRead(AbstractChannelHandlerContext.java:693)
-	at io.netty.channel.AbstractChannelHandlerContext.read(AbstractChannelHandlerContext.java:673)
-	at io.netty.channel.DefaultChannelPipeline.read(DefaultChannelPipeline.java:1050)
-	at io.netty.channel.AbstractChannel.read(AbstractChannel.java:284)
-	at io.netty.channel.DefaultChannelPipeline$HeadContext.readIfIsAutoRead(DefaultChannelPipeline.java:1446)
-	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelActive(DefaultChannelPipeline.java:1424)
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelActive(AbstractChannelHandlerContext.java:213)
-	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelActive(AbstractChannelHandlerContext.java:199)
-	at io.netty.channel.DefaultChannelPipeline.fireChannelActive(DefaultChannelPipeline.java:941)
-	at io.netty.channel.AbstractChannel$AbstractUnsafe$2.run(AbstractChannel.java:569)
-	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
-	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:-1)
-	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:404)
-	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
-	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:897)
-	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
-	at java.lang.Thread.run(Thread.java:748)
+  at io.netty.channel.DefaultChannelPipeline$HeadContext.read(DefaultChannelPipeline.java:1386)
+  at io.netty.channel.AbstractChannelHandlerContext.invokeRead(AbstractChannelHandlerContext.java:693)
+  at io.netty.channel.AbstractChannelHandlerContext.read(AbstractChannelHandlerContext.java:673)
+  at io.netty.channel.DefaultChannelPipeline.read(DefaultChannelPipeline.java:1050)
+  at io.netty.channel.AbstractChannel.read(AbstractChannel.java:284)
+  at io.netty.channel.DefaultChannelPipeline$HeadContext.readIfIsAutoRead(DefaultChannelPipeline.java:1446)
+  at io.netty.channel.DefaultChannelPipeline$HeadContext.channelActive(DefaultChannelPipeline.java:1424)
+  at io.netty.channel.AbstractChannelHandlerContext.invokeChannelActive(AbstractChannelHandlerContext.java:213)
+  at io.netty.channel.AbstractChannelHandlerContext.invokeChannelActive(AbstractChannelHandlerContext.java:199)
+  at io.netty.channel.DefaultChannelPipeline.fireChannelActive(DefaultChannelPipeline.java:941)
+  at io.netty.channel.AbstractChannel$AbstractUnsafe$2.run(AbstractChannel.java:569)
+  at io.netty.util.concurrent.AbstractEventExecutor.safeExecute$$$capture(AbstractEventExecutor.java:163)
+  at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:-1)
+  at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:404)
+  at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:462)
+  at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:897)
+  at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+  at java.lang.Thread.run(Thread.java:748)
 ```
 
 2. 开始 Active，`readIfIsAutoRead();`会设置关注的事件。

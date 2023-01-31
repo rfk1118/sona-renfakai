@@ -150,6 +150,7 @@ private void doStartThread() {
 ```
 
 # NioEventLoop 线程
+
 1. 这里已经切换线程了，使用`NioEventLoop`中的线程。
 
 ```java
@@ -178,54 +179,54 @@ public final class ThreadPerTaskExecutor implements Executor {
 ```java
 @Override
 protected void run() {
-	for (;;) {
-		try {
-			// 结果为0，处理default
-			switch (selectStrategy.calculateStrategy(selectNowSupplier, hasTasks())) {
-				case SelectStrategy.CONTINUE:
-					continue;
-				case SelectStrategy.SELECT:
-					select(wakenUp.getAndSet(false));
-					if (wakenUp.get()) {
-						selector.wakeup();
-					}
-				default:
-			}
+  for (;;) {
+    try {
+      // 结果为0，处理default
+      switch (selectStrategy.calculateStrategy(selectNowSupplier, hasTasks())) {
+        case SelectStrategy.CONTINUE:
+          continue;
+        case SelectStrategy.SELECT:
+          select(wakenUp.getAndSet(false));
+          if (wakenUp.get()) {
+            selector.wakeup();
+          }
+        default:
+      }
 
-			cancelledKeys = 0;
-			needsToSelectAgain = false;
-			final int ioRatio = this.ioRatio;
-			if (ioRatio == 100) {
-				try {
-					processSelectedKeys();
-				} finally {
-					runAllTasks();
-				}
-			} else {
-				final long ioStartTime = System.nanoTime();
-				try {
+      cancelledKeys = 0;
+      needsToSelectAgain = false;
+      final int ioRatio = this.ioRatio;
+      if (ioRatio == 100) {
+        try {
+          processSelectedKeys();
+        } finally {
+          runAllTasks();
+        }
+      } else {
+        final long ioStartTime = System.nanoTime();
+        try {
           // 因为没有事件处理
-					processSelectedKeys();
-				} finally {
-					final long ioTime = System.nanoTime() - ioStartTime;
+          processSelectedKeys();
+        } finally {
+          final long ioTime = System.nanoTime() - ioStartTime;
           // 开始处理当前线程所有事情
-					runAllTasks(ioTime * (100 - ioRatio) / ioRatio);
-				}
-			}
-		} catch (Throwable t) {
-			handleLoopException(t);
-		}
-		try {
-			if (isShuttingDown()) {
-				closeAll();
-				if (confirmShutdown()) {
-					return;
-				}
-			}
-		} catch (Throwable t) {
-			handleLoopException(t);
-		}
-	}
+          runAllTasks(ioTime * (100 - ioRatio) / ioRatio);
+        }
+      }
+    } catch (Throwable t) {
+      handleLoopException(t);
+    }
+    try {
+      if (isShuttingDown()) {
+        closeAll();
+        if (confirmShutdown()) {
+          return;
+        }
+      }
+    } catch (Throwable t) {
+      handleLoopException(t);
+    }
+  }
 }
 
 protected boolean runAllTasks(long timeoutNanos) {

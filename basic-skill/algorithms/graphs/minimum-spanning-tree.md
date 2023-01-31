@@ -19,7 +19,7 @@
 
 * 从U的顶点和T中顶点的边中选取权值最小的边
 
-<mermaid style="margin-bottom: 0px">
+```mermaid
 flowchart LR
     subgraph U
     a1 & a2
@@ -28,7 +28,7 @@ flowchart LR
     b1 & b2
     end
     a1 & a2  ---  b1 & b2
-</mermaid>
+```
 
 设 N = (V,E) 是一个连网，U是顶点集合V的非空子集。若边(u,v)是一条具有最小权值的边，其中u $\in$ U , v $\in$  T ，则必存在一棵包含(u,v)的最小生成树。
 

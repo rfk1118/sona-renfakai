@@ -287,8 +287,8 @@ public class TemplateMessageBuilder {
 
 ### 正交性问题
 
-* [码农翻身 日志文件的设计正交性 170](https://book.douban.com/subject/30231515/)</br>
-* [UNIX 编程艺术 4.2.2 正交性 89](https://book.douban.com/subject/5387401/)</br>
+* [码农翻身 日志文件的设计正交性 170](https://book.douban.com/subject/30231515/)
+* [UNIX 编程艺术 4.2.2 正交性 89](https://book.douban.com/subject/5387401/)
 
 | 轴  |               X |                 Y |                Y |       Z |
 | --- | --------------: | ----------------: | ---------------: | ------: |
@@ -318,7 +318,7 @@ public class TemplateMessageBuilder {
 
 ### 接口隔离
 
-不应该强迫客户依赖它们不用的方法</br>
+不应该强迫客户依赖它们不用的方法
 `Bootstrap` 和 `BootstrapConfig` 使用了接口隔离的方式，让用户使用更简单。
 
 * [敏捷软件开发 第十二章 接口隔离原则（ISP）](https://book.douban.com/subject/1140457/)

@@ -2,14 +2,14 @@
 
 ### 动机
 
-3ce9ab2e Trustin Lee <t@motd.kr> on 2013/6/10 at 11:00 下午</br>
-Replace the sun.nio.ch. SelectorImpl.selectedKeys with faster one</br>
-替换 SelectorImpl.selectedKeys 使用更快的方式</br>
+3ce9ab2e Trustin Lee <t@motd.kr> on 2013/6/10 at 11:00 下午
+Replace the sun.nio.ch. SelectorImpl.selectedKeys with faster one
+替换 SelectorImpl.selectedKeys 使用更快的方式
 
-* Yield much less garbage</br>
-  更少的垃圾回收</br>
-* Slight performance gain (1~2%)</br>
-  性能略有提高</br>
+* Yield much less garbage
+  更少的垃圾回收
+* Slight performance gain (1~2%)
+  性能略有提高
   SelectorImpl 基础代码
 
 ```java
@@ -138,10 +138,10 @@ java 中的应用 `RandomAccess` 其中有一段注释为
 
 ### 版本优化
 
-支持 JDK9 及以上版本</br>
-动机：在 JDK8 使用反射替换 `key set` ，在 JDK9 以后在域反射使用 `setAccessible(true)` 不在生效。</br>
+支持 JDK9 及以上版本
+动机：在 JDK8 使用反射替换 `key set` ，在 JDK9 以后在域反射使用 `setAccessible(true)` 不在生效。
 
-NioEventLoop should also use our special SelectionKeySet on Java9 and later. (#8260)</br>
+NioEventLoop should also use our special SelectionKeySet on Java9 and later. (#8260)
 Motivation: In Java8 and earlier we used reflection to replace the used key set if not otherwise told. This does not work on Java9 and later without special flags as its not possible to call setAccessible(true) on the Field anymore.
 Modifications: - Use Unsafe to instrument the Selector with out special set when sun.misc. Unsafe is present and we are using Java9+.
 Result: NIO transport produce less GC on Java9 and later as well.

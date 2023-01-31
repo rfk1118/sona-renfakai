@@ -10,7 +10,7 @@
 
 为了获取学位，需要学会写作和研讨会，高级研讨会需要先学习解析几何，解析几何又需要几何和代数知识。
 
-<mermaid style="margin-bottom: 0px">
+```mermaid
 flowchart LR
     A(A代数) --> D(D高等数学)
     B(B几何) --> E(E解析几何)
@@ -20,7 +20,7 @@ flowchart LR
     C(C英文写作)--> F(F比较文学)
     G --> H(H学位)
     F --> H
-</mermaid>
+```
 
 ### 有向图与无向图的区别
 
@@ -28,19 +28,19 @@ flowchart LR
 
 * 有向图
 
-<mermaid style="margin-bottom: 0px">
+```mermaid
 flowchart LR
     A --> B
     B --> C
-</mermaid>
+```
 
 * 无向图
 
-<mermaid style="margin-bottom: 0px">
+```mermaid
 flowchart LR
     A --- B
     B --- C
-</mermaid>
+```
 
 ## 存储方式
 
@@ -72,14 +72,14 @@ flowchart LR
 
 `B-C-D-B`就是一个环，其实在`maven`里面就是循环依赖(可参考[《架构整洁之道》消除循环依赖](https://book.douban.com/subject/30333919/))，在架构里是不允许出现的一种形态。
 
-<mermaid style="margin-bottom: 0px">
+```mermaid
 flowchart LR
     A --> B
     A --> C
     B --> C
     C --> D
     D --> B
-</mermaid>
+```
 
 计算无向图是否存在环，仅仅需要判断边是否等于顶点个数-1，看到这里我在想如何判断有向图是否有环呢？
 
