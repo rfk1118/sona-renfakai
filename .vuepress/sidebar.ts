@@ -211,7 +211,7 @@ export const sidebarConfig = sidebar({
                 "/basic-skill/algorithms/graphs/directed-graph",
                 "/basic-skill/algorithms/graphs/graph-search",
                 "/basic-skill/algorithms/graphs/minimum-spanning-tree",
-                "/basic-skill/algorithms/graphs/shortest-link-algnorithms",
+                "/basic-skill/algorithms/graphs/shortest-path-algnorithms",
               ],
             },
             {
