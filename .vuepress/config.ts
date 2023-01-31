@@ -27,4 +27,5 @@ export default defineUserConfig({
     },
   },
   plugins: [],
+  dest: ".vuepress/dist",
 });
