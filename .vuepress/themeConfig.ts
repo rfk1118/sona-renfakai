@@ -30,9 +30,6 @@ export const themeConfig = hopeTheme({
       mathjax: true,
       flowchart: true,
       katex: true,
-    },
-    feed: {
-      json: true,
     }
   },
 });
