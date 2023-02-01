@@ -1,5 +1,6 @@
 import { defineUserConfig } from "vuepress";
 import { themeConfig } from "./themeConfig";
+import { searchProPlugin } from "vuepress-plugin-search-pro";
 
 export default defineUserConfig({
   dest: ".vuepress/dist",
@@ -8,8 +9,7 @@ export default defineUserConfig({
   title: "天道酬勤",
   head: [
     // meta
-    ["meta", { name: "robots", content: "all" }],
-    ["meta", { name: "author", content: "renfakai" }],
+    ["meta", { name: "author", content: "任发凯" }],
     [
       "meta",
       {
@@ -26,4 +26,14 @@ export default defineUserConfig({
       lang: "zh-CN",
     },
   },
+  plugins: [
+    searchProPlugin({
+      indexContent: true,
+      locales: {
+        "/": {
+          placeholder: "搜索",
+        },
+      },
+    }),
+  ],
 });
