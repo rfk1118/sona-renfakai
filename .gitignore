@@ -10,6 +10,7 @@ yarn-error.log*
 ./vuepress/.cache/
 # Vuepress Temp
 ./vuepress/.temp/
+.cache
 # Vuepress Output
 dist/
 # Build files

@@ -10,9 +10,6 @@ export const themeConfig = hopeTheme({
   sidebar: sidebarConfig,
   pageInfo: [
     "Author",
-    "Category",
-    "Tag",
-    "Date",
     "Original",
     "Word",
     "ReadingTime",

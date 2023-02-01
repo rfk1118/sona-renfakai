@@ -285,17 +285,10 @@ export const sidebarConfig = sidebar({
       ],
     },
     {
-      text: "CI/CD",
+      text: "docker",
       collapsible: false,
-      link: "/cicd/",
-      children: [
-        {
-          text: "docker",
-          collapsible: false,
-          link: "/cicd/docker/",
-          children: ["/cicd/docker/buildimage"],
-        },
-      ],
+      link: "/cicd/docker/",
+      children: ["/cicd/docker/buildimage"],
     },
     {
       text: "常用网站",

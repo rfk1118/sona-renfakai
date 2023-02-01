@@ -2,7 +2,7 @@ import { defineUserConfig } from "vuepress";
 import { themeConfig } from "./themeConfig";
 
 export default defineUserConfig({
-  dest: "./dist",
+  dest: ".vuepress/dist",
   theme: themeConfig,
   shouldPrefetch: false,
   title: "天道酬勤",
@@ -26,6 +26,4 @@ export default defineUserConfig({
       lang: "zh-CN",
     },
   },
-  plugins: [],
-  dest: ".vuepress/dist",
 });
