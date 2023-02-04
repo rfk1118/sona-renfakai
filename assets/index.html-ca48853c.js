@@ -1,0 +1,7 @@
+import{_ as t,V as n,W as l,X as a,a0 as e,Y as o,Z as r,a1 as s,$ as c,F as d}from"./framework-5793c714.js";const h="/assets/front-6fb79862.png",_={},p=a("h1",{id:"_58首页",tabindex:"-1"},[a("a",{class:"header-anchor",href:"#_58首页","aria-hidden":"true"},"#"),e(" 58首页")],-1),u=c('<p>58首页门户金刚位是什么？就是图中这个东西，看起来好像没什么复杂，看起来确实不复杂。如果图中数据是静态页面（h5页面、客户端内置）确实不复杂。</p><div style="text-align:center;"><p><img src="'+h+'" alt="An image">本图为58App首页金刚区</p></div><h2 id="需求" tabindex="-1"><a class="header-anchor" href="#需求" aria-hidden="true">#</a> 需求</h2><ol><li>业务上有以下诉求： <ul><li>支持多维度（城市、平台、版本）下后台配置（App发版困难，所以需要支持后台配置）；</li><li>icon图标分为多种类型（大、小、个性化等）；</li><li>角标配置（红点、文字、lottile等）；</li><li>需要支持临时运营配置（icon图片、跳转协议、名称），也就是每一个icon的在多维度配置内的情况下属性需要支持特定时间替换；</li><li>某些位置需要支持个性化推荐，对接推荐系统；</li><li>支持自动化测试；</li><li>无charles代理在手机端看到展示效果。</li></ul></li><li>技术上有请求耗时低、并发大诉求。</li></ol><h2 id="总结" tabindex="-1"><a class="header-anchor" href="#总结" aria-hidden="true">#</a> 总结</h2><p>从整体诉求来看，项目设计有两个方向：业务设计（抽象、可扩展性）、技术设计（耗时低、并发大、安全）。</p>',6);function f(m,x){const i=d("RouterLink");return n(),l("div",null,[p,a("p",null,[e("之前一直思考高并发是什么？为什么一面试就要问“八股文”，其实笔者到现在也不会“八股文”，2021年04月对58首页门户金刚位进行重写，在此期间对项目思考了很多，"),o(i,{to:"/project/#%E4%B8%AA%E4%BA%BA%E7%BB%8F%E5%8E%86"},{default:r(()=>[e("为什么要重写？")]),_:1}),e("，本次借用本篇文章写一下自己见解，有写的不对的地方敬请见谅。")]),u,s(` ## 单机器
+
+单机器，需要考虑什么呢？其实“八股文”已经告诉我们了，那就是代码、虚拟机、框架、中间件。
+
+### 代码
+
+选择面向对象语言还是面向过程语言？面向过程语言在调用函数时都是有性能损耗的，那面向对象语言在动态链接时对性能损耗更高。 `)])}const A=t(_,[["render",f],["__file","index.html.vue"]]);export{A as default};

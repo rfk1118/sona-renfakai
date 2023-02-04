@@ -1,0 +1,1 @@
+import{_ as t,V as n,W as a,X as e,a0 as o}from"./framework-5793c714.js";const s={},c=e("h1",{id:"singleton",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#singleton","aria-hidden":"true"},"#"),o(" Singleton")],-1),r=[c];function i(_,d){return n(),a("div",null,r)}const h=t(s,[["render",i],["__file","index.html.vue"]]);export{h as default};
