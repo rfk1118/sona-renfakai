@@ -285,10 +285,27 @@ export const sidebarConfig = sidebar({
       ],
     },
     {
-      text: "docker",
+      text: "项目",
       collapsible: false,
-      link: "/cicd/docker/",
-      children: ["/cicd/docker/buildimage"],
+      children: [
+        {
+          text: "脚手架选择",
+          collapsible: false,
+          link: "/project/selectAll",
+          children: [
+            "/project/selectAll/rbac/",
+            // "/project/selectAll/flowable/",
+          ],
+        },
+        {
+          text: "部署",
+          collapsible: false,
+          children: [
+            "/project/cicd/docker/",
+            "/project/cicd/docker/buildimage",
+          ],
+        },
+      ],
     },
     {
       text: "常用网站",

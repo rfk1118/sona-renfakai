@@ -11,3 +11,7 @@
 
 * [Standard library api](https://pkg.go.dev/std)
 * [effective_go](https://go.dev/doc/effective_go)
+
+## mysql
+
+* [mysql8.0](https://dev.mysql.com/doc/refman/8.0/en/contributors.html)
