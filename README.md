@@ -1,6 +1,6 @@
 #
 
-喜欢技术、金融的 `it` 人，在技术上对`领域、设计模式`喜欢更多一些，每设计出一个`稳定、易扩展`系统时生命价值感都会得到满足。
+<!-- 喜欢技术、金融的 `it` 人，在技术上对`领域、设计模式`喜欢更多一些，每设计出一个`稳定、易扩展`系统时生命价值感都会得到满足。 -->
 
 ## 个人信息
 
@@ -18,17 +18,17 @@ Java 资深开发工程师 ｜ 全职 ｜ 北京/廊坊 ｜ 薪资面议 ｜ 到
 
 ## 技能清单
 
-* **开发语言：** 精通 Java、了解 Golang、汇编
-* **后端框架：** 精通 Spring、SpringMvc、Mybatis、SpringBoot、熟悉 SpringData、Struts2、Hibernate 了解 SpringCloud
-* **数据库：** 精通 Oracle、Mysql 熟悉 Redis
+* **开发语言：** 熟练 Java、了解 Golang、汇编
+* **后端框架：** 熟练 Spring、SpringMvc、Mybatis、SpringBoot、熟悉 SpringData、Struts2、Hibernate 了解 SpringCloud
+* **数据库：** 熟练 Oracle、Mysql 熟悉 Redis
 * **中间件：** 熟悉 Netty、 Kafka 了解 Zookeeper
 * **服务器：** 熟悉 Jetty、Tomcat
 * **构建工具：** 熟悉 Maven
 * **项目管理工具：** 熟悉 Git
 * **脚本语言：** 熟悉 Shell
-* **设计模式：** 精通 23 种设计模式
+* **设计模式：** 熟练 23 种设计模式
 * **网络：** 了解 Wireshark
-* **工作流：** 了解 Activiti、Flowable
+* **工作流：** 熟悉 Activiti、Flowable
 
 ## 为什么写博客？
 
