@@ -109,6 +109,7 @@ export const sidebarConfig = sidebar({
                     "/languages/java/jvm/SerialHeap",
                     "/languages/java/jvm/safepoint",
                     "/languages/java/jvm/jvm-select-use",
+                    '/languages/java/jvm/singleton',
                   ],
                 },
               ],
