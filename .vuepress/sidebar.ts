@@ -295,7 +295,7 @@ export const sidebarConfig = sidebar({
           link: "/project/selectAll",
           children: [
             "/project/selectAll/rbac/",
-            // "/project/selectAll/flowable/",
+            "/project/selectAll/nextflow",
           ],
         },
         {
