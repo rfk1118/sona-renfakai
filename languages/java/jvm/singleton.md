@@ -78,12 +78,12 @@ List<Student> negate = l.stream()
 ## Spring单例bean
 
 1. SpringBean包含多种范围(Singleton、Prototype、Request、Session、Global-Session)，相关详细内容可以[参考](https://www.geeksforgeeks.org/singleton-and-prototype-bean-scopes-in-java-spring/)；
-2. 一般情况下单例bean都是无副作用的，即成员变量不会在高并发下产生错误影响，如果会产生错误影响就不建议使用单例bean，在现实工作中也会将结果数据封闭到方法内，即Frames中，可以[参考](../jvm/layout/Frames.md)；
-3. 单例Bean可以跳过虚拟机加载、验证、准备、解析等类加载和校验机制，性能特别高、原型设计模式也是此方法跳过类加载机制的，可以[参考](https://refactoringguru.cn/design-patterns/prototype)，小提醒，个人对xxx没有观点，只是该网站设计模式写的比较清晰才推荐。
+2. 一般情况下单例bean都是无副作用的，即成员变量不会在高并发下产生错误，如果会产生错误影响就不建议使用单例bean，在现实工作中也会将结果数据封闭到方法内，即Frames中，可以[参考](../jvm/layout/Frames.md)；
+3. 单例Bean可以防止销毁而重新创建，以此达到跳过虚拟机加载、验证、准备、解析等类加载和校验效果，性能特别高、原型设计模式则是直接从内存中clone出一个对象，并重新赋值以跳过类加载机制的，可以[参考](https://refactoringguru.cn/design-patterns/prototype)，小提醒，个人对xxx没有观点，只是该网站设计模式写的比较清晰才推荐。
 
 ## 影响
 
-1. 跳过虚拟机加载和验证机制，因为能力问题暂时先写到这里；
+1. 防止销毁而重新创建，以达到跳过虚拟机加载和验证机制，因为能力问题暂时先写到这里；
 2. 对象从新生代晋升到老年代，即然对象不会被清除，这时候对虚拟机调优时需要考虑虚拟机最大吞吐量、最短回收停顿时间那个优先，以此从垃圾回收算法上考虑产生的影响。
    * 复制算法，因为新生代总是朝生夕死，所以新生代基本上都是复制算法，单例bean对此方法产生不大。
    * 标记整理，标记整理需要移动对象，所以需要复制之前的对象，并将其整理到一起，可以写一下[此算法](https://leetcode.cn/problems/copy-list-with-random-pointer/solution/)感受下复杂程度，Java对象引用实际上是有向图，复杂程度要比刚才算法高很多，还要考虑数据在内存中分页以提高性能等。
