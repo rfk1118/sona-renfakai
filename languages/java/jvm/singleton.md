@@ -10,6 +10,9 @@
 ### 扩展
 
 如果在工作中需要多个单例的bean，还不想被spring生命周期管理，可以使用下面方式进行编写。
+可以参考`doug lea`的`TimeUnit`，写法很优雅，其中《Effective Java中文版 第2版》P273也有相关的内容，感兴趣者可以自行查询。
+
+![An image](./image/timeunit.png)
 
 ```java
 // hashcode and eq方法省略
@@ -74,6 +77,10 @@ List<Student> negate = l.stream()
   .and(StudentPredicateE.AGE_SUPPLIER.getP().negate()))
   .collect(Collectors.toList());
 ```
+
+使用`JProfile`查看上面对象被实例话的对象。
+
+![An image](./image/stduentp.png)
 
 ## Spring单例bean
 
