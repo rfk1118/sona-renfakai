@@ -141,6 +141,7 @@ export const sidebarConfig = sidebar({
                     "/languages/java/thread/java/juc/rejected-execution-handler",
                     "/languages/java/thread/java/juc/work",
                     "/languages/java/thread/java/juc/thread-pool-executor",
+                    "/languages/java/thread/java/juc/threadQ",
                   ],
                 },
               ],
