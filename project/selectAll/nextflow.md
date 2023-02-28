@@ -1,7 +1,7 @@
 # 权限+流程
 
 <!-- 权限可以参考[周志明老师架构安全性](https://jingyecn.top:18080/architect-perspective/general-architecture/system-security/)， -->
-框架组合使用在某些场景下就会产生新的问题。
+<!-- 框架组合使用在某些场景下就会产生新的问题。 -->
 
 ## 下一流程
 
@@ -41,7 +41,19 @@ bpmn [工具使用](https://camunda.com/download/modeler/)
 
 ## 获取流转人
 
-找到了下一工作流节点，而每一个节点都设置跳转路由，现在可以根据页面路由查找到拥有该页面的角色。
+### 使用工作流自带角色
+
+工作流中配置角色，流转时查询角色，在查询需要流转的人，在使用上是没有问题的，但是在配置上会出现二次操作问题，创建角色后需要用户来流程图中配置角色，普通用户对此又不太明白。
+
+![An image](./images/group.png)
+
+### 根据组织架构获取流转人
+
+考虑到跨部门协作问题，下一节点需要流转的人可能会是其他部门的人，当时想是否从当前人向上找两级（一级是本小组）即可满足要求，这样也可以动态的获取人员。
+
+### 根据页面获取流转人
+
+找到了下一工作流节点，根绝节点找到跳转路由(每一个节点都配置跳转路由供首页跳转使用)，现可以根据页面路由查找到拥有该页面的角色。
 
 ```sql
 select role_id from url_permission where permission = '页面路由'
@@ -53,9 +65,18 @@ select role_id from url_permission where permission = '页面路由'
 select user_id from role_dis where role_id = 'xxx'
 ```
 
-根据找到的所有人然后找到其部门和父亲部门，构建组织架构树，这里需要[树](https://github.com/rfk1118/leetcode/blob/main/markdown/binary_tree.md)的算法和组合设计模式，此时更加理解算法的重要性。
+根据找到的人在找到其部门和父亲部门，构建组织架构树，这里需要[树](https://github.com/rfk1118/leetcode/blob/main/markdown/binary_tree.md)的算法和组合设计模式，此时更加理解算法的重要性。
 
 ## 进阶版
 
-* Jvm可以根据长期调用对字节码编译进行优化和退化，这种基于预期，并且有衰退。
+* Jvm可以根据长期调用对字节码编译进行优化和退化，基于预期，并且有衰退。
 * 业务上在`O - > Q`节点上，假如部门A的A1流转给B部门的B1，部门A的A2流转给B部门的B2，则业务上下次A1进行流转时，需要进行提示B1，如果A1后面3次流转人员都是C1，然后下次又改成A1，应该提示什么？
+
+## 参考
+
+* [flowable doc](https://documentation.flowable.com/latest/index.html)
+* [tony / RuoYi-flowable](https://gitee.com/tony2y/RuoYi-flowable)
+* [周志明老师架构安全性](https://jingyecn.top:18080/architect-perspective/general-architecture/system-security/)
+* [工具使用](https://camunda.com/download/modeler/)
+* [zhoupeng20188 nextFlow](https://github.com/zhoupeng20188/activitispringboot/blob/master/src/main/java/com/zp/activitispringboot/utils/ActivitiUtil.java)
+* [龙书编译原理](https://book.douban.com/subject/3296317/)
