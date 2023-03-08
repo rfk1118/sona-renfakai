@@ -1,4 +1,4 @@
-# Frames
+# 栈帧
 
 ::: tip 官方文档
 A frame is used to store data and partial results, as well as to perform dynamic linking, return values for methods, and dispatch exceptions.
@@ -44,8 +44,8 @@ public class Main {
     }
 }
 
-renfakai@renfakaideMacBook-Pro java % javac Main.java 
-renfakai@renfakaideMacBook-Pro java % javap -v Main 
+renfakai@renfakaideMacBook-Pro java % javac Main.java
+renfakai@renfakaideMacBook-Pro java % javap -v Main
 
   public static void main(java.lang.String[]);
     descriptor: ([Ljava/lang/String;)V
@@ -176,7 +176,7 @@ At any point in time, an operand stack has an associated depth, where a value of
 
 在任何时候，操作数堆栈都有关联的深度，其中类型`double、long`的值为深度贡献两个单位，任何其他类型的值贡献一个单位。
 
-具体操作数栈使用可以参考[翻译introduction-to-java-bytecode](../../languages/java/introduction-to-java-bytecode.md#字节码探索)
+具体操作数栈使用可以参考[翻译introduction-to-java-bytecode](/languages/java/introduction-to-java-bytecode.md#字节码探索)
 
 ## Dynamic Linking
 

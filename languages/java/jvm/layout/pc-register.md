@@ -1,4 +1,4 @@
-# Pc Register
+# Pc寄存器
 
 CPU想要进行数据读写，需要与三条总线进行交互：
 
@@ -56,7 +56,7 @@ public class Main {
 // 编译class
  javac Main.java
 // 反编译class
- javap -v Main 
+ javap -v Main
 ```
 
 对于`class`文件的`main`方法可以看做是`CS`，对于`main`方法中的`0、3、5、8`可以看作行号指示器，也就是`IP`，只不过虚拟机用`pc寄存器`进行统一处理。

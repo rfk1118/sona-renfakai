@@ -76,6 +76,16 @@ export const sidebarConfig = sidebar({
             },
           ],
         },
+        {
+          text: "Spring",
+          collapsible: false,
+          link: "/framework/spring/",
+          children: [
+            "/framework/spring/di-concept",
+            "/framework/spring/di",
+            "/framework/spring/initialize-bean",
+          ],
+        },
       ],
     },
     {
@@ -90,60 +100,36 @@ export const sidebarConfig = sidebar({
               text: "虚拟机",
               collapsible: false,
               children: [
-                {
-                  text: "内存布局",
-                  collapsible: false,
-                  link: "/languages/java/jvm/layout/run-time-data-areas",
-                  children: [
-                    "/languages/java/jvm/layout/pc-register",
-                    "/languages/java/jvm/layout/stacks",
-                    "/languages/java/jvm/layout/Frames",
-                    "/languages/java/jvm/layout/share-data",
-                  ],
-                },
-                {
-                  text: "垃圾回收器",
-                  collapsible: false,
-                  children: [
-                    "/languages/java/jvm/jvm-select",
-                    "/languages/java/jvm/SerialHeap",
-                    "/languages/java/jvm/safepoint",
-                    "/languages/java/jvm/jvm-select-use",
-                    "/languages/java/jvm/singleton",
-                  ],
-                },
+                "/languages/java/jvm/layout/run-time-data-areas",
+                "/languages/java/jvm/layout/pc-register",
+                "/languages/java/jvm/layout/stacks",
+                "/languages/java/jvm/layout/Frames",
+                "/languages/java/jvm/layout/share-data",
+                "/languages/java/jvm/jvm-select",
+                "/languages/java/jvm/SerialHeap",
+                "/languages/java/jvm/safepoint",
+                "/languages/java/jvm/jvm-select-use",
+                "/languages/java/jvm/singleton",
               ],
             },
             {
               text: "多线程编程",
               collapsible: false,
-              link: "/languages/java/thread/java/juc/read-me",
               children: [
-                {
-                  text: "基础知识",
-                  collapsible: false,
-                  children: [
-                    "/languages/java/thread/java/juc/aos",
-                    "/languages/java/thread/java/juc/atomic",
-                    "/languages/java/thread/java/juc/aqs",
-                    "/languages/java/thread/java/juc/blocking",
-                    "/languages/java/thread/java/juc/clh",
-                    "/languages/java/thread/java/juc/condition",
-                    "/languages/java/thread/java/juc/future",
-                    "/languages/java/thread/java/juc/daemon",
-                  ],
-                },
-                {
-                  text: "应用",
-                  collapsible: false,
-                  children: [
-                    "/languages/java/thread/java/juc/thread-factory",
-                    "/languages/java/thread/java/juc/rejected-execution-handler",
-                    "/languages/java/thread/java/juc/work",
-                    "/languages/java/thread/java/juc/thread-pool-executor",
-                    "/languages/java/thread/java/juc/threadQ",
-                  ],
-                },
+                "/languages/java/thread/java/juc/read-me",
+                "/languages/java/thread/java/juc/aos",
+                "/languages/java/thread/java/juc/atomic",
+                "/languages/java/thread/java/juc/aqs",
+                "/languages/java/thread/java/juc/blocking",
+                "/languages/java/thread/java/juc/clh",
+                "/languages/java/thread/java/juc/condition",
+                "/languages/java/thread/java/juc/future",
+                "/languages/java/thread/java/juc/daemon",
+                "/languages/java/thread/java/juc/thread-factory",
+                "/languages/java/thread/java/juc/rejected-execution-handler",
+                "/languages/java/thread/java/juc/work",
+                "/languages/java/thread/java/juc/thread-pool-executor",
+                "/languages/java/thread/java/juc/threadQ",
               ],
             },
             {
@@ -260,23 +246,6 @@ export const sidebarConfig = sidebar({
           ],
         },
         {
-          text: "框架",
-          collapsible: false,
-          link: "/framework/",
-          children: [
-            {
-              text: "Spring",
-              collapsible: false,
-              link: "/framework/spring/",
-              children: [
-                "/framework/spring/di-concept",
-                "/framework/spring/di",
-                "/framework/spring/initialize-bean",
-              ],
-            },
-          ],
-        },
-        {
           text: "计算机网络",
           collapsible: false,
           children: [
@@ -290,31 +259,22 @@ export const sidebarConfig = sidebar({
       text: "项目",
       collapsible: false,
       children: [
-        {
-          text: "脚手架选择",
-          collapsible: false,
-          link: "/project/selectAll",
-          children: ["/project/selectAll/rbac/", "/project/selectAll/nextflow"],
-        },
-        {
-          text: "部署",
-          collapsible: false,
-          children: [
-            "/project/cicd/docker/",
-            "/project/cicd/docker/buildimage",
-          ],
-        },
+        "/project/selectAll/rbac/",
+        "/project/selectAll/nextflow",
+        "/project/cicd/docker/",
+        "/project/cicd/docker/buildimage",
       ],
     },
     {
       text: "工具篇",
       collapsible: false,
       link: "/tools/",
-      children: [
-        "/tools/draw",
-        "/tools/flowable",
-        "/tools/linked/",
-      ],
+      children: ["/tools/draw", "/tools/flowable", "/tools/linked/"],
+    },
+    {
+      text: "待办任务",
+      collapsible: false,
+      link: "/todolist/",
     },
   ],
 });
