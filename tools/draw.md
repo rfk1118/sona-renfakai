@@ -26,7 +26,7 @@
 
 网页版画图工具，支持图像自动美化，很好用，需要进行付费。
 
-![An image](./images/processon.png)
+![An image](./images/processOn.png)
 
 ### 优缺点
 
