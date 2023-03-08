@@ -19,5 +19,10 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.markdownlint": true
   },
-  "cSpell.words": ["Mybatis", "Wireshark"]
+  "cSpell.words": [
+    "drawio",
+    "Mybatis",
+    "processon",
+    "Wireshark"
+  ]
 }

@@ -109,7 +109,7 @@ export const sidebarConfig = sidebar({
                     "/languages/java/jvm/SerialHeap",
                     "/languages/java/jvm/safepoint",
                     "/languages/java/jvm/jvm-select-use",
-                    '/languages/java/jvm/singleton',
+                    "/languages/java/jvm/singleton",
                   ],
                 },
               ],
@@ -294,10 +294,7 @@ export const sidebarConfig = sidebar({
           text: "脚手架选择",
           collapsible: false,
           link: "/project/selectAll",
-          children: [
-            "/project/selectAll/rbac/",
-            "/project/selectAll/nextflow",
-          ],
+          children: ["/project/selectAll/rbac/", "/project/selectAll/nextflow"],
         },
         {
           text: "部署",
@@ -310,9 +307,10 @@ export const sidebarConfig = sidebar({
       ],
     },
     {
-      text: "常用网站",
+      text: "工具篇",
       collapsible: false,
-      link: "/linked/",
+      link: "/tools/",
+      children: ["/tools/draw.md", "/tools/linked/README.md"],
     },
   ],
 });
