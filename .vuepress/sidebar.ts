@@ -310,7 +310,11 @@ export const sidebarConfig = sidebar({
       text: "工具篇",
       collapsible: false,
       link: "/tools/",
-      children: ["/tools/draw.md", "/tools/linked/README.md"],
+      children: [
+        "/tools/draw",
+        "/tools/flowable",
+        "/tools/linked/",
+      ],
     },
   ],
 });

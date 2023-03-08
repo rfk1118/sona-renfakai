@@ -48,4 +48,4 @@
 
 ## 总结
 
-最爱 Typora + mermaid
+最爱`Typora + mermaid`。

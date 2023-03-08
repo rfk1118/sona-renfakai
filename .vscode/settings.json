@@ -20,9 +20,11 @@
     "source.fixAll.markdownlint": true
   },
   "cSpell.words": [
+    "dockhub",
     "drawio",
     "Mybatis",
     "processon",
+    "Typora",
     "Wireshark"
   ]
 }
