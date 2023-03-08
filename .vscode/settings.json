@@ -19,15 +19,5 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.markdownlint": true
   },
-  "markdownlint.config": {
-    "default": true,
-    "MD010": {
-      "code_blocks": true,
-      "spaces_per_tab": 2
-    },
-    "MD004": false,
-    "MD029": false,
-    "MD033": false,
-    "MD041": false
-  }
+  "cSpell.words": ["Mybatis", "Wireshark"]
 }
