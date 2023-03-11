@@ -77,6 +77,11 @@ export const sidebarConfig = sidebar({
           ],
         },
         {
+          text: "nginx",
+          collapsible: false,
+          link: "/middleware/nginx/",
+        },
+        {
           text: "Spring",
           collapsible: false,
           link: "/framework/spring/",

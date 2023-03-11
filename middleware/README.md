@@ -13,7 +13,7 @@ nginx是工作中常用的中间件，实际工作中前端、后端项目都由
 对于nginx常用功能涉及到三个方向：
 
 1. 代理（正向，反）
-2. 负载均衡，Netty也提供了相应[策略](/middleware/netty/nio/selectors/chooser-factory)，举一反三，在需要负载均衡时就有了参考。
+2. [负载均衡](https://nginx.org/en/docs/http/load_balancing.html)，Netty也提供了相应[策略](/middleware/netty/nio/selectors/chooser-factory)，举一反三，在需要负载均衡时就有了参考。
 ::: tip
 更多均衡策略可以参考[均衡策略与实现](http://icyfenix.cn/architect-perspective/general-architecture/diversion-system/load-balancing.html)
 :::

@@ -123,6 +123,11 @@ serverSocket = p.openServerSocketChannel();
 | linux |   EpollSelector |
 | win   | WindowsSelector |
 
+相关平台支持也可以参考[nginx官方文档](https://nginx.org/en/docs/events.html)，距离内容如图所示：
+::: center
+![An image](./images/nginx.png)
+:::
+
 ### Channel
 
 关于 `channel`，我们发现 `ServerSocketChannel` 和 `SocketChannel`两种，其底层可以认为是 `listenFd` 和 `connectionFd`。让我们来看看其功能有什么区别。
