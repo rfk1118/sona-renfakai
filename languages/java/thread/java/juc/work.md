@@ -100,7 +100,7 @@ protected void afterExecute(Runnable r, Throwable t) { }
 
 ## 总结
 
-* 线程被包装成`work`，每个`work`会记录一些信息，例如完成任务数量
-* 计算机常被抽象成`读，处理，写`
-* `springbatch`框架中也被抽象为`读，处理，写`
-* `work`使用也可以[参考](../../../netty/nio/event-loop/nio-event-loop.md)
+* 线程被包装成`work`，每个`work`会记录一些信息，例如完成任务数量；
+* 计算机常被抽象成`读，处理，写`；
+* `SpringBatch`框架中也被抽象为`读，处理，写`；
+* `work`使用也可以[参考](/middleware/netty/nio/event-loop/nio-event-loop.md)。

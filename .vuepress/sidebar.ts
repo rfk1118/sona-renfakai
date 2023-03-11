@@ -100,6 +100,7 @@ export const sidebarConfig = sidebar({
               text: "虚拟机",
               collapsible: false,
               children: [
+                "/languages/java/jvm/jvm",
                 "/languages/java/jvm/layout/run-time-data-areas",
                 "/languages/java/jvm/layout/pc-register",
                 "/languages/java/jvm/layout/stacks",
