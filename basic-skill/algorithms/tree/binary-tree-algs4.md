@@ -10,18 +10,18 @@
 
 2. 编写代码
 
-```Go
+```go
 func binaryTreeSize(tree *BinaryTree) int {
-	// 如果子树为空返回0
-	if tree == nil {
-		return 0
-	}
-	// 递归计算左子树
-	lSize := binaryTreeSize(tree.leftNode)
-	// 递归计算右子树
-	rSize := binaryTreeSize(tree.rightNode)
-	// 加上当前节点
-	return rSize + lSize + 1
+ // 如果子树为空返回0
+ if tree == nil {
+  return 0
+ }
+ // 递归计算左子树
+ lSize := binaryTreeSize(tree.leftNode)
+ // 递归计算右子树
+ rSize := binaryTreeSize(tree.rightNode)
+ // 加上当前节点
+ return rSize + lSize + 1
 }
 ```
 
@@ -35,27 +35,27 @@ Floor and ceiling. If a given key key is less than the key at the root of a BST,
 * 给定key比当前子树根节点小，向下取整的值一定在当前子树左子树。
 * 给定key比当前子树根节点大，结果可能在当前子树右子树，前提是当前子树右子树有一个key小于等于要查找的key，如果没有的话，这个key向下取整就是当前子树根节点。
 
-```Go
+```go
 func floor(b *BinaryTree, key int) *BinaryTree {
-	// 如果找不到当前节点，直接返回空
-	if b == nil {
-		return nil
-	}
-	// 如果在左子树一定存在
-	if key < b.key {
-		return floor(b.leftNode, key)
-	}
-	// 查询右子树
-	if b.key < key {
-		tree := floor(b.rightNode, key)
-		if nil == tree {
-			// 返回为空的话就说明右节点没有小于等于key的节点
-			return b
-		} else {
-			return tree
-		}
-	}
-	return b
+ // 如果找不到当前节点，直接返回空
+ if b == nil {
+  return nil
+ }
+ // 如果在左子树一定存在
+ if key < b.key {
+  return floor(b.leftNode, key)
+ }
+ // 查询右子树
+ if b.key < key {
+  tree := floor(b.rightNode, key)
+  if nil == tree {
+   // 返回为空的话就说明右节点没有小于等于key的节点
+   return b
+  } else {
+   return tree
+  }
+ }
+ return b
 }
 ```
 
@@ -100,30 +100,31 @@ final Entry<K,V> getFloorEntry(K key) {
 ### Ceiling
 
 1. 向上取整，这个套路与刚才相反
+
 * 如果当前子树根节点与给定的key相等，直接返回当前子树根节点
 * 给定key比当前子树根节点大，结果一定在当前子树右子树上
 * 给定key比当前子树根节点小，如果当前子树左子树有大于等于key的节点，结果在当前子树左子树上，否则当前子树的根节点就是取整的结果。
 
-```Go
+```go
 func ceiling(b *BinaryTree, key int) *BinaryTree {
-	// 子树为空，返回空
-	if b == nil {
-		return nil
-	}
-	//  key与子树的根节点相同
-	if b.key == key {
-		return b
-	}
-	// 如果在右子树上，一定存在
-	if b.key < key {
-		return ceiling(b.rightNode, key)
-	}
-	// 左子树不一定存在，因为没有大于等于key的节点的话，根节点就是结果
-	r := ceiling(b.leftNode, key)
-	if nil != r {
-		return r
-	}
-	return b
+ // 子树为空，返回空
+ if b == nil {
+  return nil
+ }
+ //  key与子树的根节点相同
+ if b.key == key {
+  return b
+ }
+ // 如果在右子树上，一定存在
+ if b.key < key {
+  return ceiling(b.rightNode, key)
+ }
+ // 左子树不一定存在，因为没有大于等于key的节点的话，根节点就是结果
+ r := ceiling(b.leftNode, key)
+ if nil != r {
+  return r
+ }
+ return b
 }
 ```
 
@@ -174,19 +175,19 @@ Suppose that we seek the key of rank k (the key such that precisely k other keys
 * 如果左子树的节点数等于k，返回根节点，
 * 如果当前子树左子树的节点数量小于k，我们递归的从右子树里面找到(k-t-1)，因为从左子树计算了t个，根节点1个，所以需要从当前子树的右子树里面找到部分左子树
 
-```Go
+```go
 func selection(b *BinaryTree, k int) *BinaryTree {
-	size := binaryTreeSize(b.leftNode)
-	if size > k {
-		// 如果在左边，一直向左边缩小
-		return selection(b.leftNode, k)
-	} else if size < k {
-		// 从右子树的左子树
-		return selection(b.rightNode, k-size-1)
-	} else {
-		// 如果正好相等，则这个就是结果
-		return b
-	}
+ size := binaryTreeSize(b.leftNode)
+ if size > k {
+  // 如果在左边，一直向左边缩小
+  return selection(b.leftNode, k)
+ } else if size < k {
+  // 从右子树的左子树
+  return selection(b.rightNode, k-size-1)
+ } else {
+  // 如果正好相等，则这个就是结果
+  return b
+ }
 }
 ```
 
@@ -198,23 +199,23 @@ func selection(b *BinaryTree, k int) *BinaryTree {
 * 给定的key小于当前子树的根，返回其在当前子树左孙树数量，这里可能找了好多次
 * 给定的key大于当前子树的根，我们返回当前子树左子树总量 + 1 + 当前子树右子树下的左子树的数量
 
-```Go
+```go
 func rank(b *BinaryTree, key int) int {
-	// 如果为空，返回0
-	if b == nil {
-		return 0
-	}
-	// 如果这个key相等，返回左子树数量
-	if b.key == key {
-		return binaryTreeSize(b.leftNode)
-	} else if b.key > key {
-		// 如果key小于子树的根，继续左子树查找
-		return rank(b.leftNode, key)
-	} else {
-		// 如果在右子树，先加上所有左子树数量+根节点
-		// 从右树上继续找左节点数量
-		return 1 + binaryTreeSize(b.leftNode) + rank(b.rightNode, key)
-	}
+ // 如果为空，返回0
+ if b == nil {
+  return 0
+ }
+ // 如果这个key相等，返回左子树数量
+ if b.key == key {
+  return binaryTreeSize(b.leftNode)
+ } else if b.key > key {
+  // 如果key小于子树的根，继续左子树查找
+  return rank(b.leftNode, key)
+ } else {
+  // 如果在右子树，先加上所有左子树数量+根节点
+  // 从右树上继续找左节点数量
+  return 1 + binaryTreeSize(b.leftNode) + rank(b.rightNode, key)
+ }
 }
 ```
 
@@ -224,15 +225,15 @@ func rank(b *BinaryTree, key int) int {
 
 1. 查找最小值，为什么要查找最小值呢？其实后继节点也就是要删除节点右孩子的最小节点
 
-```Go
+```go
 func findMin(head *BinaryTree) *BinaryTree {
-	if head == nil {
-		return nil
-	}
-	if head.leftNode != nil {
-		return findMin(head.leftNode)
-	}
-	return head
+ if head == nil {
+  return nil
+ }
+ if head.leftNode != nil {
+  return findMin(head.leftNode)
+ }
+ return head
 }
 ```
 
@@ -240,15 +241,15 @@ func findMin(head *BinaryTree) *BinaryTree {
    1. 查找最小节点的时候一直向左查找，所以被删除的节点肯定是某个子树根节点的左孩子
    2. 被删除节点肯定没有左节点，所以让被删除节点的父亲的左节点指向删除节点的右节点即可
 
-```Go
+```go
 func deleteMin(b *BinaryTree) *BinaryTree {
-	// 因为左边没节点了，当前节点就是最小节点
-	if nil == b.leftNode {
-		return b.rightNode
-	}
-	// 还有小节点继续处理
-	b.leftNode = deleteMin(b.leftNode)
-	return b
+ // 因为左边没节点了，当前节点就是最小节点
+ if nil == b.leftNode {
+  return b.rightNode
+ }
+ // 还有小节点继续处理
+ b.leftNode = deleteMin(b.leftNode)
+ return b
 }
 ```
 
@@ -257,42 +258,42 @@ func deleteMin(b *BinaryTree) *BinaryTree {
 
    2. 如果后继节点是删除节点的右子左孙节点，这时候，这时候 `successor.rightNode = head.rightNode` ， `b.leftNode = deleteMin(b.leftNode)` 会把后继节点父亲的左节点连接到后继节点的右节点上。
 
-```Go
+```go
 func deleteKeyFour(head *BinaryTree, key int) *BinaryTree {
-	// 没找到元素，不进行处理
-	if nil == head {
-		return nil
-	}
-	if head.key < key {
-		// 如果要删除根节点的右节点，继续在右子树上查找
-		head.rightNode = deleteKeyFour(head.rightNode, key)
-	} else if head.key > key {
-		// 如果要删除根节点的左节点，继续在左子树上查找
-		head.leftNode = deleteKeyFour(head.leftNode, key)
-	} else {
-		// 要删除节点
-		// 两个都为空
-		if head.leftNode == nil && head.rightNode == nil {
-			return nil
-		}
-		// 如果左节点为空，返回右节点
-		if head.leftNode == nil {
-			return head.rightNode
-		}
-		// 如果右节点为空，返回左节点
-		if head.rightNode == nil {
-			return head.leftNode
-		}
-		// 先查找到后继节点，也就是当前子树的右子树的最小节点
-		successor := findMin(head.rightNode)
-		// 因为后继节点可能是右子树的根节点，所以这时候的右节点就变成了原来的head.rightNode.rightNode
-		// 1.如果后继节点为删除节点的右子节点，这时候，successor.rightNode = head.rightNode.rightNode
-		// 2.如果后继节点为删除节点的右子左孙节点，这时候，递归会把后继节点的右孩子连接到后继节点父亲的左子树上，这时候successor.rightNode = head.rightNode
-		successor.rightNode = deleteMin(head.rightNode)
-		// 后继节点的左节点是删除节点的左节点
-		successor.leftNode = head.leftNode
-	}
-	return head
+ // 没找到元素，不进行处理
+ if nil == head {
+  return nil
+ }
+ if head.key < key {
+  // 如果要删除根节点的右节点，继续在右子树上查找
+  head.rightNode = deleteKeyFour(head.rightNode, key)
+ } else if head.key > key {
+  // 如果要删除根节点的左节点，继续在左子树上查找
+  head.leftNode = deleteKeyFour(head.leftNode, key)
+ } else {
+  // 要删除节点
+  // 两个都为空
+  if head.leftNode == nil && head.rightNode == nil {
+   return nil
+  }
+  // 如果左节点为空，返回右节点
+  if head.leftNode == nil {
+   return head.rightNode
+  }
+  // 如果右节点为空，返回左节点
+  if head.rightNode == nil {
+   return head.leftNode
+  }
+  // 先查找到后继节点，也就是当前子树的右子树的最小节点
+  successor := findMin(head.rightNode)
+  // 因为后继节点可能是右子树的根节点，所以这时候的右节点就变成了原来的head.rightNode.rightNode
+  // 1.如果后继节点为删除节点的右子节点，这时候，successor.rightNode = head.rightNode.rightNode
+  // 2.如果后继节点为删除节点的右子左孙节点，这时候，递归会把后继节点的右孩子连接到后继节点父亲的左子树上，这时候successor.rightNode = head.rightNode
+  successor.rightNode = deleteMin(head.rightNode)
+  // 后继节点的左节点是删除节点的左节点
+  successor.leftNode = head.leftNode
+ }
+ return head
 }
 ```
 
@@ -302,23 +303,23 @@ func deleteKeyFour(head *BinaryTree, key int) *BinaryTree {
 
 ![An image](./image/successor.png)
 
-```Go
+```go
 func findBinaryTreeSuccessor(head *BinaryTreeSuccessor) *BinaryTreeSuccessor {
-	// 当前节点的右节点不为空情况下
-	if head.rightNode != nil {
-		return findMinBinaryTreeSuccessor(head)
-	}
+ // 当前节点的右节点不为空情况下
+ if head.rightNode != nil {
+  return findMinBinaryTreeSuccessor(head)
+ }
 
-	// 等待补充
-	return  nil
+ // 等待补充
+ return  nil
 }
 
 // 右节点不为空的情况下，右子树不为空
 func findMinBinaryTreeSuccessor(head *BinaryTreeSuccessor) *BinaryTreeSuccessor {
-	for head.leftNode != nil {
-		head = head.leftNode
-	}
-	return head
+ for head.leftNode != nil {
+  head = head.leftNode
+ }
+ return head
 }
 
 ```
@@ -336,21 +337,21 @@ func findMinBinaryTreeSuccessor(head *BinaryTreeSuccessor) *BinaryTreeSuccessor 
 
 ![An image](./image/Successor-three.png)
 
-```Go
+```go
 func findBinaryTreeSuccessor(head *BinaryTreeSuccessor) *BinaryTreeSuccessor {
-	// 当前节点的右节点不为空情况下
-	if head.rightNode != nil {
-		return findMinBinaryTreeSuccessor(head)
-	}
+ // 当前节点的右节点不为空情况下
+ if head.rightNode != nil {
+  return findMinBinaryTreeSuccessor(head)
+ }
 
-	// 第二种情况，当前节点就是节点B的左节点，所以节点B就是当前节点后继节点
-	current := head
-	currentParent := head.parent
-	// 当前节点就是第情况2，直接就不循环了
-	for currentParent.leftNode != current {
-		current = currentParent
-		currentParent = currentParent.parent
-	}
-	return currentParent
+ // 第二种情况，当前节点就是节点B的左节点，所以节点B就是当前节点后继节点
+ current := head
+ currentParent := head.parent
+ // 当前节点就是第情况2，直接就不循环了
+ for currentParent.leftNode != current {
+  current = currentParent
+  currentParent = currentParent.parent
+ }
+ return currentParent
 }
 ```

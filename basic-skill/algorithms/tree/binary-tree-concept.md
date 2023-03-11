@@ -22,12 +22,15 @@
    A: 树
 2. 圆代表节点
 3. 链接圆的直线代表边
-
+:::center
 ![An image](./image/tree.jpg)
+:::
 
 ### 术语
 
+:::center
 ![An image](./image/concept.jpg)
+:::
 
 #### 路径
 
@@ -106,7 +109,7 @@
 
 1. 二叉树的数据结构
 
-```Go
+```go
 type BinaryTree struct {
   // key
   key   int
@@ -122,7 +125,7 @@ type BinaryTree struct {
 
 2. 生成一个节点
 
-```Go
+```go
 func newBinaryTree(key, value int, left, right *BinaryTree) *BinaryTree {
   return &BinaryTree{
     key:       key,
@@ -135,7 +138,7 @@ func newBinaryTree(key, value int, left, right *BinaryTree) *BinaryTree {
 
 3. 插入节点
 
-```Go
+```go
 // 使用递归方式进行插入节点
 func insert(head *BinaryTree, key, value int) *BinaryTree {
   // 如果下面节点为空产生一个新节点
@@ -196,7 +199,7 @@ func insertWithLoop(head *BinaryTree, key, value int) *BinaryTree {
 
 4. 查找最小节点
 
-```Go
+```go
 // 使用递归进行数据查询
 func findMin(head *BinaryTree) *BinaryTree {
   // 头节点为空，直接返回空
@@ -230,7 +233,7 @@ func findMinWithLoop(head *BinaryTree) *BinaryTree {
 
 5. 查找最大元素
 
-```Go
+```go
 func findMax(head *BinaryTree) *BinaryTree {
   if head == nil{
     return nil
@@ -262,7 +265,7 @@ func findMaxWithLoop(head *BinaryTree) *BinaryTree {
         2. 访问当前节点
         3. 调用当前节点的右节点进行遍历
 
-```Go
+```go
 func inOrder(head *BinaryTree) {
   if nil == head {
     return
@@ -281,7 +284,7 @@ func inOrder(head *BinaryTree) {
     2. 调用当前节点的右节点进行遍历
     3. 访问当前节点
 
-```Go
+```go
 func postOrder(head *BinaryTree) {
   if nil == head {
     return
@@ -298,7 +301,7 @@ func postOrder(head *BinaryTree) {
 2. 使用循环方式遍历二叉树，因为这里需要一个辅助栈作为额外空间
    1. 栈数据代码
 
-```Go
+```go
 // 创建一个栈
 type Stack struct {
   // 使用切片进行存储
@@ -358,7 +361,7 @@ func (s *Stack) peek() *BinaryTree {
 
   2. 前序遍历
 
-```Go
+```go
 func preOrderWithLoop(head *BinaryTree) {
   // 如果头节点为空，直接返回
   if nil == head {
@@ -392,8 +395,7 @@ func preOrderWithLoop(head *BinaryTree) {
      3. 如果到了叶子节点一层，出栈顺序就成了左，根
      4. 在打印根节点，如果当前节点右右孩子节点，设置右孩子节点
 
-```Go
-
+```go
 func inOrderWithLoop(head *BinaryTree) {
   current := head
   // 创建一个辅助栈
@@ -418,7 +420,7 @@ func inOrderWithLoop(head *BinaryTree) {
 
   4. 后序遍历，详解可以查看[《程序员代码面试指南：IT名企算法与数据结构题目最优解》](https://book.douban.com/subject/26638586/)
 
-```Go
+```go
 func postOrderWithLoop(head *BinaryTree) {
   // 如果头节点为空，直接返回
   if nil == head {
@@ -486,7 +488,7 @@ func postOrderWithLoopOneStack(head *BinaryTree) {
 
 1. 删除节点为叶子节点
 
-```Go
+```go
 func deleteKeyWithLoop(head *BinaryTree, key int) bool {
   current := head
   parent := head
@@ -521,8 +523,8 @@ func deleteKeyWithLoop(head *BinaryTree, key int) bool {
 
 2. 删除节点有一个子节点
 
-```Go
-  // 因为已经找到了左即
+```go
+  // 因为已经找到了左继
   if (current.leftNode != nil && current.rightNode == nil) ||
     (current.rightNode != nil && current.leftNode == nil) {
     if isLeftChild {
@@ -548,7 +550,7 @@ func deleteKeyWithLoop(head *BinaryTree, key int) bool {
 2. 如果后继节点为删除节点的右子节点的左孙节点，如果还有左子节点会继续向下走
 :::
 
-```Go
+```go
 func findSuccessor(head *BinaryTree) *BinaryTree {
   // 开始后继节点父亲节点为要删除节点
   successorParent := head
@@ -592,7 +594,7 @@ func findSuccessor(head *BinaryTree) *BinaryTree {
       3. 删除节点的父亲节点左或者右指向后继节点(与5.1.1一致)
       4. 后继节点的左节点指向删除节点的左孩子(与5.1.2一致)
 
-```Go
+```go
 func deleteKeyWithLoop(head *BinaryTree, key int) bool {
   current := head
   parent := head
@@ -682,7 +684,7 @@ func findSuccessor(head *BinaryTree) *BinaryTree {
 
 6. 设置后继节点使用递归进行处理
 
-```Go
+```go
 // 保存后继节点的父亲
 type BinaryTreeWrap struct {
   // 后继续节点

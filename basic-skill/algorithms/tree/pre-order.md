@@ -17,7 +17,7 @@
 
 递归方式处理比较简单，先处理当前节点，左，右
 
-```Go
+```go
 func preOrder(head *BinaryTree) {
   if nil == head {
     return
@@ -35,7 +35,7 @@ func preOrder(head *BinaryTree) {
 
 1. 茴字的第一种写法
 
-```Go
+```go
 func preOrderWithLoopV1(head *BinaryTree) {
   if nil == head {
     return
@@ -57,7 +57,7 @@ func preOrderWithLoopV1(head *BinaryTree) {
 
 1. 茴字的第二种写法，这种比较废人
 
-```Go
+```go
 func preOrderWithLoopV2(head *BinaryTree) {
   var stack []*BinaryTree
   node := head
@@ -78,7 +78,7 @@ func preOrderWithLoopV2(head *BinaryTree) {
 
 不使用递归，也不使用辅助栈，`Morris traversal for Preorder`方式进行前序遍历
 
-```Go
+```go
 // 前序遍历，不使用递归和栈辅助
 func preOrderWithLoopMorris(root *BinaryTree) {
   if nil == root {
