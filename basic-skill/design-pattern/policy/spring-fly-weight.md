@@ -1,6 +1,6 @@
-# spring-flyweight-policy
+# 策略+享元
 
-### 问题
+## 问题
 
 本章使用 Spring 的容器管理 Service，在处理业务时候根据映射进行转换，从 ApplicationContext 中获取到策略，极大减少了手动编写代码管理 Bean 的问题。
 来看一下目录:
@@ -190,12 +190,12 @@ public class ApplicationContextProviderSetter implements ApplicationContextAware
 
 ```
 
-### 总结
+## 总结
 
-优点: 不需要编写额外的代码对 Bean 进行保存，使用的时候按照规约从 ApplicationContext 获取。
-缺点: 使用 BeanName 获取 Bean 的时候需要进行强转，不如自己编写容器获取看起来更加优雅。
-需要在测试阶段测试出 BeanName-helloFourPolicyServiceImpl(HELLO("hello", "helloFourPolicyServiceImpl"))是否正确。
+优点: 不需要编写额外的代码对 `Bean` 进行保存，使用的时候按照规约从 `ApplicationContext` 获取。
+缺点: 使用 `BeanName` 获取 `Bean` 的时候需要进行强转，不如自己编写容器获取看起来更加优雅。
+需要在测试阶段测试出 `BeanName-helloFourPolicyServiceImpl(HELLO("hello", "helloFourPolicyServiceImpl"))`是否正确。
 
-提示: 如果在创表初期，可以直接将 ServiceImpl 名称存到数据库，如果业务已经开展，多方使用，字断不可更改，而且不想增加字断的话，需要在代码中增加映射，请大家酌情处理。
+提示: 如果在创表初期，可以直接将 `ServiceImpl` 名称存到数据库，如果业务已经开展，多方使用，字断不可更改，而且不想增加字断的话，需要在代码中增加映射，请大家酌情处理。
 
-### [Github 地址](https://github.com/sona0402/Polymorphism)
+## [Github 地址](https://github.com/sona0402/Polymorphism)

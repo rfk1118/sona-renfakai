@@ -4,7 +4,7 @@
 
 ![An image](../reactor/image/reactor-single.jpg)
 
-如图所示， `Reactor 模式` 的 `acceptor(listenfd)` 和 `read decode compute encode send` 在一个线程中，也就是 `listenfd` 和 `connectionfd` 在一个线程， `redis server` 其底层也是单线程 `Reactor` ，所有我们需要研究下这个模式。
+如图所示，`Reactor` 的 `acceptor(listenfd)` 和 `read decode compute encode send` 在一个线程中，也就是 `listenfd` 和 `connectionfd` 在一个线程， `redis server` 其底层也是单线程 `Reactor` ，所有我们需要研究下这个模式。
 
 ### 安装
 

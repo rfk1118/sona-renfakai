@@ -1,6 +1,8 @@
-# spring-policy
+# 策略模式
 
-### 问题
+策略设计模式其实就是多态，最好结合责任链、享元进行处理会更优。
+
+## 问题
 
 本章节主要是解决 Controller 和 Service 代码爆炸问题，在原有基础上进行了重构
 
@@ -240,4 +242,4 @@ public class SpringThreePolicyManager implements BeanPostProcessor {
 
 缺点: 如果上面管理器很多，需要很多钩子，然后给你个眼神你体会一下吧，怎么抉择取决于你。
 
-### [Github 地址](https://github.com/sona0402/Polymorphism)
+## [Github 地址](https://github.com/sona0402/Polymorphism)

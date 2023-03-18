@@ -1,6 +1,6 @@
-# spring-error-demo
+# 错误案例
 
-### 问题
+## 问题
 
 我们是否中了 Spring 的毒，代码编程模式变成了 `Controller -> Service -> Dao` (1:1:1)编写。
 贫血模型案例代码布局如下:
@@ -223,4 +223,4 @@ Response code: 200; Time: 53ms; Content length: 8 bytes
 但是我们发现好像问题没有解决，只是把 Service 问题转移到了 Controller，添加一个策略我们都需要添加一个控制器，无法根据数据进行动态选择策略。
 下一章我们将用策略(多态)+享元模式解决这个问题。
 
-### [Github 地址](https://github.com/sona0402/Polymorphism)
+## [Github 地址](https://github.com/sona0402/Polymorphism)

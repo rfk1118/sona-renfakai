@@ -1,7 +1,8 @@
 # Spring单例bean对jvm的影响
 
 问题是朋友在面试遇到的，自己从知识框架里找到了相关的知识点，写个文章记录一下。
-![An image](./image/question.png)
+
+![An image](./images/question.png)
 
 ## 单例设计模式
 
@@ -12,7 +13,7 @@
 如果在工作中需要多个单例的bean，还不想被spring生命周期管理，可以使用下面方式进行编写。
 可以参考`doug lea`的`TimeUnit`，写法很优雅，其中《Effective Java中文版 第2版》P273也有相关的内容，感兴趣者可以自行查询。
 
-![An image](./image/timeunit.png)
+![An image](./images/timeunit.png)
 
 ```java
 // hashcode and eq方法省略
@@ -80,11 +81,11 @@ List<Student> negate = l.stream()
 
 使用`JProfile`查看上面对象被实例话的对象。
 
-![An image](./image/stduentp.png)
+![An image](./images/stduentp.png)
 
 ## Spring单例bean
 
-1. SpringBean包含多种范围(Singleton、Prototype、Request、Session、Global-Session)，相关详细内容可以[参考](https://www.geeksforgeeks.org/singleton-and-prototype-bean-scopes-in-java-spring/)；
+1. SpringBean包含多种范围(Singleton、Prototype、Request、Session、Global-Session)，相关详细内容可以[参考](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-scopes)；
 2. 一般情况下单例bean都是无副作用的，即成员变量不会在高并发下产生错误，如果会产生错误影响就不建议使用单例bean，在现实工作中也会将结果数据封闭到方法内，即Frames中，可以[参考](../jvm/layout/Frames.md)；
 3. 单例Bean可以防止销毁而重新创建，以此达到跳过虚拟机加载、验证、准备、解析等类加载和校验效果，性能特别高、原型设计模式则是直接从内存中clone出一个对象，并重新赋值以跳过类加载机制的，可以[参考](https://refactoringguru.cn/design-patterns/prototype)，小提醒，个人对xxx没有观点，只是该网站设计模式写的比较清晰才推荐。
 
@@ -102,7 +103,7 @@ List<Student> negate = l.stream()
 
 ## 参考
 
-* [Singleton and Prototype Bean Scopes in Java Spring](https://www.geeksforgeeks.org/singleton-and-prototype-bean-scopes-in-java-spring/)
+* [Bean Scopes](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-scopes)
 * [虚拟机 Frames](https://docs.oracle.com/javase/specs/jvms/se17/jvms17.pdf)
 * [原型模式](https://refactoringguru.cn/design-patterns/prototype)
 * [垃圾回收的算法与实现 作者: 中村成洋 / 相川光](https://book.douban.com/subject/26821357/)

@@ -26,14 +26,6 @@ export const sidebarConfig = sidebar({
               ],
             },
             {
-              text: "Reactor",
-              collapsible: false,
-              children: [
-                "/middleware/netty/reactor/single",
-                "/middleware/netty/reactor/multiple",
-              ],
-            },
-            {
               text: "EventLoop",
               collapsible: false,
               children: [
@@ -115,7 +107,6 @@ export const sidebarConfig = sidebar({
                 "/languages/java/jvm/SerialHeap",
                 "/languages/java/jvm/safepoint",
                 "/languages/java/jvm/jvm-select-use",
-                "/languages/java/jvm/singleton",
               ],
             },
             {
@@ -226,7 +217,24 @@ export const sidebarConfig = sidebar({
           link: "/basic-skill/design-pattern/",
           children: [
             {
-              text: "policy",
+              text: "Reactor",
+              collapsible: false,
+              link: "/basic-skill/design-pattern/reactor",
+              children: [
+                "/basic-skill/design-pattern/reactor/single",
+                "/basic-skill/design-pattern/reactor/multiple",
+              ],
+            },
+            {
+              text: "单例",
+              collapsible: false,
+              children: [
+                "/basic-skill/design-pattern/create/singleton/",
+                "/basic-skill/design-pattern/create/singleton/singleton",
+              ],
+            },
+            {
+              text: "策略",
               collapsible: false,
               children: [
                 "/basic-skill/design-pattern/policy/spring-error-demo",
@@ -240,7 +248,7 @@ export const sidebarConfig = sidebar({
               link: "/basic-skill/design-pattern/interpreter/interpreter-pattern",
             },
             {
-              text: "decorator",
+              text: "装饰者",
               collapsible: false,
               link: "/basic-skill/design-pattern/structure/decorator/concept",
               children: [
