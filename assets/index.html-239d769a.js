@@ -1,1 +1,0 @@
-import{_ as a,V as t,W as o,Y as e,a1 as n}from"./framework-e54e0297.js";const s={},c=e("h1",{id:"flowable",tabindex:"-1"},[e("a",{class:"header-anchor",href:"#flowable","aria-hidden":"true"},"#"),n(" flowable")],-1),l=e("p",null,"工作流相关内容。",-1),r=[c,l];function _(d,i){return t(),o("div",null,r)}const h=a(s,[["render",_],["__file","index.html.vue"]]);export{h as default};
