@@ -286,9 +286,9 @@ export const sidebarConfig = sidebar({
       children: ["/tools/draw", "/tools/flowable", "/tools/linked/"],
     },
     {
-      text: "待办任务",
+      text: "web3",
       collapsible: false,
-      link: "/todolist/",
+      link: "/web3/",
     },
   ],
 });
