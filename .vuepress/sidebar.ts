@@ -289,6 +289,7 @@ export const sidebarConfig = sidebar({
       text: "web3",
       collapsible: false,
       link: "/web3/",
+      children: ["/web3/solitify/ierc20"],
     },
   ],
 });
