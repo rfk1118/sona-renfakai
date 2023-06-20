@@ -289,7 +289,11 @@ export const sidebarConfig = sidebar({
       text: "web3",
       collapsible: false,
       link: "/web3/",
-      children: ["/web3/solitify/ierc20", "/web3/solitify/IUniswapV2Factory"],
+      children: [
+        "/web3/solitify/ierc20",
+        "/web3/solitify/IUniswapV2Factory",
+        "/web3/solitify/UniswapV2Pair",
+      ],
     },
   ],
 });
