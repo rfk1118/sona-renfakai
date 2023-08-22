@@ -295,5 +295,17 @@ export const sidebarConfig = sidebar({
         "/web3/solitify/UniswapV2Pair",
       ],
     },
+    {
+      text: "股票",
+      collapsible: false,
+      link: "/terminology/",
+      children: ["/terminology/601919"],
+    },
+    {
+      text: "千门八将",
+      collapsible: false,
+      link: "/thousand/",
+      children: ["/thousand/tree"],
+    },
   ],
 });
