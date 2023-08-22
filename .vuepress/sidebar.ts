@@ -6,6 +6,28 @@ export const sidebarConfig = sidebar({
       link: "/introduction/",
     },
     {
+      text: "web3",
+      collapsible: false,
+      link: "/web3/",
+      children: [
+        "/web3/solitify/ierc20",
+        "/web3/solitify/IUniswapV2Factory",
+        "/web3/solitify/UniswapV2Pair",
+      ],
+    },
+    {
+      text: "股票",
+      collapsible: false,
+      link: "/terminology/",
+      children: ["/terminology/1A0001", "/terminology/601919"],
+    },
+    {
+      text: "国学",
+      collapsible: false,
+      link: "/thousand/",
+      children: ["/thousand/tree"],
+    },
+    {
       text: "中间件",
       collapsible: false,
       link: "/middleware/",
@@ -284,28 +306,6 @@ export const sidebarConfig = sidebar({
       collapsible: false,
       link: "/tools/",
       children: ["/tools/draw", "/tools/flowable", "/tools/linked/"],
-    },
-    {
-      text: "web3",
-      collapsible: false,
-      link: "/web3/",
-      children: [
-        "/web3/solitify/ierc20",
-        "/web3/solitify/IUniswapV2Factory",
-        "/web3/solitify/UniswapV2Pair",
-      ],
-    },
-    {
-      text: "股票",
-      collapsible: false,
-      link: "/terminology/",
-      children: ["/terminology/1A0001", "/terminology/601919"],
-    },
-    {
-      text: "千门八将",
-      collapsible: false,
-      link: "/thousand/",
-      children: ["/thousand/tree"],
     },
   ],
 });
