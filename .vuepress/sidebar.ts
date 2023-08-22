@@ -299,7 +299,7 @@ export const sidebarConfig = sidebar({
       text: "股票",
       collapsible: false,
       link: "/terminology/",
-      children: ["/terminology/601919"],
+      children: ["/terminology/1A0001", "/terminology/601919"],
     },
     {
       text: "千门八将",
