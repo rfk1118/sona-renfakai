@@ -44,19 +44,22 @@ main().catch((error) => {
 将打印ABI粘贴到代码中，然后删除无用的`ABI`。
 
 ```ts
-import { ethers } from 'ethers';
+import { BigNumber, Wallet, ethers } from 'ethers';
 
-async function main() {
-    const jsonAbi =
-        require('../artifacts-zk/contracts/IL2Weth.sol/IL2Weth.json').abi;
-    const iface = new ethers.utils.Interface(jsonAbi);
-    console.log(iface.format(ethers.utils.FormatTypes.full));
+const abi = ['function approve(address spender, uint256 value) returns (bool)'];
+
+async function approveToken(
+    wallet: Wallet,
+    tokenAddress: string,
+    spender: string,
+    approveValue: BigNumber
+) {
+    const tokenContract = new ethers.Contract(tokenAddress, abi, wallet);
+    const txApprove = await tokenContract.approve(spender, approveValue);
+    return await txApprove.wait();
 }
 
-main().catch((error) => {
-    console.error(error);
-    process.exitCode = 1;
-});
+export default approveToken;
 
 ```
 
