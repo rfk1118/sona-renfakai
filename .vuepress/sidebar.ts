@@ -13,6 +13,7 @@ export const sidebarConfig = sidebar({
         "/web3/solitify/ierc20",
         "/web3/solitify/IUniswapV2Factory",
         "/web3/solitify/UniswapV2Pair",
+        "/web3/convert-abi",
       ],
     },
     {
