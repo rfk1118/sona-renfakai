@@ -15,6 +15,7 @@ export const sidebarConfig = sidebar({
         "/web3/solitify/UniswapV2Pair",
         "/web3/convert-abi",
         "/web3/flashloan",
+        "/web3/flashloanV3",
       ],
     },
     {
