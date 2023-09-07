@@ -16,6 +16,7 @@ export const sidebarConfig = sidebar({
         "/web3/convert-abi",
         "/web3/flashloan",
         "/web3/flashloanV3",
+        "/web3/8e55",
       ],
     },
     {
