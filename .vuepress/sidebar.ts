@@ -18,6 +18,7 @@ export const sidebarConfig = sidebar({
         "/web3/flashloanV3",
         "/web3/8e55",
         "/web3/UniswapV2Router01",
+        "/web3/atomical",
       ],
     },
     {
