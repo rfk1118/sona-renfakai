@@ -20,6 +20,7 @@ export const sidebarConfig = sidebar({
         "/web3/UniswapV2Router01",
         "/web3/atomical",
         "/web3/disperse",
+        "/web3/arb",
       ],
     },
     {
