@@ -33,6 +33,7 @@ export const sidebarConfig = sidebar({
         "/terminology/601919",
         "/terminology/601515",
         "/eth/hook",
+        "/terminology/zhurou",
       ],
     },
     {
