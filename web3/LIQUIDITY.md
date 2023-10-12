@@ -120,7 +120,7 @@ token0:0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48
 token1:0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2
 ```
 
-符号单位`usdc`= `6 uint8`，`usdc`= `18 uint8`，
+符号单位`usdc`= `6 uint8`，`weth`= `18 uint8`，
 
 按照符号进行处理展示:
 
