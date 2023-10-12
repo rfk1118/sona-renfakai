@@ -21,6 +21,7 @@ export const sidebarConfig = sidebar({
         "/web3/atomical",
         "/web3/disperse",
         "/web3/arb",
+        "/web3/LIQUIDITY",
       ],
     },
     {
