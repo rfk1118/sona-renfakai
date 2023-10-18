@@ -7,7 +7,7 @@
 
 ![An image](./images/satsx.png)
 
-收益1次收取1000聪，1周收益[8000刀](https://mempool.space/address/39eQtZSAxC1DY2RZGq7FDprPaJ8ASawaj5)。
+打1次收取1000聪，1周收益[8000刀](https://mempool.space/address/39eQtZSAxC1DY2RZGq7FDprPaJ8ASawaj5)。
 
 ![An image](./images/39eQtZSAxC1DY2RZGq7FDprPaJ8ASawaj5.png)
 
@@ -44,7 +44,7 @@ program.command('mint-realm')
       const walletInfo = await validateWalletStorage();
       // 验证client，就是验证rpc，这里名字取的不好，因为有Inputs会认为是对输入的参数进行验证
       const config: ConfigurationInterface = validateCliInputs();
-      // 创建atomicals了护短
+      // 创建atomicals客户端
       const atomicals = new Atomicals(ElectrumApi.createClient(process.env.ELECTRUMX_PROXY_BASE_URL || ''));
       // 初始化钱包
       let initialOwnerAddress = resolveAddress(walletInfo, options.initialowner, walletInfo.primary);
@@ -331,7 +331,7 @@ AtomicalOperationBuilder {
         let revealTxid: string | null = null;
         let commitMinedWithBitwork = false;
         // copiedData = { args: { request_realm: 'iiifewifiw99few9ef9', bitworkc: '8563' } }
-        // 打印二维码
+        // 打印二维码 这里是与预计算，正常为pre - process - end
         const mockAtomPayload = new AtomicalsPayload(copiedData);
         // scriptP2TR  hashLockP2TR
         const mockBaseCommitForFeeCalculation: { scriptP2TR, hashLockP2TR } = prepareCommitRevealConfig(this.options.opType, fundingKeypair, mockAtomPayload)
@@ -364,9 +364,10 @@ AtomicalOperationBuilder {
                 } else {
                     nonce++;
                 }
-                // 打印
+                // 这里和上面的预计算没有区别，例如正常情况下gas为2，但是这个会实时变动，所以每次都重新计算
                 const atomPayload = new AtomicalsPayload(copiedData);
                 const updatedBaseCommit: { scriptP2TR, hashLockP2TR, hashscript } = prepareCommitRevealConfig(this.options.opType, fundingKeypair, atomPayload)
+                // new bitcoin.Psbt ？ 这里就是构建tx
                 let psbtStart = new Psbt({ network: NETWORK });
                 psbtStart.setVersion(1);
                 // 增加输入
@@ -393,7 +394,7 @@ AtomicalOperationBuilder {
                 // add a `true ||` at the front to test invalid minting
                 // console.log('this.bitworkInfoCommit?.prefix', this.bitworkInfoCommit)
                 if (performBitworkForCommitTx && hasValidBitwork(checkTxid, this.bitworkInfoCommit?.prefix as any, this.bitworkInfoCommit?.ext as any)) {
-                    //
+                    // 清楚process
                     process.stdout.clearLine(0);
                     process.stdout.cursorTo(0);
                     process.stdout.write(chalk.green(checkTxid, ' nonces: ' + noncesGenerated));
@@ -401,6 +402,7 @@ AtomicalOperationBuilder {
                     // We found a solution, therefore broadcast it
                     const interTx = psbtStart.extractTransaction();
                     const rawtx = interTx.toHex();
+                    //
                     AtomicalOperationBuilder.finalSafetyCheckForExcessiveFee(psbtStart, interTx);
                     // 广播内容
                     if (!(await this.broadcastWithRetries(rawtx))) {
@@ -410,7 +412,7 @@ AtomicalOperationBuilder {
                     } else {
                         console.log('Success sent tx: ', prelimTx.getId());
                     }
-
+                    // 不在循环，进行提交
                     commitMinedWithBitwork = true;
                     performBitworkForCommitTx = false;
                 }
