@@ -2,7 +2,7 @@
 
 在官方代码基础上[Github](https://github.com/atomicals)衍生出三方产品。
 
-1. [https://github.com/AstroxNetwork/extension](钱包)，此钱包是基于[unisat-wallet](https://github.com/unisat-wallet/extension)修改而来。
+1. [钱包](https://github.com/AstroxNetwork/extension)，此钱包是基于[unisat-wallet](https://github.com/unisat-wallet/extension)修改而来。
 2. [代打服务](https://www.satsx.io/atomicals)，由于很多人不会使用cli工具，所以这里提供了网页版代打。
 
 ![An image](./images/satsx.png)
@@ -11,15 +11,15 @@
 
 ![An image](./images/39eQtZSAxC1DY2RZGq7FDprPaJ8ASawaj5.png)
 
-本想修改cli，让自己成本降的更低，修改代码失误把所有余额全部当作gas打了出去，[耻辱地址。](https://mempool.space/tx/9570b1927d89db84eecfe3f2079b6f305da6b4dfe2b819824af3f5d7d5d739d1)
+本想修改cli，让自己成本降低，修改代码失误把所有余额当gas打了出去，[耻辱柱。](https://mempool.space/tx/9570b1927d89db84eecfe3f2079b6f305da6b4dfe2b819824af3f5d7d5d739d1)
 
 ![Alt image](./images/9570b1927d89db84eecfe3f2079b6f305da6b4dfe2b819824af3f5d7d5d739d1.png)
 
-借此机会好好梳理下btc机制的`input和output`。
+借此机会好好梳理下btc机制的`utxos`。
 
 ## cli入口
 
-以领域为基础对代码进行阅读。
+以领域为demo对代码进行阅读，其他相关也就cli和command不同，底层都一样。
 
 ```ts
 program.command('mint-realm')
@@ -96,6 +96,8 @@ program.command('mint-realm')
 ```
 
 ## MintInteractiveRealmCommand
+
+所有cli也就此处和上面不一致，下面`AtomicalOperationBuilder`为通用代码。
 
 ```ts
 export class MintInteractiveRealmCommand implements CommandInterface {
