@@ -23,6 +23,7 @@ export const sidebarConfig = sidebar({
         "/web3/arb",
         "/web3/LIQUIDITY",
         "/web3/uniswap-getOutputAmount",
+        "/web3/atomicals-core",
       ],
     },
     {
