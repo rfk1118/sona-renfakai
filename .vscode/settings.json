@@ -17,7 +17,7 @@
   "javascript.format.enable": true,
   "workbench.colorCustomizations": {},
   "editor.codeActionsOnSave": {
-    "source.fixAll.markdownlint": true
+    "source.fixAll.markdownlint": "explicit"
   },
   "cSpell.words": [
     "dockhub",
