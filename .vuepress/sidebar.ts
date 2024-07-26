@@ -6,6 +6,11 @@ export const sidebarConfig = sidebar({
       link: "/introduction/",
     },
     {
+      text: "交易",
+      collapsible: false,
+      link: "/trade/",
+    },
+    {
       text: "web3",
       collapsible: false,
       link: "/web3/",
